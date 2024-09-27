@@ -11,13 +11,11 @@ aux_links:
 
 # Configuració de la navegació
 nav:
-  - title: Inici
+  - title: Fitxers  
     url: /
-    nav_order: 1
+    nav_order: 1    
+    has_children: true
 
-  - title: Fitxers
-    url: /fitxers/
-    nav_order: 2
     children:
       - title: Serialització
         url: /fitxers/serialitzacio/
@@ -25,4 +23,3 @@ nav:
       - title: Accés Aleatòri
         url: /fitxers/accesAleatori/
         nav_order: 2
-        

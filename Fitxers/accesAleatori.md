@@ -1,5 +1,6 @@
-Aquí tens uns apunts complets sobre l'accés aleatori en Java, incloent una descripció general, els tipus, les classes implicades, els mètodes més importants i exemples pràctics.
-
+---
+layout: default
+title: Serialització
 ---
 
 # Accés aleatori en Java
@@ -158,6 +159,3 @@ Valor a la posició 8: 300
 - Requereix una **bona gestió** del punter dins del fitxer, ja que és fàcil perdre's en fitxers grans.
 - Pot ser **complicat** si s'utilitzen formats de fitxer personalitzats.
 
----
-
-Aquests són els apunts detallats sobre l'accés aleatori en Java. Si necessites més exemples o informació addicional, fes-m'ho saber!
