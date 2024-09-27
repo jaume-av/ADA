@@ -19,7 +19,7 @@ La **Deserialització** seria el procés invers, tornar a reconstruir l’object
 </div>
 
 
-{: .mx-auto }
+{: .text-center }
 ![alt text](../assets/imatges/serialitzacio/serializa1.png)
 
 
