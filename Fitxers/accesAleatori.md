@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Serialització
+title: Accés Aleatori
 ---
 
 # Accés aleatori en Java

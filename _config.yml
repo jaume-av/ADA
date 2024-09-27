@@ -6,16 +6,15 @@ url: https://jaume-av.github.io/ADD24/
 
 
 aux_links:
-  Template Repository: https://aules.edu.gva.es/fp/course/view.php?id=138358
+  Accés a Aules: https://aules.edu.gva.es/fp/course/view.php?id=138358
+
 
 
 # Configuració de la navegació
 nav:
-  - title: Fitxers  
-    url: /
-    nav_order: 1    
+  - title: Inici    url: /
+    nav_order: 1
     has_children: true
-
     children:
       - title: Serialització
         url: /fitxers/serialitzacio/
@@ -23,3 +22,20 @@ nav:
       - title: Accés Aleatòri
         url: /fitxers/accesAleatori/
         nav_order: 2
+
+# Configuració per a la cerca
+search_enabled: true
+search_tokenizer_separator: /[\s/]+/
+
+
+# Personalització del footer amb Creative Commons
+footer:
+  copyright: "© 2024 El Meu Projecte. Aquesta obra està subjecta a una llicència de Creative Commons."
+  links:
+    - title: "Llicència CC BY-SA 4.0"
+      url: "https://creativecommons.org/licenses/by-sa/4.0/"
+    - title: "Política de privadesa"
+      url: "/privacy/"
+    - title: "Termes i Condicions"
+      url: "/terms/"
+      
