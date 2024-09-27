@@ -15,7 +15,7 @@ La **Deserialització** seria el procés invers, tornar a reconstruir l’object
 
 
 <div style="text-align: center;">
-  <img src="../assets/imatges/serialitzacio/serializa1.png"alt="Descripció de la imatge" />
+  <img src="/assets/imatges/serialitzacio/serializa1.png"alt="Descripció de la imatge" />
 </div>
 
 
