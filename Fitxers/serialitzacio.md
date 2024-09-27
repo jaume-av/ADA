@@ -61,7 +61,7 @@ Un dels modificadors que podem aplicar a una variable o atribut Java és el **tr
 
 ## Exemple de serialització
 
-1. **Objecte Serialitzable**
+### **1. Objecte Serialitzable**
 
 ```java
 public class Employee implements java.io.Serializable {
@@ -73,7 +73,7 @@ public class Employee implements java.io.Serializable {
 }
 ```
 
-2. **Serialització**
+###  **2. Serialització**
 
 ```java
 import java.io.*;
@@ -98,7 +98,7 @@ public class SerializeDemo {
 }
 ```
 
-3. **Deserialització**
+### **3. Deserialització**
 
 ```java
 import java.io.*;
@@ -137,7 +137,7 @@ public class DeserializeDemo {
 
 ---
 
-## Exemple 2
+### Exemple 2
 
 ```java
 import java.io.*;
@@ -192,7 +192,7 @@ class Exemple2 {
 
 ---
 
-## Exercici
+# Exercici
 
 Realitza un programa on es demanen les teues notes de les assignatures de 1r de DAM i les guarde en un fitxer. A continuació llegirà el fitxer i calcularà la nota mitjana del curs.
 
