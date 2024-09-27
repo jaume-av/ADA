@@ -23,6 +23,6 @@ nav:
         url: /fitxers/serialitzacio/
         nav_order: 1
       - title: Accés Aleatòri
-        url: /fitxers/serialitzacio/
+        url: /fitxers/accesAleatori/
         nav_order: 2
         
