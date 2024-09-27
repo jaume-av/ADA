@@ -22,3 +22,7 @@ nav:
       - title: Serialització
         url: /fitxers/serialitzacio/
         nav_order: 1
+      - title: Accés Aleatòri
+        url: /fitxers/serialitzacio/
+        nav_order: 2
+        
