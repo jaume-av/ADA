@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Accés Aleatori
+title: Accés Aleatòri
 ---
 
 # Accés aleatori en Java
