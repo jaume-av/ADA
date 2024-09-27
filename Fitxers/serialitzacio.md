@@ -12,10 +12,12 @@ La serialització és el procés de convertir la informació d’estat d’una i
 La **Deserialització** seria el procés invers, tornar a reconstruir l’objecte a partir d’un flux de bytes. El flux de bytes creat és independent de la plataforma. Per tant, l'objecte serialitzat en una plataforma es pot deserialitzar en una plataforma diferent.
 
 
-![Seralització-Deserialització](/assets/imatges/serialitzacio/serializa1.png)
+
+
 <div style="text-align: center;">
-  <img src="/assets/imatges/serialitzacio/serializa1.png"alt="Descripció de la imatge" />
+  <img src="../assets/imatges/serialitzacio/serializa1.png"alt="Descripció de la imatge" />
 </div>
+
 
 
 ## Avantatges de la serialització:
