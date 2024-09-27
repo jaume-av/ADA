@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Serialització
-nav_order: 2
 ---
 
 # Serialització – Transferint Objectes
@@ -11,6 +10,13 @@ La serialització és el procés de convertir la informació d’estat d’una i
 És a dir, **Serialitzar** és convertir un objecte en una successió de bytes, amb l’objectiu de guardar-lo o enviar-lo per xarxa per a posteriorment reconstruir-lo.
 
 La **Deserialització** seria el procés invers, tornar a reconstruir l’objecte a partir d’un flux de bytes. El flux de bytes creat és independent de la plataforma. Per tant, l'objecte serialitzat en una plataforma es pot deserialitzar en una plataforma diferent.
+
+
+![Seralització-Deserialització](/assets/imatges/serialitzacio/serializa1.png)
+<div style="text-align: center;">
+  <img src="/assets/imatges/serialitzacio/serializa1.png"alt="Descripció de la imatge" />
+</div>
+
 
 ## Avantatges de la serialització:
 
@@ -25,27 +31,27 @@ La **Deserialització** seria el procés invers, tornar a reconstruir l’object
 ## Quines classes utilitzem en Java per a Serialitzar-Deserialitzar?
 
 ### Objecte Serialitzable: 
-- **Interfície java.io.Serializable:** Els objectes a serialitzar han d’implementar la interfície java.io.Serializable. És una interfície sense mètodes, que només serveix com a marcador. Tots els tipus bàsics la implementen implícitament, i també la classe String i els contenidors i objectes Array.
+- **Interfície java.io.Serializable:** Els objectes a serialitzar han d’implementar la interfície `java.io.Serializable`. És una interfície sense mètodes, que només serveix com a marcador. Tots els tipus bàsics la implementen implícitament, i també la classe String i els contenidors i objectes Array.
 
 ### Per a serialitzar:
 - **ObjectOutputStream**
-  - `writeObject()`
+  - `writeObject()`. Este mètode serialitza un objecte i el guarda en un fitxer.
 
 ### Per a deserialitzar:
-- **ObjectInputStream**
-  - `readObject()`
+- **ObjectInputStream** 
+  - `readObject()`. Este mètode deserialitza un objecte i el carrega en memòria.
 
 ### Excepcions durant la serialització:
-- **NotSerializableException:** Quan un objecte no implementa java.io.Serializable.
+- **NotSerializableException:** Quan un objecte no implementa `java.io.Serializable.`
 - **InvalidClassException:** Quan hi ha problemes amb la classe a serialitzar.
-- **IOException:** Qualsevol error que es pugui produir en el stream.
+- **IOException:** Qualsevol error que es puga produir en el stream.
 
 ### Excepcions durant la deserialització:
 - **ClassCastException:** La classe deserialitzada no es correspon amb la classe que es vol deserialitzar.
 - **ClassNotFoundException:** No existeix codi compilat per la classe que s’està deserialitzant.
 - **IOException:** Qualsevol error que es pugui produir en el stream.
 
-### Modificador de camp transient
+### Modificador de camp `transient`
 Un dels modificadors que podem aplicar a una variable o atribut Java és el **transient**. Les variables transient serveixen per a demarcar el caràcter temporal o transitori d'aquesta variable o atribut.
 
 - Quan definim un camp **transient**, indiquem que, en cas de serialitzar un objecte que té definit un camp transient, el seu valor no es serialitzarà, i en la deserialització prendran el valor per defecte.

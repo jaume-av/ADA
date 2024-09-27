@@ -1,8 +1,9 @@
-title: Just the Docs Template
-description: A starter template for a Jeykll site using the Just the Docs theme!
+title: Streams
+description: Streams i Fitxers a Java
 theme: just-the-docs
 
 url: https://jaume-av.github.io/ADD24/
+
 
 aux_links:
   Template Repository: https://aules.edu.gva.es/fp/course/view.php?id=138358
@@ -12,5 +13,12 @@ aux_links:
 nav:
   - title: Inici
     url: /
-  - title: Serialització
-    url: /fitxers/serialitzacio/
+    nav_order: 1
+
+  - title: Fitxers
+    url: /fitxers/
+    nav_order: 2
+    children:
+      - title: Serialització
+        url: /fitxers/serialitzacio/
+        nav_order: 1
