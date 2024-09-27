@@ -4,15 +4,14 @@ theme: just-the-docs
 
 url: https://jaume-av.github.io/ADD24/
 
-
 aux_links:
-  Accés a Aules: https://aules.edu.gva.es/fp/course/view.php?id=138358
-
-
+  "Accés a Aules":
+    - https://aules.edu.gva.es/fp/course/view.php?id=138358
 
 # Configuració de la navegació
 nav:
-  - title: Inici    url: /
+  - title: Inici
+    url: /
     nav_order: 1
     has_children: true
     children:
@@ -27,8 +26,7 @@ nav:
 search_enabled: true
 search_tokenizer_separator: /[\s/]+/
 
-
-# Personalització del footer amb Creative Commons
+# Personalització del footer
 footer:
   copyright: "© 2024 El Meu Projecte. Aquesta obra està subjecta a una llicència de Creative Commons."
   links:
@@ -38,4 +36,3 @@ footer:
       url: "/privacy/"
     - title: "Termes i Condicions"
       url: "/terms/"
-      
