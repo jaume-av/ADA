@@ -15,9 +15,14 @@ La **Deserialització** seria el procés invers, tornar a reconstruir l’object
 
 
 <div style="text-align: center;">
+  <img src="../assets/imatges/serialitzacio/serializa1.png"alt="Descripció de la imatge" />
+</div>
+
+<div style="text-align: center;">
   <img src="/assets/imatges/serialitzacio/serializa1.png"alt="Descripció de la imatge" />
 </div>
 
+![alt text](../assets/imatges/serialitzacio/serializa1.png)
 
 
 ## Avantatges de la serialització:
