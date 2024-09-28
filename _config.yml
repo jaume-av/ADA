@@ -1,11 +1,24 @@
-title: Streams
+# Títol i descripció del lloc
+title: AAD24
 description: Streams i Fitxers a Java
 theme: just-the-docs
 
+# URL del lloc
 url: https://jaume-av.github.io/ADD24/
 
+# Enllaços auxiliars (opcional)
 aux_links:
   "Accés a Aules":
     - https://aules.edu.gva.es/fp/course/view.php?id=138358
 
+# Cerca activada
+search_enabled: true
 
+# Footer (opcional)
+footer:
+  copyright: "© 2024 El Meu Projecte"
+  links:
+    - title: "Llicència CC BY-SA 4.0"
+      url: "https://creativecommons.org/licenses/by-sa/4.0/"
+    - title: "Política de privadesa"
+      url: "/privacy/"

@@ -1,10 +1,10 @@
 ---
 title: Classe File
-parent: Índex
+parent: Fitxers
 layout: default
-has_children: true
-nav_order: 1
+nav_order: 10
 ---
+
 
 
 # Classe `File` – Gestió de Fitxers a Java

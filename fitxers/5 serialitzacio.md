@@ -1,10 +1,10 @@
 ---
 title: Serialització
-parent: Índex
+parent: Fitxers
 layout: default
-has_children: true
-nav_order: 5
+nav_order: 30
 ---
+
 
 
 # Serialització – Transferint Objectes

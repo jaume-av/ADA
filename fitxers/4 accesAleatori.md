@@ -1,10 +1,10 @@
 ---
 title: Accés Aleatori
-parent: Índex
+parent: Fitxers
 layout: default
-has_children: true
-nav_order: 4
+nav_order: 20
 ---
+
 
 # Accés aleatori en Java
 
