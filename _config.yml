@@ -13,14 +13,14 @@ nav:
   - title: Inici
     url: /
     nav_order: 1
-    has_children: true
-    children:
-      - title: Serialització
-        url: /fitxers/serialitzacio/
-        nav_order: 1
-      - title: Accés Aleatòri
-        url: /fitxers/accesAleatori/
-        nav_order: 2
+  - title: Serialització
+    url: /fitxers/serialitzacio/
+    parent: Inici
+    nav_order: 2
+  - title: Accés Aleatòri
+    url: /fitxers/accesAleatori/
+    parent: Inici
+    nav_order: 3
 
 # Configuració per a la cerca
 search_enabled: true
