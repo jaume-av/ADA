@@ -3,6 +3,7 @@ layout: default
 title: Serialització
 ---
 
+
 # Serialització – Transferint Objectes
 
 La serialització és el procés de convertir la informació d’estat d’una instància d’objecte en una forma binària o textual per persistir en un medi d’emmagatzematge o transportat per una xarxa.
