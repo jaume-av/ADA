@@ -1,6 +1,9 @@
 ---
+title: serialització
+parent: Índex
 layout: default
-title: Serialització
+has_children: true
+nav_order: 3
 ---
 
 

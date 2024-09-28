@@ -1,6 +1,9 @@
 ---
+title: accés aleatori
+parent: Índex
 layout: default
-title: Accés Aleatòri
+has_children: true
+nav_order: 2
 ---
 
 # Accés aleatori en Java
