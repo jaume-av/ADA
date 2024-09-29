@@ -110,7 +110,7 @@ Any: 2024
 Valor: 3.1416
 ```
 
-#### Exemple 2: Accedir a posicions específiques en un fitxer
+### Exemple 2: Accedir a posicions específiques en un fitxer
 
 ```java
 
