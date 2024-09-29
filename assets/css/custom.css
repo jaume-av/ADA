@@ -44,7 +44,7 @@ h3, h4, h5, h6 {
   background-color: transparent !important; /* Elimina el fons */
   box-shadow: none !important; /* Elimina les ombres */
 }
-h1 code, h2 code, h3 code {
+h1 code, h2 code{
   background-color: #d0e6f7; /* Color de fons blau suau */
   color: inherit; /* Manté el color de la capçalera */
   font-family: inherit; /* Utilitza la mateixa font que la capçalera, no monoespaiada */

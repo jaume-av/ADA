@@ -8,8 +8,6 @@ nav_order: 20
 
 # Accés aleatori en Java
 
-## Descripció
-
 L'**accés aleatori** en Java fa referència a la capacitat de llegir i escriure en qualsevol part d'un fitxer sense haver de seguir un ordre seqüencial. Això és útil quan es treballa amb fitxers grans i només es necessita accedir a determinades posicions de dades dins del fitxer sense llegir-lo completament des del principi.
 
 En Java, l'accés aleatori als fitxers es gestiona mitjançant la classe **`RandomAccessFile`**, que permet accedir a qualsevol posició dins del fitxer i llegir o escriure en aquestes posicions.
@@ -21,21 +19,28 @@ En Java, l'accés aleatori als fitxers es gestiona mitjançant la classe **`Rand
 
 L'accés aleatori és especialment útil en aplicacions com bases de dades, on sovint és necessari accedir a registres individuals sense processar tot el fitxer.
 
-## Classe principal: `RandomAccessFile`
+## RandomAccessFile
 
 La classe **`RandomAccessFile`** és la que permet realitzar operacions d'accés aleatori en fitxers en Java. Aquesta classe permet llegir i escriure dades en un fitxer en qualsevol moment i en qualsevol ubicació, com si es tractés d'un array gran de bytes.
 
-### Creació d'un `RandomAccessFile`
+### Creació d'un RandomAccessFile
 
 Un objecte `RandomAccessFile` es pot obrir en mode de lectura (`"r"`) o en mode de lectura i escriptura (`"rw"`).
 
-- **Lectura**: `RandomAccessFile file = new RandomAccessFile("fitxer.txt", "r");`
-- **Lectura i escriptura**: `RandomAccessFile file = new RandomAccessFile("fitxer.txt", "rw");`
+- **Lectura**: 
+```java  
+RandomAccessFile file = new RandomAccessFile("fitxer.txt", "r");
+```
+
+- **Lectura i escriptura**: 
+```java
+RandomAccessFile file = new RandomAccessFile("fitxer.txt", "rw");
+```
 
 ### Mètodes principals
 
 #### Mètodes de lectura:
-- **`read()`**: Llegeix un byte de dades.
+- **```read()```**: Llegeix un byte de dades.
 - **`readInt()`**: Llegeix un enter de 4 bytes.
 - **`readDouble()`**: Llegeix un valor de tipus `double` de 8 bytes.
 - **`readUTF()`**: Llegeix una cadena de text en format UTF-8.
@@ -57,9 +62,10 @@ Un objecte `RandomAccessFile` es pot obrir en mode de lectura (`"r"`) o en mode 
 
 ### Exemples pràctics
 
-#### Exemple 1: Escriure i llegir en un fitxer utilitzant `RandomAccessFile`
+#### Exemple 1: Escriure i llegir en un fitxer utilitzant RandomAccessFile
 
 ```java
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -98,6 +104,7 @@ public class ExempleAccesAleatori {
 
 #### Sortida:
 ```
+
 Missatge: Benvinguts a Java!
 Any: 2024
 Valor: 3.1416
@@ -106,6 +113,7 @@ Valor: 3.1416
 #### Exemple 2: Accedir a posicions específiques en un fitxer
 
 ```java
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -145,20 +153,31 @@ public class AccesPosicioEspecifica {
 
 #### Sortida:
 ```
+
 Valor a la posició 4: 200
 Valor a la posició 8: 300
 ```
 
 ### Consideracions importants
-- **Sincronització**: Quan s'utilitza accés aleatori en un entorn multi-fil, cal tenir en compte la sincronització per evitar condicions de carrera.
+- **Sincronització**: Quan s'utilitza accés aleatori en un entorn multi-fil, cal tenir en compte la sincronització per evitar problemes de concurrencia.
 - **Gestió d'excepcions**: S'ha de gestionar adequadament les excepcions com `IOException` i assegurar-se que es tanquen els fitxers després d'usar-los.
 - **Actuacions**: Accedir de manera aleatòria a fitxers grans pot ser molt eficient en comparació amb l'accés seqüencial.
 
 ### Avantatges de l'accés aleatori
 - Permet **modificar parts d'un fitxer** sense reescriure tot el fitxer.
 - És **eficient** per a grans fitxers on només cal llegir o escriure a parts específiques.
+- Útil en aplicacions com bases de dades on es necessita accedir a dades específiques.
+- **Ràpid** per a operacions de lectura i escriptura en posicions específiques.
+- **Flexibilitat** per accedir a qualsevol part del fitxer.
+- **Mantenir l'estat**: Permet mantenir l'estat del fitxer entre diferents execucions del programa. Es a dir, es pot llegir i escriure en diferents parts del fitxer en diferents execucions del programa.
+- **Seguretat**: Permet protegir les dades sensibles en fitxers mitjançant l'accés aleatori. Per exemple, es poden encriptar o desencriptar parts específiques del fitxer.
 
 ### Inconvenients de l'accés aleatori
 - Requereix una **bona gestió** del punter dins del fitxer, ja que és fàcil perdre's en fitxers grans.
 - Pot ser **complicat** si s'utilitzen formats de fitxer personalitzats.
+- **Més complex** que l'accés seqüencial per a tasques senzilles com llegir un fitxer de text.
+- **Menys eficient** per a operacions seqüencials en comparació amb l'accés seqüencial.
+- **Més propens a errors** si no es controla correctament el moviment del punter dins del fitxer.
+- **Menys intuïtiu** que l'accés seqüencial per a principiants.
+- **Més difícil de depurar** en cas d'errors.
 
