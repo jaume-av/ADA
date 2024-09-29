@@ -44,19 +44,19 @@ h3, h4, h5, h6 {
   background-color: transparent !important; /* Elimina el fons */
   box-shadow: none !important; /* Elimina les ombres */
 }
-
-h1 code, h2 code,  {
+h1 code, h2 code, h3 code {
   background-color: #d0e6f7; /* Color de fons blau suau */
   color: inherit; /* Manté el mateix color que la capçalera */
-  font-size: 100%; /* Fa que el text de codi tingui la mateixa mida que la capçalera */
-  font-family: inherit; /* Fa que el text utilitzi la mateixa font que la capçalera */
-  font-weight: inherit; /* Manté el mateix pes de lletra que la capçalera */
-  padding: 0.1em 0.2em; /* Petit espaiat al voltant del text */
-  border-radius: 0.3em; /* Cants lleugerament arrodonits */
-  border: none; /* Elimina qualsevol vora al voltant del codi */
-  box-shadow: none; /* Elimina ombres si n'hi ha */
-  letter-spacing: inherit; /* Manté l'espai entre lletres de la capçalera */
-  line-height: inherit; /* Assegura que l'alçada de línia coincideixi */
+  font-size: inherit; /* Manté la mateixa mida que la capçalera */
+  font-family: inherit; /* Utilitza la mateixa font que la capçalera */
+  font-weight: inherit; /* Manté el mateix pes que la capçalera */
+  padding: 0.1em 0.2em; /* Petit espaiat per fer el text més llegible */
+  border-radius: 0.3em; /* Cants arrodonits per al fons */
+  border: none; /* Elimina qualsevol vora */
+  box-shadow: none; /* Elimina qualsevol ombra */
+  letter-spacing: inherit; /* Manté l'espai entre lletres */
+  line-height: inherit; /* Manté l'alçada de línia igual que la capçalera */
+  white-space: normal; /* Permet que el text s'ajusti si és llarg */
 }
 
 
