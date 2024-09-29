@@ -1,6 +1,6 @@
 --- 
 title: Exercici Fitxers Aleatoris
-parent: accesAleatori
+parent: Accés Aleatori
 layout: default
 nav_order: 21
 ---
