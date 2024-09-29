@@ -16,19 +16,8 @@ footer:
     - title: "Llicència CC BY-SA 4.0"
       url: "https://creativecommons.org/licenses/by-sa/4.0/"
 
-# Configuració de la barra de navegació
+# Navegació directa sense desplegables
 collections:
   docs:
     output: true
     permalink: /:path/
-
-# Definició de l'ordre de navegació
-nav_order: 1
-
-defaults:
-  - scope:
-      path: ""
-      type: docs
-    values:
-      layout: "default"
-      nav_order: 1
