@@ -203,6 +203,7 @@ Realitza un programa on es demanen les teues notes de les assignatures de 1r de 
 Exemple d'execució:
 
 ```
+
 Introdueix la nota de Programació: 6,5
 Introdueix la nota de Llenguatges de Marques: 7,5
 Introdueix la nota de Bases de Dades: 7,5
@@ -211,9 +212,13 @@ Introdueix la nota de Sistemes Informàtics: 6,5
 Finalment, Introdueix la nota de FOL: 6
 ```
 
+
 ```
+
 ***** Notes emmagatzemades a l'array *****
 ……… Bolcant l'array al fitxer ………
 ***** Bolcat finalitzat amb èxit *****
 ………Llegint el fitxer i calculant mitjana………
 La teu nota mitjana del curs va ser de: 7
+```
+

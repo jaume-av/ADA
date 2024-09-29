@@ -37,32 +37,32 @@ RandomAccessFile file = new RandomAccessFile("fitxer.txt", "r");
 RandomAccessFile file = new RandomAccessFile("fitxer.txt", "rw");
 ```
 
-### Mètodes principals
+## Mètodes principals
 
-#### Mètodes de lectura:
+### Mètodes de lectura:
 - **```read()```**: Llegeix un byte de dades.
 - **`readInt()`**: Llegeix un enter de 4 bytes.
 - **`readDouble()`**: Llegeix un valor de tipus `double` de 8 bytes.
 - **`readUTF()`**: Llegeix una cadena de text en format UTF-8.
 
-#### Mètodes d'escriptura:
+### Mètodes d'escriptura:
 - **`write()`**: Escriu un byte de dades.
 - **`writeInt(int v)`**: Escriu un enter de 4 bytes.
 - **`writeDouble(double v)`**: Escriu un valor de tipus `double`.
 - **`writeUTF(String s)`**: Escriu una cadena de text en format UTF-8.
 
-#### Mètodes per moure's dins del fitxer:
+### Mètodes per moure's dins del fitxer:
 - **`seek(long pos)`**: Mou el punter a una posició específica dins del fitxer (basada en el nombre de bytes des del començament del fitxer).
 - **`getFilePointer()`**: Retorna la posició actual del punter dins del fitxer.
 
-#### Altres mètodes útils:
+### Altres mètodes útils:
 - **`length()`**: Retorna la longitud del fitxer en bytes.
 - **`setLength(long newLength)`**: Estableix la longitud del fitxer. Si el nou valor és més gran que l'actual, s'omple amb zeros.
 - **`close()`**: Tanca el fitxer.
 
-### Exemples pràctics
+## Exemples pràctics
 
-#### Exemple 1: Escriure i llegir en un fitxer utilitzant RandomAccessFile
+### Exemple 1: Escriure i llegir en un fitxer utilitzant RandomAccessFile
 
 ```java
 
@@ -102,7 +102,7 @@ public class ExempleAccesAleatori {
 }
 ```
 
-#### Sortida:
+### Sortida:
 ```
 
 Missatge: Benvinguts a Java!
@@ -151,7 +151,7 @@ public class AccesPosicioEspecifica {
 }
 ```
 
-#### Sortida:
+### Sortida:
 ```
 
 Valor a la posició 4: 200
@@ -180,4 +180,50 @@ Valor a la posició 8: 300
 - **Més propens a errors** si no es controla correctament el moviment del punter dins del fitxer.
 - **Menys intuïtiu** que l'accés seqüencial per a principiants.
 - **Més difícil de depurar** en cas d'errors.
+
+---
+
+## Exemple Fitxers Aleatoris.
+
+Al següent exemple, es pot veure un programa que s'utilitza per anar llegint caràcter a caràcter un de text. Este programa el que fa és llegir un fitxer de text i convertir totes les '***i***' en majúscules.
+
+Quan troba una i minúscula torna una posició enrere d'on l'havia llegida i escriu el mateix caràcter convertit a majúscules. El resultat és que el fitxer de text apareix amb totes lletres i en majúscules.
+
+```java
+
+import java.io.EOFException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+public class ejemploRAF {
+    public static void main(String[] args) throws IOException {
+        char c;
+        boolean finArchivo = false;
+        RandomAccessFile archivo = null;
+        try {
+            archivo = new RandomAccessFile("prueba.txt", "rw");
+            System.out.println("El tamaño es: " + archivo.length());
+            do {
+                try {
+                    c = (char) archivo.readByte();
+                    if (c == 'i') {
+
+                        archivo.seek(archivo.getFilePointer() - 1);
+                        archivo.writeByte(Character.toUpperCase(c));
+                    }
+                } catch (EOFException eof) {
+                    finArchivo = true;
+                    archivo.close();
+                    System.out.println("Convertidas a mayusculas");
+                }
+            } while (!finArchivo);
+        } catch (FileNotFoundException fe) {
+            System.out.println("No se encontro el archivo");
+        }
+    }
+}
+```
+
+
+Fixa't en la manera de detectar que ha arribat al final del fitxer. Els mètodes de la classe `RandomAccessFile` generen una excepció, `EOFException`, per indicar que s'ha intentat arribar fora del fitxer. Per això, per detectar que s'ha acabat de llegir, s'utilitza una variable `finArchivo`, que val `false` mentre se segueix llegint el fitxer. Quan es genera l'excepció `EOFException`, aquesta es captura, es tanca el fitxer amb el mètode `close()`, i es posa el valor `true` a la variable `finArchivo`. Quan es canvia aquest valor, acaba el bucle de lectura `do-while`.
 
