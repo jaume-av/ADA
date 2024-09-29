@@ -225,5 +225,9 @@ public class ejemploRAF {
 ```
 
 
-Fixa't en la manera de detectar que ha arribat al final del fitxer. Els mètodes de la classe `RandomAccessFile` generen una excepció, `EOFException`, per indicar que s'ha intentat arribar fora del fitxer. Per això, per detectar que s'ha acabat de llegir, s'utilitza una variable `finArchivo`, que val `false` mentre se segueix llegint el fitxer. Quan es genera l'excepció `EOFException`, aquesta es captura, es tanca el fitxer amb el mètode `close()`, i es posa el valor `true` a la variable `finArchivo`. Quan es canvia aquest valor, acaba el bucle de lectura `do-while`.
+Fixa't en la manera de detectar que ha arribat al final del fitxer. Els mètodes de la classe `RandomAccessFile` generen una excepció, `EOFException`, per indicar que s'ha intentat arribar fora del fitxer. 
+
+Per això, per detectar que s'ha acabat de llegir, s'utilitza una variable `finArchivo`, que val `false` mentre se segueix llegint el fitxer. 
+
+Quan es genera l'excepció `EOFException`, aquesta es captura, es tanca el fitxer amb el mètode `close()`, i es posa el valor `true` a la variable `finArchivo`. Quan es canvia aquest valor, acaba el bucle de lectura `do-while`.
 
