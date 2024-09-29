@@ -46,15 +46,18 @@ h3, h4, h5, h6 {
 }
 
 
-h1 code, h2 code {
-  background-color: #d0e6f7; /* Blau suau per al fons del codi */
-  color: inherit; /* Manté el color del text de la capçalera */
-  font-size: inherit; /* Manté la mida de la lletra de la capçalera */
-  font-family: inherit; /* Manté la mateixa font de la capçalera */
-  padding: 0.1em 0.2em; /* Espai lleuger al voltant del codi */
-  border-radius: 0.3em; /* Cants lleugerament arrodonits */
-  box-shadow: none; /* Elimina qualsevol ombra si està present */
+h1 code, h2 code, h3 code {
+  background-color: #d0e6f7; /* Color de fons blau suau */
+  color: inherit; /* Manté el mateix color que la capçalera */
+  font-size: inherit; /* Manté la mateixa mida que la capçalera */
+  font-family: inherit; /* Manté la mateixa font que la capçalera */
+  font-weight: inherit; /* Manté el mateix pes (grossor) de la lletra que la capçalera */
+  padding: 0.1em 0.2em; /* Petit espaiat al voltant del text */
+  border-radius: 0.3em; /* Cants arrodonits */
+  border: none; /* Elimina qualsevol vora al voltant del codi */
+  box-shadow: none; /* Elimina ombres si n'hi ha */
 }
+
 
 
 /* Elimina tot el marge esquerre del contingut i ajusta l'amplada */
