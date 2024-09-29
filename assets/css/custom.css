@@ -45,7 +45,6 @@ h3, h4, h5, h6 {
   box-shadow: none !important; /* Elimina les ombres */
 }
 
-
 h1 code, h2 code, h3 code {
   background-color: #d0e6f7; /* Color de fons blau suau */
   color: inherit; /* Manté el mateix color que la capçalera */
@@ -56,6 +55,8 @@ h1 code, h2 code, h3 code {
   border-radius: 0.3em; /* Cants arrodonits */
   border: none; /* Elimina qualsevol vora al voltant del codi */
   box-shadow: none; /* Elimina ombres si n'hi ha */
+  letter-spacing: inherit; /* Assegura que no hi hagi diferències d'espaiat de lletres */
+  line-height: inherit; /* Manté la mateixa alçada de línia que la capçalera */
 }
 
 
