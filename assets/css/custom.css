@@ -45,6 +45,18 @@ h3, h4, h5, h6 {
   box-shadow: none !important; /* Elimina les ombres */
 }
 
+
+h1 code, h2 code {
+  background-color: #d0e6f7; /* Blau suau per al fons del codi */
+  color: inherit; /* Manté el color del text de la capçalera */
+  font-size: inherit; /* Manté la mida de la lletra de la capçalera */
+  font-family: inherit; /* Manté la mateixa font de la capçalera */
+  padding: 0.1em 0.2em; /* Espai lleuger al voltant del codi */
+  border-radius: 0.3em; /* Cants lleugerament arrodonits */
+  box-shadow: none; /* Elimina qualsevol ombra si està present */
+}
+
+
 /* Elimina tot el marge esquerre del contingut i ajusta l'amplada */
 .main-content {
   margin-left: 0 !important; /* Elimina marge esquerre */
