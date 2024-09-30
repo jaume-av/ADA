@@ -160,13 +160,16 @@ En definitiva, el modificador `transient` s'utilitza per evitar la serialitzaci�
 ### **1. Objecte Serialitzable**
 
 ```java
+
 public class Employee implements java.io.Serializable {
- public String name;
- public String address;
- public transient int SSN;  
- // el camp transient, que no se serialitzarà, no podrem recuperar el valor en la deserialització.
- public int number; 
+    public String name;
+    public String address;
+    public transient int SSN;
+
+    // El camp transient, que no se serialitzarà, no podrem recuperar el valor en la deserialització.
+    public int number; 
 }
+
 ```
 
 ###  **2. Serialització**
@@ -174,25 +177,28 @@ public class Employee implements java.io.Serializable {
 ```java
 
 import java.io.*;
-public class SerializeDemo {  
- public static void main(String [] args) { 
-  // Crea un objecte Employee
-  Employee e = new Employee(); 
-  e.name = "Reyan Ali"; 
-  e.address = "Phokka Kuan, Ambehta Peer"; 
-  e.SSN = 11122333; 
-  e.number = 101; 
 
-  // El serialitza
-  try (FileOutputStream fileOut = new FileOutputStream("employee.ser"); 
-    ObjectOutputStream out = new ObjectOutputStream(fileOut)) { 
-   out.writeObject(e); 
-   System.out.printf("Serialized data is saved in employee.ser"); 
-  } catch (IOException i) { 
-   i.printStackTrace(); 
-  } 
- }
+public class SerializeDemo {  
+    public static void main(String[] args) { 
+
+        // Crea un objecte Employee
+        Employee e = new Employee(); 
+        e.name = "Reyan Ali"; 
+        e.address = "Phokka Kuan, Ambehta Peer"; 
+        e.SSN = 11122333; 
+        e.number = 101; 
+
+        // El serialitza
+        try (FileOutputStream fileOut = new FileOutputStream("employee.ser");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) { 
+            out.writeObject(e); 
+            System.out.printf("Serialized data is saved in employee.ser"); 
+        } catch (IOException i) { 
+            i.printStackTrace(); 
+        } 
+    }
 }
+
 ```
 
 ### **3. Deserialització**
@@ -200,27 +206,32 @@ public class SerializeDemo {
 ```java
 
 import java.io.*;
+
 public class DeserializeDemo { 
- public static void main(String [] args) { 
-  Employee e = null; 
-  // Deserialitza un objecte Employee
-  try (FileInputStream fileIn = new FileInputStream("employee.ser"); 
-    ObjectInputStream in = new ObjectInputStream(fileIn)) { 
-   e = (Employee) in.readObject(); 
-  } catch (IOException i) { 
-   i.printStackTrace(); 
-  } catch (ClassNotFoundException c) { 
-   System.out.println("Employee class not found"); 
-   c.printStackTrace(); 
-  } 
-  // El mostra a pantalla
-  System.out.println("Deserialized Employee...");
-  System.out.println("Name: " + e.name);
-  System.out.println("Address: " + e.address);
-  System.out.println("SSN: " + e.SSN);
-  System.out.println("Number: " + e.number); 
- }
+
+    public static void main(String[] args) { 
+        Employee e = null; 
+        // Deserialitza un objecte Employee
+
+        try (FileInputStream fileIn = new FileInputStream("employee.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) { 
+            e = (Employee) in.readObject(); 
+        } catch (IOException i) { 
+            i.printStackTrace(); 
+        } catch (ClassNotFoundException c) { 
+            System.out.println("Employee class not found"); 
+            c.printStackTrace(); 
+        } 
+
+        // El mostra a pantalla
+        System.out.println("Deserialized Employee...");
+        System.out.println("Name: " + e.name);
+        System.out.println("Address: " + e.address);
+        System.out.println("SSN: " + e.SSN);
+        System.out.println("Number: " + e.number); 
+    }
 }
+
 
 ```
 
@@ -256,51 +267,64 @@ Number: 101
 import java.io.*;
 
 class Demo implements java.io.Serializable {
- public int a;
- public String b;
- // Constructor per defecte
- public Demo(int a, String b) { 
-     this.a = a; 
-     this.b = b; 
- }
+
+    public int a;
+    public String b;
+
+    // Constructor per defecte
+    public Demo(int a, String b) { 
+        this.a = a; 
+        this.b = b; 
+    }
 }
 
 class Exemple2 {
- public static void main(String[] args){    
-     Demo object = new Demo(1, "Hola xics, bon dia"); 
-     String filename = "fitxer.ser"; 
-        
-     // Serialització
-     try {    
-         FileOutputStream file = new FileOutputStream(filename); 
-         ObjectOutputStream out = new ObjectOutputStream(file); 
-         out.writeObject(object); 
-         out.close(); 
-         file.close(); 
-         System.out.println("L'Objecte ha segut serialitzat"); 
-     } catch(IOException ex) { 
-         System.out.println("S'ha produït una IOException"); 
-     }
 
-     Demo object1 = null;
+    public static void main(String[] args){  
 
-     // Deserialització
-     try {    
-         FileInputStream file = new FileInputStream(filename); 
-         ObjectInputStream in = new ObjectInputStream(file); 
-         object1 = (Demo) in.readObject(); 
-         in.close(); 
-         file.close(); 
-         System.out.println("L'Objecte ha segut deserialitzat "); 
-         System.out.println("a = " + object1.a); 
-         System.out.println("b = " + object1.b); 
-     } catch(IOException ex) { 
-         System.out.println("S'ha produït una IOException"); 
-     } catch(ClassNotFoundException ex) { 
-         System.out.println("S'ha produït una ClassNotFoundException"); 
-     } 
- }
+        Demo object = new Demo(1, "Hola xics, bon dia"); 
+        String filename = "fitxer.ser"; 
+
+        // Serialització
+
+        try {    
+            FileOutputStream file = new FileOutputStream(filename); 
+            ObjectOutputStream out = new ObjectOutputStream(file); 
+            out.writeObject(object); 
+
+            out.close(); 
+            file.close(); 
+
+            System.out.println("L'Objecte ha segut serialitzat"); 
+
+        } catch(IOException ex) { 
+            System.out.println("S'ha produït una IOException"); 
+        }
+
+        Demo object1 = null;
+
+        // Deserialització
+
+        try {    
+            FileInputStream file = new FileInputStream(filename); 
+            ObjectInputStream in = new ObjectInputStream(file); 
+            object1 = (Demo) in.readObject(); 
+
+            in.close(); 
+            file.close(); 
+
+            System.out.println("L'Objecte ha segut deserialitzat "); 
+            System.out.println("a = " + object1.a); 
+            System.out.println("b = " + object1.b); 
+
+        } catch(IOException ex) { 
+            System.out.println("S'ha produït una IOException"); 
+        } catch(ClassNotFoundException ex) { 
+            System.out.println("S'ha produït una ClassNotFoundException"); 
+        } 
+    }
 }
+
 ```
 L'eixida per pantalla seria:
 
@@ -320,6 +344,7 @@ b = Hola xics, bon dia
 import java.io.*;
 
 class Emp implements Serializable {
+
     private static final long serialversionUID = 129348938L;
     transient int a;
     static int b;
@@ -336,6 +361,7 @@ class Emp implements Serializable {
 }
 
 public class Exemple3 {
+
     public static void printdata(Emp object1) {
         System.out.println("name = " + object1.name);
         System.out.println("age = " + object1.age);
@@ -344,6 +370,7 @@ public class Exemple3 {
     }
 
     public static void main(String[] args) {
+
         Emp object = new Emp("ab", 20, 2, 1000);
         String filename = "exemple3.txt";
 
@@ -364,6 +391,7 @@ public class Exemple3 {
 
             // Valor de la variable estàtica canviat
             object.b = 2000;
+
         } catch (IOException ex) {
             System.out.println("S'ha produït una IOException");
         }
@@ -382,6 +410,7 @@ public class Exemple3 {
             System.out.println("L'objecte ha sigut Deserialitzat\n"
                     + "Dades despres de la Deserialitzacio.");
             printdata(object);
+
         } catch (IOException ex) {
             System.out.println("S'ha produït una IOException");
         } catch (ClassNotFoundException ex) {
@@ -530,6 +559,7 @@ Si afegíssim un nou camp a la classe `Emp` sense definir un **`serialVersionUID
 ```java
 
 class Emp implements Serializable {
+    
     private static final long serialVersionUID = 129348938L;
     transient int a;
     static int b;
