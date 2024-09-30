@@ -28,7 +28,8 @@ La **Deserialització** seria el procés invers, tornar a reconstruir l’object
 - Per a la comunicació entre processos. Com per exemple, en la comunicació entre un servidor i un client.
 - Per a la persistència de dades.
 - Per a la clonació d'objectes, amb l'objectiu de crear una còpia exacta d'un objecte per a ser utilitzat en un altre context.
-- 
+  
+
 ## Inconvenients:
 
 - Malauradament, el procés de serialització segueix unes configuracions específiques de Java, i no serveix per intercanviar dades amb programes escrits en altres llenguatges.
@@ -38,6 +39,16 @@ La **Deserialització** seria el procés invers, tornar a reconstruir l’object
 
 
 ## Quines classes utilitzem en Java per a Serialitzar-Deserialitzar?
+
+
+
+| Aspecte                       | Descripció                                                         |
+|-------------------------------|---------------------------------------------------------------------|
+| Objecte Serialitzable          | Interfície `Serializable`.                                          |
+| Per a Serialitzar              | `ObjectOutputStream`<br>`writeObject()`                             |
+| Per a Deserialitzar            | `ObjectInputStream`<br>`readObject()`                               |
+
+
 
 ### Objecte Serialitzable: 
 - **Interfície java.io.Serializable:** Els objectes a serialitzar han d’implementar la interfície `java.io.Serializable`. És una interfície sense mètodes, que només serveix com a marcador. Tots els tipus bàsics la implementen implícitament, i també la classe String i els contenidors i objectes Array.
@@ -49,14 +60,6 @@ La **Deserialització** seria el procés invers, tornar a reconstruir l’object
 ### Per a deserialitzar:
 - **ObjectInputStream** 
   - `readObject()`. Este mètode deserialitza un objecte i el carrega en memòria.
-
-En resum:
-
-| Aspecte                       | Descripció                                                         |
-|-------------------------------|---------------------------------------------------------------------|
-| Objecte Serialitzable          | Interfície `Serializable`.                                          |
-| Per a Serialitzar              | `ObjectOutputStream`<br>`writeObject()`                             |
-| Per a Deserialitzar            | `ObjectInputStream`<br>`readObject()`                               |
 
 
 
@@ -76,7 +79,7 @@ En resum:
 ## Modificador de camp ***transient***
 
 
-En Java, el modificador de camp `***transient***` s'utilitza per evitar que certs camps d'una classe es serialitzin. És a dir, quan un objecte és serialitzat (per exemple, emmagatzemat en un fitxer o enviat per la xarxa), els camps marcats com `***transient***` no seran inclosos en aquest procés. Aquesta característica és útil per camps que són temporals, calculables o que no necessiten ser persistits.
+En Java, el modificador de camp `transient` s'utilitza per evitar que certs camps d'una classe es serialitzen. És a dir, quan un objecte és serialitzat (per exemple, emmagatzemat en un fitxer o enviat per la xarxa), els camps marcats com `transient` no seran inclosos en aquest procés. Aquesta característica és útil per camps que són temporals, calculables o que no necessiten ser persistits.
 
 - Quan definim un camp **transient**, indiquem que, en cas de serialitzar l'objecte, el camp definit com ***transient, el seu valor no es serialitzarà***, i en la ***deserialització prendran el valor per defecte***.
   
@@ -169,6 +172,7 @@ public class Employee implements java.io.Serializable {
 ###  **2. Serialització**
 
 ```java
+
 import java.io.*;
 public class SerializeDemo {  
  public static void main(String [] args) { 
@@ -194,6 +198,7 @@ public class SerializeDemo {
 ### **3. Deserialització**
 
 ```java
+
 import java.io.*;
 public class DeserializeDemo { 
  public static void main(String [] args) { 
@@ -216,11 +221,13 @@ public class DeserializeDemo {
   System.out.println("Number: " + e.number); 
  }
 }
+
 ```
 
 
 L'eixida per pantalla seria:
 ```
+
 Serialized data is saved in employee.ser
 Deserialized Employee...
 Name: Reyan Ali
@@ -245,6 +252,7 @@ Number: 101
 ## Exemple 2
 
 ```java
+
 import java.io.*;
 
 class Demo implements java.io.Serializable {
@@ -297,6 +305,7 @@ class Exemple2 {
 L'eixida per pantalla seria:
 
 ```
+
 L'Objecte ha segut serialitzat
 L'Objecte ha segut deserialitzat
 a = 1
@@ -307,6 +316,7 @@ b = Hola xics, bon dia
 ## Exemple 3
 
 ```java
+
 import java.io.*;
 
 class Emp implements Serializable {
@@ -383,6 +393,7 @@ public class Exemple3 {
 L'eixida per pantalla seria:
 
 ```
+
 L'objecte ha sigut Serialitzat
 Dades abans de la Deserialitzacio.
 name = ab
