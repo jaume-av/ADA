@@ -416,13 +416,12 @@ S’ha vist en deserialitzar l'objecte que els valors de `a` i `b` han canviat. 
 
 El **`serialVersionUID`** és un camp estàtic que s'utilitza durant la **serialització** i **deserialització** d'objectes en Java per assegurar que la versió de la classe que està deserialitzant l'objecte sigui compatible amb la versió que es va utilitzar per serialitzar-lo. Si les versions no coincideixen, es llançarà una excepció de tipus **`InvalidClassException`**.
 
-#### Conceptes clau:
 
 - **`serialVersionUID`**: És un identificador de versió únic per a una classe serialitzable. Este identificador assegura que l'objecte deserialitzat és compatible amb la classe en què es deserialitza.
 
 ---
 
-## Exemples pràctics basats en l'exercici anterior:
+### Exemple basat en l'exercici anterior:
 
 En l'exercici anterior, la classe `Emp` té el següent camp declarat:
 
@@ -438,9 +437,10 @@ Quan es modifica una classe, com per exemple afegint o eliminant atributs, això
 
 Definir el **`serialVersionUID`** manualment ajuda a mantenir la compatibilitat entre diferents versions d'una classe serialitzable.
 
-### Exemple de classe sense `serialVersionUID`:
+### Exemple de classe sense serialVersionUID:
 
 ```java
+
 class Emp implements Serializable {
     int a;
     static int b;
@@ -461,6 +461,7 @@ En aquest cas, si modifiquem la classe `Emp` afegint nous camps i intentem deser
 ### Exemple d'excepció:
 
 ```java
+
 Exception in thread "main" java.io.InvalidClassException: Emp; local class incompatible: 
 stream classdesc serialVersionUID = 123456789, local class serialVersionUID = 987654321
 ```
@@ -469,13 +470,14 @@ Esta excepció indica que els valors del **`serialVersionUID`** de la classe des
 
 ---
 
-### Com assignar un `serialVersionUID`?
+### Com assignar un serialVersionUID?
 
 1. **Assignació manual**: Pots definir un **`serialVersionUID`** manualment per assegurar que la classe manté la compatibilitat entre diferents versions.
 
    Exemple:
 
    ```java
+
    class Emp implements Serializable {
        private static final long serialVersionUID = 129348938L;
        int a;
@@ -496,7 +498,7 @@ Esta excepció indica que els valors del **`serialVersionUID`** de la classe des
 
 ---
 
-### Quan utilitzar un `serialVersionUID`?
+### Quan utilitzar un serialVersionUID?
 
 - **Sempre que una classe sigua serialitzable**, és recomanable definir un **`serialVersionUID`**. Això proporciona control sobre la compatibilitat entre diferents versions de la classe.
 - És especialment important quan tens l'objectiu de mantenir la compatibilitat entre versions del programari en què els objectes serialitzats poden viatjar a través de diferents versions de la mateixa aplicació.
@@ -510,11 +512,12 @@ Esta excepció indica que els valors del **`serialVersionUID`** de la classe des
 - Si no es defineix manualment, Java en genera un automàticament, cosa que pot provocar incompatibilitats si es modifica la classe.
 - Definir un **`serialVersionUID`** manualment ajuda a evitar problemes de deserialització quan es fan canvis a la classe.
 
-### Exemple de deserialització fallida sense `serialVersionUID`:
+### Exemple de deserialització fallida sense serialVersionUID:
 
 Si afegíssim un nou camp a la classe `Emp` sense definir un **`serialVersionUID`**, un objecte creat amb la versió anterior de la classe llançaria una excepció quan intentem deserialitzar-lo:
 
 ```java
+
 class Emp implements Serializable {
     private static final long serialVersionUID = 129348938L;
     transient int a;
@@ -560,6 +563,7 @@ A més, aquest exercici requereix que les notes i assignatures es **serialitzen 
 ### Exemple d'execució:
 
 ```
+
 Introdueix la nota de Programació: 6,5
 Introdueix la nota de Llenguatges de Marques: 7,5
 Introdueix la nota de Bases de Dades: 7,5
@@ -571,6 +575,7 @@ Finalment, Introdueix la nota de FOL: 6
 ### Exemple d'eixida per pantalla:
 
 ```
+
 ***** Notes emmagatzemades a l'array *****
 ……… Bolcant l'array al fitxer mitjançant serialització ………
 ***** Bolcat finalitzat amb èxit *****
@@ -596,6 +601,7 @@ A més, la col·lecció **`HashMap`** es **serialitzizarà i deserialitzarà** p
 ### Exemple d'execució:
 
 ```
+
 Introdueix la nota de Programació: 6,5
 Introdueix la nota de Llenguatges de Marques: 7,5
 Introdueix la nota de Bases de Dades: 7,5
@@ -607,6 +613,7 @@ Finalment, Introdueix la nota de FOL: 6
 ### Exemple d'eixida per pantalla:
 
 ```
+
 ***** Notes emmagatzemades en el HashMap *****
 ……… Bolcant el HashMap al fitxer mitjançant serialització ………
 ***** Bolcat finalitzat amb èxit *****
