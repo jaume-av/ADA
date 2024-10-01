@@ -1,4 +1,9 @@
-
+---
+title: FitxersHTML
+parent: Streams
+layout: default
+nav_order: 10
+---
 
 # Fitxers HTML – Lectura i Escriptura
 
