@@ -176,6 +176,3 @@ URL url = new URL("https://    ");
 Scanner scanner = new Scanner(url.openStream());
 ```
 
---- 
-
-Este és el document convertit.
