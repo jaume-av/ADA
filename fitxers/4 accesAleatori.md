@@ -63,8 +63,10 @@ RandomAccessFile file = new RandomAccessFile("fitxer.txt", "rw");
 - **`setLength(long newLength)`**: Estableix la longitud del fitxer. Si el nou valor és més gran que l'actual, s'omple amb zeros.
 - **`close()`**: Tanca el fitxer.
 
-En resum, lñes funcions més importants són:
+En resum, les funcions més importants són:
 
+{: .text-center }
+![alt text](../assets/imatges/randomacces.png)
 
 
 ## Exemples pràctics
