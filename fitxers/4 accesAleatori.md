@@ -11,11 +11,14 @@ nav_order: 20
 L'**accés aleatori** en Java fa referència a la capacitat de llegir i escriure en qualsevol part d'un fitxer sense haver de seguir un ordre seqüencial. Això és útil quan es treballa amb fitxers grans i només es necessita accedir a determinades posicions de dades dins del fitxer sense llegir-lo completament des del principi.
 
 En Java, l'accés aleatori als fitxers es gestiona mitjançant la classe **`RandomAccessFile`**, que permet accedir a qualsevol posició dins del fitxer i llegir o escriure en aquestes posicions.
+Estos blocs es denominen **registres** i a través del software corresponenet, el SO pot interpretar el fitxer de manera correcta.
 
 ## Tipus d'accés a fitxers
 
-- **Accés seqüencial**: Llegeix o escriu dades seqüencialment, començant des del principi del fitxer fins al final.
-- **Accés aleatori**: Permet saltar a una posició específica del fitxer per llegir o escriure dades, sense necessitat de llegir seqüencialment fins a aquesta posició.
+No existeix una manera predeterminada de com es l'estructura d'un fitxer, ja que cada diseñador els pot crear com crega convenient. Però el més important és que estan **formats per blocs de bytes** que guarden la informació desitjada
+
+- **Accés seqüencial**: Llegeix o escriu dades seqüencialment, començant des del principi del fitxer fins al final, registre a registre.
+- **Accés aleatori**: Permet saltar a una a un registre o posició específica del fitxer per llegir o escriure dades, sense necessitat de llegir seqüencialment fins a aquesta posició.
 
 L'accés aleatori és especialment útil en aplicacions com bases de dades, on sovint és necessari accedir a registres individuals sense processar tot el fitxer.
 
@@ -59,6 +62,10 @@ RandomAccessFile file = new RandomAccessFile("fitxer.txt", "rw");
 - **`length()`**: Retorna la longitud del fitxer en bytes.
 - **`setLength(long newLength)`**: Estableix la longitud del fitxer. Si el nou valor és més gran que l'actual, s'omple amb zeros.
 - **`close()`**: Tanca el fitxer.
+
+En resum, lñes funcions més importants són:
+
+
 
 ## Exemples pràctics
 
