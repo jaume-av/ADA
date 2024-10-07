@@ -5,6 +5,208 @@ layout: default
 nav_order: 2
 ---
 
+
+# Expressions Regulars en Java
+
+Les expressions regulars (regex) són seqüències de caràcters que defineixen patrons per a cercar, validar i manipular cadenes de text. A Java, són molt útils per a identificar patrons complexos en les cadenes, com ara números de telèfon, adreces de correu electrònic o valors específics.
+
+## Usos Comuns de les Expressions Regulars
+
+Alguns exemples d'ús de les expressions regulars són:
+
+- **Validació de formats**: Comprovar que una data siga en format `dd/mm/yyyy` o que un NIF (Número d'Identificació Fiscal) seguisca el format correcte.
+- **Validació de correu electrònic**: Verificar que una adreça de correu complisca amb un format estàndard.
+- **Validació de contrasenyes**: Assegurar-se que una contrasenya continga majúscules, minúscules, números i símbols.
+- **Extracció de dades**: Buscar i extraure números de telèfon, codis postals o qualsevol altra informació que complisca un patró determinat.
+- **Cerca de patrons**: Trobar i comptar quantes vegades es repeteix un fragment dins d’una cadena.
+
+## Funcionament Bàsic de les Expressions Regulars
+
+Les expressions regulars recorren una cadena d’esquerra a dreta, buscant coincidències amb el patró definit. Quan un caràcter de la cadena compleix amb el patró, aquest caràcter ja no torna a considerar-se per a futures comprovacions en la mateixa cerca.
+
+Hi ha dos enfocaments principals en la comparació de patrons amb cadenes:
+
+- **Trobar coincidències parcials**: Determinar si una part de la cadena compleix amb el patró. Per exemple, trobar una data en format `dd/mm/yyyy` dins d'una cadena com "Hui és 12/02/2017".
+- **Coincidència exacta**: Verificar que tota la cadena complisca exactament amb el patró donat. Per exemple, comprovar si "12/02/2017" és exactament una data sense text addicional.
+
+### Símbols i Metacaràcters en Expressions Regulars
+
+Els metacaràcters són símbols especials que defineixen el comportament de les expressions regulars. A continuació, es descriuen alguns dels més comuns:
+
+- **.** : Qualsevol caràcter (excepte salts de línia).
+- **^** : Indica que el patró ha de començar al principi de la cadena.
+- **$** : Indica que el patró ha de finalitzar al final de la cadena.
+- **[abc]** : Coincideix amb qualsevol dels caràcters `a`, `b` o `c`.
+- **[^abc]** : Coincideix amb qualsevol caràcter excepte `a`, `b` o `c`.
+- **[a-z]** : Coincideix amb qualsevol lletra minúscula de la `a` a la `z`.
+- **A|B** : Coincideix amb `A` o `B` (operador OR).
+- **\\d** : Coincideix amb qualsevol dígit (equivalent a `[0-9]`).
+- **\\D** : Coincideix amb qualsevol caràcter que no siga un dígit (equivalent a `[^0-9]`).
+- **\\s** : Coincideix amb qualsevol espai en blanc (inclou espais, tabuladors i salts de línia).
+- **\\S** : Coincideix amb qualsevol caràcter que no siga un espai en blanc.
+- **\\w** : Coincideix amb qualsevol lletra, dígit o subratllat (equivalent a `[A-Za-z0-9_]`).
+- **\\W** : Coincideix amb qualsevol caràcter que no siga una lletra, dígit o subratllat.
+
+### Quantificadors
+
+Els quantificadors determinen quantes vegades un element de l'expressió regular pot aparèixer en una coincidència:
+
+- **`{X}`** : Exactament X repeticions.
+- **`{X,Y}`** : Entre X i Y repeticions.
+- **`{X,}`** : Almenys X repeticions.
+- **`*`** : Zero o més repeticions (equivalent a `{0,}`).
+- **`+`** : Una o més repeticions (equivalent a `{1,}`).
+- **`?`** : Zero o una repetició (equivalent a `{0,1}`).
+
+## Exemples d'Expressions Regulars
+
+### 1. Validar un dígit
+
+```java
+
+String regex = "^\\d$";
+```
+
+- **`^`**: Indica l'inici de la cadena.
+- **`\\d`**: Representa qualsevol dígit del 0 al 9.
+- **`$`**: Indica el final de la cadena.
+
+**Exemple:**
+- `"5"`: Vàlid, ja que és un únic dígit.
+- `"a"`: No vàlid, ja que no és un dígit.
+- `"12"`: No vàlid, ja que conté més d'un dígit.
+
+---
+
+### 2. Validar una paraula de lletres majúscules
+
+```java
+
+String regex = "^[A-Z]+$";
+```
+
+- **`^`**: Inici de la cadena.
+- **`[A-Z]`**: Qualsevol lletra majúscula de la `A` a la `Z`.
+- **`+`**: Almenys una o més repeticions de lletres majúscules.
+- **`$`**: Final de la cadena.
+
+**Exemple:**
+- `"HELLO"`: Vàlid, només conté lletres majúscules.
+- `"Hello"`: No vàlid, conté lletres minúscules.
+- `"123"`: No vàlid, no conté cap lletra.
+
+---
+
+### 3. Validar un número enter positiu de fins a 3 dígits
+
+```java
+
+String regex = "^[1-9]\\d{0,2}$";
+```
+
+- **`^`**: Inici de la cadena.
+- **`[1-9]`**: El primer dígit ha de ser entre 1 i 9 (per evitar zeros al davant).
+- **`\\d{0,2}`**: Pot tenir de 0 a 2 dígits addicionals.
+- **`$`**: Final de la cadena.
+
+**Exemple:**
+- `"5"`: Vàlid, ja que és un número de 1 dígit.
+- `"123"`: Vàlid, ja que és un número de 3 dígits.
+- `"012"`: No vàlid, comença amb un zero.
+- `"1000"`: No vàlid, ja que conté més de 3 dígits.
+
+---
+
+### 4. Validar una adreça de correu electrònic senzilla
+
+```java
+
+String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+```
+
+- **`^`**: Inici de la cadena.
+- **`[A-Za-z0-9+_.-]+`**: Permet lletres, dígits i alguns caràcters especials abans de l'`@`.
+- **`@`**: Simbolitza la separació entre el nom d'usuari i el domini.
+- **`[A-Za-z0-9.-]+`**: Permet caràcters alfanumèrics i alguns símbols en el domini.
+- **`$`**: Final de la cadena.
+
+**Exemple:**
+- `"joan123@gmail.com"`: Vàlid.
+- `"maria@universitat"`: No vàlid, falta el domini després del punt.
+- `"pere@empresa.net"`: Vàlid.
+- `"@gmail.com"`: No vàlid, falta la part de l'usuari.
+
+---
+
+### 5. Validar una data en format `dd/mm/yyyy`
+
+```java
+
+String regex = "^(0[1-9]|[12]\\d|3[01])/(0[1-9]|1[0-2])/\\d{4}$";
+```
+
+- **`^`**: Inici de la cadena.
+- **`(0[1-9]|[12]\\d|3[01])`**: Dies de l'1 al 31.
+- **`/`**: Separador de la data.
+- **`(0[1-9]|1[0-2])`**: Mesos de l'1 al 12.
+- **`/`**: Separador de la data.
+- **`\\d{4}`**: Any de quatre dígits.
+- **`$`**: Final de la cadena.
+
+**Exemple:**
+- `"12/02/2024"`: Vàlid.
+- `"31/04/2024"`: Vàlid, tot i que no és una data real (no comprova els dies del mes).
+- `"01/13/2024"`: No vàlid, no existeix el mes 13.
+- `"1/2/2024"`: No vàlid, falta un zero per mantenir el format `dd/mm/yyyy`.
+
+---
+
+### 6. Validar un número de telèfon en format internacional
+
+```java
+
+String regex = "^\\+[0-9]{1,3} ?[0-9]{6,14}$";
+```
+
+- **`^\\+`**: Comença amb el símbol `+`.
+- **`[0-9]{1,3}`**: Codi de país, d'1 a 3 dígits.
+- **` ?`**: Espai opcional.
+- **`[0-9]{6,14}`**: De 6 a 14 dígits per al número de telèfon.
+- **`$`**: Final de la cadena.
+
+**Exemple:**
+- `"+34 123456789"`: Vàlid.
+- `"+123456789"`: Vàlid.
+- `"123456789"`: No vàlid, falta el `+` del codi de país.
+- `"+1 12345"`: No vàlid, massa pocs dígits.
+
+---
+
+### 7. Validar una contrasenya amb requisits de seguretat
+
+```java
+
+String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%!]).{8,}$";
+```
+
+- **`^`**: Inici de la cadena.
+- **`(?=.*[A-Z])`**: Almenys una lletra majúscula.
+- **`(?=.*[a-z])`**: Almenys una lletra minúscula.
+- **`(?=.*\\d)`**: Almenys un dígit.
+- **`(?=.*[@#$%!])`**: Almenys un dels caràcters especials: `@`, `#`, `$`, `%`, `!`.
+- **`.{8,}`**: La contrasenya ha de tenir almenys 8 caràcters.
+- **`$`**: Final de la cadena.
+
+**Exemple:**
+- `"Password123!"`: Vàlid.
+- `"password"`: No vàlid, falta una majúscula, un dígit i un caràcter especial.
+- `"PASSWORD123"`: No vàlid, falta un caràcter especial i una minúscula.
+- `"Pass1!"`: No vàlid, massa curta.
+
+---
+
+# `Pattern`i `Matcher` 
+
 Les classes `Pattern` i `Matcher` en Java ens permeten treballar amb expressions regulars, que són seqüències de caràcters que defineixen patrons per a cercar, validar o manipular textos. 
 
 ## Classe `Pattern`
