@@ -39,7 +39,7 @@ Els metacaràcters són símbols especials que defineixen el comportament de les
 - **[abc]** : Coincideix amb qualsevol dels caràcters `a`, `b` o `c`.
 - **[^abc]** : Coincideix amb qualsevol caràcter excepte `a`, `b` o `c`.
 - **[a-z]** : Coincideix amb qualsevol lletra minúscula de la `a` a la `z`.
-- `**A|B`** : Coincideix amb `A` o `B` (operador OR).
+- `**A|B**´ : Coincideix amb `A` o `B` (operador OR).
 - **\\d** : Coincideix amb qualsevol dígit (equivalent a `[0-9]`).
 - **\\D** : Coincideix amb qualsevol caràcter que no siga un dígit (equivalent a `[^0-9]`).
 - **\\s** : Coincideix amb qualsevol espai en blanc (inclou espais, tabuladors i salts de línia).
