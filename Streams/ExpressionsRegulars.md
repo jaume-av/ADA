@@ -39,7 +39,7 @@ Els metacaràcters són símbols especials que defineixen el comportament de les
 - **[abc]** : Coincideix amb qualsevol dels caràcters `a`, `b` o `c`.
 - **[^abc]** : Coincideix amb qualsevol caràcter excepte `a`, `b` o `c`.
 - **[a-z]** : Coincideix amb qualsevol lletra minúscula de la `a` a la `z`.
-- **A|B** : Coincideix amb `A` o `B` (operador OR).
+- `**A|B`** : Coincideix amb `A` o `B` (operador OR).
 - **\\d** : Coincideix amb qualsevol dígit (equivalent a `[0-9]`).
 - **\\D** : Coincideix amb qualsevol caràcter que no siga un dígit (equivalent a `[^0-9]`).
 - **\\s** : Coincideix amb qualsevol espai en blanc (inclou espais, tabuladors i salts de línia).
@@ -205,15 +205,15 @@ String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%!]).{8,}$";
 
 ---
 
-# `Pattern`i `Matcher` 
+# Pattern i Matcher 
 
 Les classes `Pattern` i `Matcher` en Java ens permeten treballar amb expressions regulars, que són seqüències de caràcters que defineixen patrons per a cercar, validar o manipular textos. 
 
-## Classe `Pattern`
+## Classe Pattern
 
 La classe `Pattern` representa una expressió regular compilada i es pot utilitzar per a crear objectes `Matcher` que cerquen coincidències en seqüències de caràcters.
 
-### **Mètodes principals de `Pattern`:**
+### **Mètodes principals de Pattern:**
 
 - **`Pattern.compile(String regex)`:** Aquest mètode compila una expressió regular en un objecte `Pattern`. Això és necessari abans de poder buscar coincidències amb `Matcher`.
 
@@ -223,11 +223,11 @@ La classe `Pattern` representa una expressió regular compilada i es pot utilitz
 
 - **`split(CharSequence input)`:** Divideix la seqüència de caràcters en funció del patró i retorna un array de `String` amb les parts resultants.
 
-## Classe `Matcher`
+## Classe Matcher
 
 La classe `Matcher` es crea a partir d’un objecte `Pattern` i permet cercar coincidències d’una expressió regular en una seqüència de caràcters. També proporciona mètodes per a analitzar i manipular aquestes coincidències.
 
-### **Mètodes principals de `Matcher`:**
+### **Mètodes principals de Matcher:**
 
 - **`matches()`:** Comprova si tota la seqüència de caràcters coincideix amb l'expressió regular.
 
