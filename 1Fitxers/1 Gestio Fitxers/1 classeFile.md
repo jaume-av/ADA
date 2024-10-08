@@ -1,6 +1,7 @@
 ---
-title: Classe File
-parent: Fitxers
+title:  Classe File
+parent: 1.- Gestió del Sistema de Fitxers
+has_children: true
 layout: default
 nav_order: 10
 ---

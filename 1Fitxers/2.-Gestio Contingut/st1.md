@@ -1,6 +1,7 @@
 ---
 title: Stream Tema 1
-parent: Streams
+parent: 2.- Gestió del Contingut
+has_children: true
 layout: default
-nav_order: 20
+nav_order: 30
 ---

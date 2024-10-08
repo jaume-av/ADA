@@ -1,8 +1,9 @@
 ---
 title: FitxersHTML
-parent: Streams
+pparent: 2.- Gestió del Contingut
+has_children: true
 layout: default
-nav_order: 10
+nav_order: 20
 ---
 
 # Fitxers HTML – Lectura i Escriptura

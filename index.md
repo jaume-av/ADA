@@ -12,5 +12,4 @@ has_toc: true
 
 ![alt text](assets/imatges/ada.png)
 
-## Taula de Continguts
-{:toc}
+
