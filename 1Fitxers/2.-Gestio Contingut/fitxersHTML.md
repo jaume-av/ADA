@@ -1,6 +1,6 @@
 ---
-title: FitxersHTML
-pparent: 2.- Gestió del Contingut
+title: 2.2.- Accés a Fitxers HTML
+parent: 2.- Gestió del Contingut
 has_children: true
 layout: default
 nav_order: 20
