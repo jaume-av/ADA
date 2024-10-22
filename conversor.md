@@ -1,0 +1,64 @@
+Donat el següent arxiu `musica.json`:
+
+```json
+{
+    "titol": "Festival de Música",
+    "descripcio": "Programació del festival de música",
+    "data_inici": "2023-08-15",
+    "data_fi": "2023-08-18",
+    "artistes": [
+        {
+            "nom": "Artista 1",
+            "genere": "Rock",
+            "cançons": [
+                "Cançó 1",
+                "Cançó 2",
+                "Cançó 3"
+            ]
+        },
+        {
+            "nom": "Artista 2",
+            "genere": "Pop",
+            "cançons": [
+                "Cançó 4",
+                "Cançó 5"
+            ]
+        }
+    ],
+    "escenaris": [
+        {
+            "nom": "Escenari Principal",
+            "horari": "20:00 - 00:00",
+            "artistes_programats": [
+                "Artista 1",
+                "Artista 2"
+            ]
+        },
+        {
+            "nom": "Escenari Secundari",
+            "horari": "18:00 - 23:00",
+            "artistes_programats": [
+                "Artista 1"
+            ]
+        }
+    ]
+}
+```
+
+### Modifica el josn
+
+1.- Modifica el json anterior possant dades i ampliant artistes i escenaris.
+2.- Amplia el json amb 2 o més artistes i 1 o més escenaris
+3.- valida el json
+
+
+
+## Crea un programa que convertisca aquest arxiu JSON en un fitxer XML amb el nom `festival.xml`:
+
+### Passos
+
+1. **Crea el projecte Maven amb les dependències Jackson** per a JSON i XML.
+2. **Crea els POJOs.**
+3. **Anota els POJOs amb les anotacions respectives** (per llegir JSON i per escriure XML).
+4. **Crea el programa principal (`Conversor.java`).** Aquest programa ha de ser capaç de deserialitzar el fitxer JSON (amb `ObjectMapper`) i serialitzar-lo a XML (amb `XmlMapper`).
+5. **Resultat**: Fitxer XML ben format, ben identat i val·Lid (`escenari.xml`)
