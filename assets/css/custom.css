@@ -44,17 +44,17 @@ h3, h4, h5, h6 {
   background-color: transparent !important; /* Elimina el fons */
   box-shadow: none !important; /* Elimina les ombres */
 }
-h1 code, h2 code{
-  background-color: #d0e6f7; /* Color de fons blau suau */
-  color: inherit; /* Manté el color de la capçalera */
-  font-family: inherit; /* Utilitza la mateixa font que la capçalera, no monoespaiada */
-  font-size: inherit; /* Fa que la mida de la font sigui igual que la de la capçalera */
-  font-weight: inherit; /* Manté el pes de la lletra igual que la de la capçalera */
-  letter-spacing: inherit; /* Manté l'espai entre les lletres igual que la capçalera */
-  padding: 0.1em 0.2em; /* Petit espaiat al voltant del text per a llegibilitat */
-  border-radius: 0.2em; /* Arrodonim lleugerament els cants */
-  border: none; /* Eliminem qualsevol vora */
-  white-space: normal; /* Permet trencar línies si és necessari */
+h1 code, h2 code {
+  background-color: #d0e6f7 !important; /* Color de fons blau suau */
+  color: inherit !important; /* Manté el color de la capçalera */
+  font-family: inherit !important; /* Utilitza la mateixa font que la capçalera, no monoespaiada */
+  font-size: inherit !important; /* Fa que la mida de la font sigui igual que la de la capçalera */
+  font-weight: inherit !important; /* Manté el pes de la lletra igual que la de la capçalera */
+  letter-spacing: inherit !important; /* Manté l'espai entre les lletres igual que la capçalera */
+  padding: 0.1em 0.2em !important; /* Petit espaiat al voltant del text per a llegibilitat */
+  border-radius: 0.2em !important; /* Arrodonim lleugerament els cants */
+  border: none !important; /* Eliminem qualsevol vora */
+  white-space: normal !important; /* Permet trencar línies si és necessari */
 }
 
 
@@ -83,7 +83,7 @@ h1 code, h2 code{
 }
 
 .nav-list a:hover {
-  color: #1b263b !important; /* Blau fosc més intens en hover */
+  color: #325eaf !important; /* Blau fosc més intens en hover */
 }
 
 /* Estil per als títols de la barra lateral */
