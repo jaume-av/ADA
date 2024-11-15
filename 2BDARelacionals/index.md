@@ -8,7 +8,7 @@ has_toc: true
 ---
 
 
-# Streams
+# Presistència de BDA Relacionals
 {: .text-center }
 ![alt text](imatges/1db.jpg)
 
