@@ -210,21 +210,4 @@ details code, details pre {
     overflow-x: auto !important; /* Scroll horizontal si es necesario */
 }
 
-/* Ajust per al titol navbar-brand */
-
-.navbar-brand {
-    font-size: 20px !important; /* Cambia el tamaño del texto */
-    color: #5c1a4e !important; /* Cambia el color del texto */
-    text-transform: uppercase !important; /* Texto en mayúsculas */
-}
-
-.navbar-brand:hover {
-    color: #325eaf !important; /* Cambia el color en hover */
-}
-
-.navbar-brand {
-    display: flex;
-    align-items: center; /* Alinear verticalmente el logotipo y texto */
-    justify-content: center; /* Centrar horizontalmente */
-}
 
