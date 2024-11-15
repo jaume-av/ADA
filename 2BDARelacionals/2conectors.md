@@ -578,19 +578,3 @@ while (rs.next()) {
 ```
 
 ---
-
-#### Millores Proposades i Aplicades
-
-1. **Exemples codificats**:
-   - Afegits exemples pràctics amb codi Java per a les operacions de `CREATE TABLE` i l'ús de `DatabaseMetaData`.
-
-2. **Claredat i estructura**:
-   - Dividit en seccions ben diferenciades: ús del modificador `IF NOT EXISTS`, consultes dinàmiques i exemples d'ús.
-
-3. **Explicacions dels mètodes**:
-   - Taula per presentar els mètodes de `DatabaseMetaData` amb descripcions clares.
-
-4. **Referències visuals**:
-   - He afegit exemples de resultats que es poden obtenir amb el codi (per exemple, noms de taules i columnes).
-
-Aquestes millores fan que els apunts siguin més pràctics i entenedors, amb un enfocament clar en l'aplicació en Java. Si necessites més detalls o altres exemples, no dubtis a demanar-ho!
