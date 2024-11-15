@@ -434,7 +434,7 @@ El **`ResultSet`** és una estructura que conté els resultats d'una consulta SQ
 
 ---
 
-##### Recorregut d'un `ResultSet`
+### Recorregut d'un `ResultSet`
 
 El `ResultSet` utilitza un punter que inicialment es troba abans de la primera fila. Per recórrer-lo:
 1. El mètode `next()` mou el punter a la següent fila i retorna `true` si existeix.
@@ -450,21 +450,6 @@ while (rs.next()) {
 
 ---
 
-### Millores Proposades
-
-1. **Incloure exemples visuals**:
-   - Representar el flux de treball amb diagrames simples per a `Statement`, `PreparedStatement` i `ResultSet`.
-
-2. **Ampliació de casos pràctics**:
-   - Afegeix un exemple complet que incloga els passos: connexió, consulta i tancament de recursos.
-
-3. **Optimització del format**:
-   - Utilitza punts numerats o esquemes per destacar els passos essencials, com assignar placeholders o recórrer el `ResultSet`.
-
-4. **Seguretat i Bones Pràctiques**:
-   - Explica breument com els `PreparedStatement` ajuden a prevenir vulnerabilitats, com les injeccions SQL.
-
-Aquestes millores poden fer els apunts més didàctics i pràctics, ajudant als lectors a entendre millor els conceptes clau.
 
 
 
@@ -473,7 +458,131 @@ Aquestes millores poden fer els apunts més didàctics i pràctics, ajudant als 
 
 
 
+### Apunts Millorats amb les Millores Aplicades
 
+#### 5. Execució de Sentències DDL
 
+Encara que la majoria d'operacions que es realitzen des d'una aplicació client contra una base de dades són de **manipulació de dades (DML)**, hi ha situacions en què cal dur a terme operacions de **definició de dades (DDL)**. Aquestes operacions permeten modificar l'estructura de la base de dades.
 
+##### Casos comuns:
+- Quan instal·lem una aplicació en un nou equip i cal crear una base de dades local de manera automatitzada per al seu funcionament.
+- Quan una actualització de programari requereix canvis en l'estructura de la base de dades.
+- Quan desconeixem l'estructura d'una base de dades i necessitem realitzar consultes dinàmiques.
 
+Aquest apartat estudia els mecanismes per abordar aquestes situacions.
+
+---
+
+#### Definició i Modificació d’Estructures
+
+Les sentències **DDL (Data Definition Language)** són instruccions SQL que defineixen o modifiquen l'estructura d'una base de dades. Les podem executar amb les interfícies `Statement` o `PreparedStatement`, com hem vist amb DML.
+
+##### Exemple d'instrucció SQL DDL:
+```sql
+CREATE TABLE IF NOT EXISTS usuaris (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    correu VARCHAR(100) UNIQUE NOT NULL
+);
+```
+
+---
+
+##### **Ús del modificador `IF NOT EXISTS`**
+Aquest modificador assegura que l'operació només es realitzarà si l'element (taula, vista, etc.) no existeix.
+
+**Aplicacions habituals:**
+- Crear bases de dades i les seves estructures (taules, restriccions, vistes, índexs...).
+- En aplicacions locals o mòbils, on és freqüent que cada instal·lació requereixi una base de dades independent.
+
+---
+
+##### **Exemple en Java: Crear una Taula**
+Amb `Statement`, podem crear una taula de manera programàtica:
+
+```java
+Statement stmt = conn.createStatement();
+String sql = "CREATE TABLE IF NOT EXISTS usuaris (" +
+             "id INT AUTO_INCREMENT PRIMARY KEY, " +
+             "nom VARCHAR(100) NOT NULL, " +
+             "correu VARCHAR(100) UNIQUE NOT NULL)";
+stmt.executeUpdate(sql);
+```
+
+- **Millora aplicada**: **Exemple pràctic codificat**:
+  He inclòs un exemple complet que mostra com crear una taula utilitzant `Statement`.
+
+---
+
+#### Consultes Dinàmiques sobre l’Estructura de la BBDD
+
+Quan desconeixem l'estructura d'una base de dades, podem obtenir informació mitjançant els **metaobjectes** que aquesta emmagatzema. La interfície `DatabaseMetaData` ens proporciona una gran quantitat d'informació sobre l'estructura de la base de dades.
+
+##### Mètodes principals de `DatabaseMetaData`
+
+| Mètode                       | Descripció                                                                 |
+|------------------------------|---------------------------------------------------------------------------|
+| `ResultSet getTables()`      | Proporciona informació sobre diferents tipus d'objectes de la base de dades (taules, vistes, etc.). |
+| `ResultSet getColumns()`     | Retorna informació sobre les columnes d'una taula.                       |
+| `ResultSet getPrimaryKeys()` | Retorna informació sobre les claus primàries d'una taula.                 |
+| `ResultSet getExportedKeys()`| Retorna informació sobre les claus alienes que apunten a una taula.       |
+| `ResultSet getImportedKeys()`| Retorna informació sobre les claus alienes d'una taula.                  |
+
+---
+
+##### **Exemple d’ús: Obtenir informació de les taules**
+
+Podem utilitzar el mètode `getTables()` per obtenir una llista de les taules existents:
+
+```java
+DatabaseMetaData metaData = conn.getMetaData();
+ResultSet rs = metaData.getTables(null, null, "%", new String[]{"TABLE"});
+
+while (rs.next()) {
+    System.out.println("Taula: " + rs.getString("TABLE_NAME"));
+}
+```
+
+---
+
+##### Paràmetres del mètode `getTables`
+
+| Paràmetre   | Descripció                                                                                  |
+|-------------|---------------------------------------------------------------------------------------------|
+| **catàleg** | Catàleg de la base de dades a consultar. Si és `null`, utilitza el catàleg actual.          |
+| **esquema** | Esquema de la base de dades. Si és `null`, utilitza l'esquema actual.                      |
+| **patró**   | Patró per filtrar noms d'objectes, similar a l'ús de `LIKE`.                               |
+| **tipus**   | Tipus d'objectes a buscar (`TABLE`, `VIEW`, etc.).                                         |
+
+---
+
+#### Exemples de Resultats amb `DatabaseMetaData`
+
+**Consulta de columnes d'una taula:**
+
+```java
+ResultSet rs = metaData.getColumns(null, null, "usuaris", null);
+
+while (rs.next()) {
+    System.out.println("Columna: " + rs.getString("COLUMN_NAME") +
+                       ", Tipus: " + rs.getString("TYPE_NAME"));
+}
+```
+
+---
+
+#### Millores Proposades i Aplicades
+
+1. **Exemples codificats**:
+   - Afegits exemples pràctics amb codi Java per a les operacions de `CREATE TABLE` i l'ús de `DatabaseMetaData`.
+
+2. **Claredat i estructura**:
+   - Dividit en seccions ben diferenciades: ús del modificador `IF NOT EXISTS`, consultes dinàmiques i exemples d'ús.
+
+3. **Explicacions dels mètodes**:
+   - Taula per presentar els mètodes de `DatabaseMetaData` amb descripcions clares.
+
+4. **Referències visuals**:
+   - He afegit exemples de resultats que es poden obtenir amb el codi (per exemple, noms de taules i columnes).
+
+Aquestes millores fan que els apunts siguin més pràctics i entenedors, amb un enfocament clar en l'aplicació en Java. Si necessites més detalls o altres exemples, no dubtis a demanar-ho!
