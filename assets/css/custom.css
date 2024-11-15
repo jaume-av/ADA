@@ -1,128 +1,211 @@
-/* Estils generals per al cos del document */
+/* Archivo: custom.css */
+
+/* === GENERAL === */
+/* Cambiar el fondo de toda la página */
 body {
-  font-family: 'Calibri', sans-serif !important; /* Calibri com a font principal */
-  font-size: 14px !important; /* Tamany de lletra per al text principal */
-  color: #000000 !important; /* Color negre per al text */
-  background-color: #f0f4f8 !important; /* Blau clar suau de fons */
-  line-height: 1.8 !important; /* Alçada de línia per millor llegibilitat */
-  margin: 0 !important; /* Elimina marges extra */
+    font-family: 'Calibri', sans-serif !important; /* Calibri como fuente principal */
+    font-size: 14px !important; /* Tamaño de letra para el texto principal */
+    color: #000000 !important; /* Color negro para el texto */
+    background-color: #f0f4f8 !important; /* Azul claro suave de fondo */
+    line-height: 1.8 !important; /* Altura de línea para mejor legibilidad */
+    margin: 0 !important; /* Elimina márgenes extra */
 }
 
-/* Estils per al títol nivell 1 amb fons blau i centrat */
-h1 {
-  font-family: 'Calibri', sans-serif !important;
-  color: #1a355c !important; /* Blau fosc menys intens per al títol */
-  background-color: #dbe2ef !important; /* Blau clar per al fons */
-  padding: 10px !important;
-  margin-bottom: 20px !important;
-  font-weight: bold !important;
-  border-radius: 5px !important; /* Cants arrodonits */
-  box-shadow: none !important; /* Elimina les ombres */
-  text-align: center !important; /* Centra el text */
+/* === ENCABEZADO === */
+/* Personalizar el encabezado del sitio */
+.header {
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    color: #1a355c !important; /* Azul oscuro menos intenso */
+    padding: 10px !important;
+    text-align: center !important;
+    border-radius: 5px !important; /* Bordes redondeados */
+    box-shadow: none !important; /* Elimina las sombras */
 }
 
-/* Estils per al títol nivell 2 amb fons blau */
-h2 {
-  font-family: 'Calibri', sans-serif !important;
-  color: #1a355c !important; /* Blau fosc menys intens per als títols */
-  background-color: #dbe2ef !important; /* Blau clar per al fons dels títols */
-  padding: 10px !important;
-  margin-bottom: 20px !important;
-  font-weight: bold !important;
-  border-radius: 5px !important; /* Cants arrodonits als títols */
-  box-shadow: none !important; /* Elimina les ombres */
+.header a {
+    color: #1a355c !important; /* Color de los enlaces en el encabezado */
+    text-decoration: none !important; /* Quitar subrayado */
 }
 
-/* Estils per als títols nivells 3 a 6 sense fons ni ombra */
-h3, h4, h5, h6 {
-  font-family: 'Calibri', sans-serif !important;
-  color: #1a355c !important; /* Blau fosc menys intens per als títols */
-  padding: 10px !important;
-  margin-bottom: 20px !important;
-  font-weight: bold !important;
-  border-radius: 0px !important; /* Sense cants arrodonits */
-  background-color: transparent !important; /* Elimina el fons */
-  box-shadow: none !important; /* Elimina les ombres */
-}
-h1 code, h2 code {
-  background-color: #d0e6f7 !important; /* Color de fons blau suau */
-  color: inherit !important; /* Manté el color de la capçalera */
-  font-family: inherit !important; /* Utilitza la mateixa font que la capçalera, no monoespaiada */
-  font-size: inherit !important; /* Fa que la mida de la font sigui igual que la de la capçalera */
-  font-weight: inherit !important; /* Manté el pes de la lletra igual que la de la capçalera */
-  letter-spacing: inherit !important; /* Manté l'espai entre les lletres igual que la capçalera */
-  padding: 0.1em 0.2em !important; /* Petit espaiat al voltant del text per a llegibilitat */
-  border-radius: 0.2em !important; /* Arrodonim lleugerament els cants */
-  border: none !important; /* Eliminem qualsevol vora */
-  white-space: normal !important; /* Permet trencar línies si és necessari */
+.header a:hover {
+    color: #325eaf !important; /* Azul más intenso en hover */
+    text-decoration: underline !important; /* Subrayado al pasar el mouse */
 }
 
-
-
-
-
-/* Elimina tot el marge esquerre del contingut i ajusta l'amplada */
-.main-content {
-  margin-left: 0 !important; /* Elimina marge esquerre */
-  padding: 20px !important; /* Afegir una mica de padding per a l'espaiat */
-  max-width: 100% !important; /* Assegura que el contingut ocupi tot l'espai disponible */
-  background-color: #f0f4f8 !important; /* Blau clar suau de fons */
-}
-
-/* Estil per a la barra lateral (TOC) */
+/* === MENÚ LATERAL === */
+/* Estilo del menú de navegación */
 .sidebar {
-  background-color: #dbe2ef !important; /* Fons blau clar per al menú lateral */
-  padding: 10px !important;
-  width: 170px !important; /* Amplada de la barra lateral */
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    padding: 10px !important;
+    width: 170px !important; /* Ancho del menú lateral */
 }
 
-/* Estil per als enllaços de la barra lateral */
-.nav-list a {
-  font-family: 'Calibri', sans-serif !important;
-  color: #1a355c !important; /* Blau fosc per als enllaços de la barra lateral */
+/* Estilo de los enlaces del menú lateral */
+.sidebar a {
+    font-family: 'Calibri', sans-serif !important;
+    color: #1a355c !important; /* Azul oscuro */
 }
 
-.nav-list a:hover {
-  color: #325eaf !important; /* Blau fosc més intens en hover */
+.sidebar a:hover {
+    color: #325eaf !important; /* Azul más intenso en hover */
 }
 
-/* Estil per als títols de la barra lateral */
-.navbar-brand {
-  font-size: 16px !important; /* Ajusta la mida del text del títol "Just the Docs Template" */
-  color: #1a355c !important; /* Blau fosc per al text */
+/* Estilo de los títulos de las secciones en el menú lateral */
+.sidebar .nav-header {
+    font-weight: bold !important;
+    font-size: 1.2rem !important; /* Tamaño más grande */
+    color: #1a355c !important; /* Azul oscuro */
 }
 
-/* Estil per a blocs de codi o text preformat */
-pre, code {
-  font-family: 'Consolas', monospace !important; /* Consolas per al codi */
-  font-size: 12px !important; /* Tamany 12px per al codi */
-  font-weight: bold !important; /* Negreta per al codi */
-  background-color: #f5f5f5 !important; /* Fons gris clar */
-  color: #000000 !important; /* Color negre per al text */
-  padding: 15px !important; /* Espai dins dels blocs de codi */
-  line-height: 1.6 !important; /* Alçada de línia per evitar solapaments */
-  border: none !important; /* Elimina les vores */
-  border-radius: 0px !important; /* Elimina els cants arrodonits */
-  margin: 10px 0 !important; /* Afegir espai abans i després del codi */
-  white-space: pre-wrap !important; /* Evitar que el text es talli */
-  overflow-x: auto !important; /* Afegir desplaçament horitzontal si cal */
-  box-shadow: none !important; /* Elimina qualsevol ombra */
+/* === CONTENIDO PRINCIPAL === */
+/* Estilo del contenido principal */
+.main-content {
+    background-color: #f0f4f8 !important; /* Fondo azul claro */
+    border: none !important; /* Sin bordes */
+    padding: 20px !important; /* Espaciado interno */
+    border-radius: 0px !important; /* Sin bordes redondeados */
+    margin-left: 0 !important; /* Sin margen izquierdo */
+    max-width: 100% !important; /* Ocupa todo el espacio disponible */
 }
 
-/* Ajustos visuals per a les etiquetes de codi dins de blocs de text */
-code {
-  background-color: #f5f5f5 !important; /* Fons gris clar */
-  padding: 3px 5px !important; /* Espai dins de les etiquetes de codi */
-  border-radius: 3px !important; /* Cants arrodonits */
-  font-size: 13px !important; /* Mida lleugerament més gran per a millor llegibilitat */
+/* Estilo de los encabezados */
+h1, h2 {
+    font-family: 'Calibri', sans-serif !important;
+    color: #1a355c !important; /* Azul oscuro */
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    padding: 10px !important;
+    font-weight: bold !important;
+    border-radius: 5px !important; /* Bordes redondeados */
+    box-shadow: none !important; /* Sin sombra */
+    text-align: center !important; /* Centrar texto */
+    margin-bottom: 20px !important;
 }
 
-/* Ajustar l'amplada total del contingut perquè sigui més ample */
-@media (min-width: 768px) {
-  .main-content {
-    max-width: 100% !important; /* Ocupa tot l'espai disponible a pantalles grans */
-  }
-  .sidebar {
-    width: 170px !important; /* Amplada mínima de la barra lateral */
-  }
+h3, h4, h5, h6 {
+    font-family: 'Calibri', sans-serif !important;
+    color: #1a355c !important; /* Azul oscuro */
+    background-color: transparent !important; /* Sin fondo */
+    padding: 10px !important;
+    font-weight: bold !important;
+    border-radius: 0px !important; /* Sin bordes redondeados */
+    box-shadow: none !important; /* Sin sombra */
+    margin-bottom: 20px !important;
+}
+
+/* Estilo para código dentro de encabezados */
+h1 code, h2 code {
+    background-color: #d0e6f7 !important; /* Fondo azul claro */
+    color: inherit !important; /* Mantiene el color del encabezado */
+    font-family: inherit !important; /* Fuente igual a la del encabezado */
+    font-size: inherit !important; /* Tamaño igual al encabezado */
+    font-weight: inherit !important; /* Mantiene el peso del encabezado */
+    padding: 0.1em 0.2em !important; /* Espaciado interno */
+    border-radius: 0.2em !important; /* Bordes ligeramente redondeados */
+    border: none !important; /* Sin bordes */
+    white-space: normal !important; /* Permite saltos de línea */
+}
+
+/* === TABLAS === */
+/* Estilo de las tablas */
+table {
+    width: 100% !important; /* Asegura que ocupen todo el ancho */
+    border-collapse: collapse !important; /* Quita espacios entre celdas */
+    margin-bottom: 1.5rem !important; /* Espaciado inferior */
+    font-size: 0.95rem !important;
+}
+
+th, td {
+    border: 1px solid #ddd !important; /* Bordes ligeros */
+    padding: 8px !important; /* Espaciado interno */
+}
+
+th {
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    color: #1a355c !important; /* Texto azul oscuro */
+    text-align: left !important; /* Alinear a la izquierda */
+}
+
+/* === CÓDIGO Y BLOQUES DE CÓDIGO === */
+/* Resaltado de bloques de código */
+.highlight pre, pre, code {
+    font-family: 'Consolas', monospace !important; /* Consolas para código */
+    font-size: 12px !important; /* Tamaño pequeño */
+    font-weight: bold !important; /* Texto en negrita */
+    background-color: #f5f5f5 !important; /* Fondo gris claro */
+    color: #000000 !important; /* Texto negro */
+    padding: 15px !important; /* Espaciado interno */
+    border: none !important; /* Sin bordes */
+    border-radius: 0px !important; /* Sin bordes redondeados */
+    margin: 10px 0 !important; /* Espaciado arriba y abajo */
+    white-space: pre-wrap !important; /* Permite saltos de línea */
+    overflow-x: auto !important; /* Desplazamiento horizontal si necesario */
+}
+
+/* === PIE DE PÁGINA === */
+/* Personalizar el pie de página */
+.footer {
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    color: #1a355c !important; /* Texto azul oscuro */
+    text-align: center !important; /* Centrar texto */
+    padding: 10px 0 !important; /* Espaciado interno */
+    font-size: 0.85rem !important; /* Tamaño reducido */
+}
+
+
+
+
+/* === SECCIÓN DESPLEGABLE (DETAILS Y SUMMARY) === */
+/* Estilo para el contenedor desplegable */
+details {
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    border: 1px solid #1a355c !important; /* Borde azul oscuro */
+    border-radius: 5px !important; /* Bordes redondeados */
+    padding: 10px !important; /* Espaciado interno */
+    margin-bottom: 20px !important; /* Espaciado inferior entre bloques */
+    font-family: 'Calibri', sans-serif !important; /* Fuente principal */
+    color: #1a355c !important; /* Texto azul oscuro */
+    cursor: pointer !important; /* Cambia el cursor a puntero */
+}
+
+/* Estilo para el resumen (título visible) */
+summary {
+    font-weight: bold !important; /* Texto en negrita */
+    font-size: 14px !important; /* Tamaño del texto */
+    color: #1a355c !important; /* Color azul oscuro */
+    text-align: left !important; /* Alineado a la izquierda */
+    margin-bottom: 10px !important; /* Espaciado inferior */
+}
+
+/* Cambiar el símbolo del desplegable */
+summary::before {
+    content: "+ "; /* Símbolo cuando está cerrado */
+    color: #1a355c !important; /* Color azul oscuro */
+    font-weight: bold !important; /* Símbolo en negrita */
+}
+
+details[open] summary::before {
+    content: "- "; /* Símbolo cuando está abierto */
+    color: #1a355c !important; /* Color azul oscuro */
+    font-weight: bold !important; /* Símbolo en negrita */
+}
+
+/* Estilo para el contenido dentro del desplegable */
+details > *:not(summary) {
+    margin-top: 10px !important; /* Espaciado superior del contenido */
+    padding-left: 10px !important; /* Indentación ligera del contenido */
+    border-left: 2px solid #1a355c !important; /* Línea decorativa izquierda */
+}
+
+/* Ajuste para bloques de código dentro de <details> */
+details code, details pre {
+    background-color: #f5f5f5 !important; /* Fondo gris claro */
+    padding: 10px !important; /* Espaciado interno */
+    border-radius: 3px !important; /* Bordes ligeramente redondeados */
+    font-family: 'Consolas', monospace !important; /* Consolas para código */
+    font-size: 12px !important; /* Tamaño pequeño */
+    color: #000000 !important; /* Texto negro */
+    margin-top: 5px !important; /* Espaciado superior */
+    border: none !important; /* Sin bordes */
+    box-shadow: none !important; /* Sin sombra */
+    overflow-x: auto !important; /* Scroll horizontal si es necesario */
 }
