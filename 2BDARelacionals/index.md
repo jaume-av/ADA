@@ -8,7 +8,7 @@ has_toc: true
 ---
 
 
-# Presistència de BDA Relacionals
+# Persistència de BDA Relacionals
 {: .text-center }
 ![alt text](imatges/1db.jpg)
 

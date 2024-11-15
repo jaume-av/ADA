@@ -1,5 +1,5 @@
 ---
-title: 2.1.- Connectors a Base de Dades Relacionals. JDBC
+title: 2.2.- Connectors a Base de Dades Relacionals. JDBC
 parent: Base de Dades Relacionals
 
 has_children: true
