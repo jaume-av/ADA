@@ -4,7 +4,7 @@ parent: Base de Dades Relacionals
 
 has_children: true
 layout: default
-nav_order: 10
+nav_order: 20
 ---
 
 
@@ -66,6 +66,7 @@ Així, el connector no és només una API, sinó una **arquitectura** que especi
 ---
 
 #### Arquitectures de connectors:
+
 - **ODBC (Open Database Connectivity)**: Defineix una API per obrir connexions amb bases de dades, enviar consultes, actualitzacions, etc. Es pot utilitzar amb qualsevol servidor de bases de dades compatible. Està escrit en llenguatge C.
 - **JDBC (Java Database Connectivity)**: És l'API per excel·lència per connectar bases de dades amb aplicacions Java. Ens centrarem en aquesta API en aquesta unitat.
 - **OLE-DB**: Orientat a aplicacions Windows.
@@ -93,6 +94,7 @@ JDBC és una API que permet accedir a fonts de dades relacionals SQL des d'aplic
 
 
 ### Tasques principals amb JDBC:
+
 JDBC inclou un conjunt d'interfícies i classes que permeten desenvolupar aplicacions en Java per:
 
 1. **Connectar-se** a una base de dades.
@@ -131,6 +133,7 @@ L’API JDBC és compatible amb dos models d'accés: **model de dues capes** i *
 
 
 ### Tipus de drivers JDBC:
+
 - **JDBC-ODBC Bridge**: Permet accedir a bases de dades JDBC mitjançant ODBC.
 - **Native**: Drivers escrits parcialment en Java i codi natiu específic del SGBD.
 - **Network**: Drivers 100% Java que utilitzen protocols de xarxa per comunicar-se amb el servidor de bases de dades.
@@ -139,6 +142,7 @@ L’API JDBC és compatible amb dos models d'accés: **model de dues capes** i *
 
 
 ### Funcionament de JDBC
+
 JDBC defineix un conjunt de classes i interfícies al paquet `java.sql`. Les més importants són:
 
 
@@ -158,6 +162,7 @@ JDBC defineix un conjunt de classes i interfícies al paquet `java.sql`. Les mé
 ---
 
 ### Passos per a utilitzar JDBC en una aplicació Java
+
 Per connectar una aplicació Java a una base de dades amb JDBC, seguirem els següents passos:
 
 1. Importar les classes necessàries:
@@ -175,6 +180,7 @@ Per connectar una aplicació Java a una base de dades amb JDBC, seguirem els seg
 Resumint, per connectar una base de dates a una aplicació java amb JDBC seguirem 4 passos:
 
 ```
+
 1. Carregar el driver.
 2. Establir la connexió.
 3. Executar sentencies SQL.
@@ -183,12 +189,13 @@ Resumint, per connectar una base de dates a una aplicació java amb JDBC seguire
 
 
 
-### Apunts Millorats
 
-#### Resum: Passos per Connectar una Base de Dades a una Aplicació Java amb JDBC
+
+### Resum: Passos per Connectar una Base de Dades a una Aplicació Java amb JDBC
 
 Per connectar una base de dades a una aplicació Java amb JDBC seguirem aquests quatre passos fonamentals:
 
+---
 1. **Carregar el driver.**
 2. **Establir la connexió.**
 3. **Executar sentències SQL.**
@@ -196,7 +203,7 @@ Per connectar una base de dades a una aplicació Java amb JDBC seguirem aquests 
 
 ---
 
-####Exemple de Connexió i Consulta a Bases de Dades
+## Exemple de Connexió i Consulta a Bases de Dades
 
 A continuació es mostra un exemple pràctic de com realitzar una connexió a una base de dades MySQL, executar una consulta i processar els resultats.
 
@@ -211,6 +218,7 @@ El primer pas és carregar el driver utilitzant el mètode **`forName`** de la c
 
 **Exemple:**
 ```java
+
 Class.forName("com.mysql.cj.jdbc.Driver");
 ```
 
@@ -245,6 +253,7 @@ Per realitzar una consulta SQL, fem servir la **interfície `Statement`**. Els p
 
 **Exemple:**
 ```java
+
 Statement stmt = conn.createStatement();
 String sql = "SELECT * FROM taula";
 ResultSet rs = stmt.executeQuery(sql);
@@ -271,7 +280,9 @@ ResultSet rs = stmt.executeQuery("SELECT * FROM taula");
   - 
 
 #### Exemple d'ús de `ResultSet`:
+
 ```java
+
 while (rs.next()) {
     String valor1 = rs.getString("columna1");
     double valor2 = rs.getDouble("columna2");
@@ -286,7 +297,9 @@ while (rs.next()) {
 És important alliberar els recursos utilitzats per evitar fuites de memòria o bloquejos de connexió. Això inclou tancar el `ResultSet`, el `Statement` i la `Connection`.
 
 **Exemple:**
+
 ```java
+
 rs.close();
 stmt.close();
 conn.close();
@@ -414,6 +427,7 @@ pstmt.setNull(1, java.sql.Types.VARCHAR);
 ### Exemple amb `PreparedStatement`
 
 ```java
+
 PreparedStatement pstmt = conn.prepareStatement(
     "SELECT LastName, FirstName FROM Person.Contact WHERE LastName = ?");
 pstmt.setString(1, "Smith");
@@ -450,6 +464,7 @@ El `ResultSet` utilitza un punter que inicialment es troba abans de la primera f
 
 **Exemple:**
 ```java
+
 while (rs.next()) {
     System.out.println("Cognom: " + rs.getString("LastName"));
     System.out.println("Nom: " + rs.getString("FirstName"));
@@ -463,16 +478,12 @@ while (rs.next()) {
 
 
 
-
-
-
-### Apunts Millorats amb les Millores Aplicades
-
-#### 5. Execució de Sentències DDL
+### 5. Execució de Sentències DDL
 
 Encara que la majoria d'operacions que es realitzen des d'una aplicació client contra una base de dades són de **manipulació de dades (DML)**, hi ha situacions en què cal dur a terme operacions de **definició de dades (DDL)**. Aquestes operacions permeten modificar l'estructura de la base de dades.
 
-##### Casos comuns:
+#### Casos comuns:
+
 - Quan instal·lem una aplicació en un nou equip i cal crear una base de dades local de manera automatitzada per al seu funcionament.
 - Quan una actualització de programari requereix canvis en l'estructura de la base de dades.
 - Quan desconeixem l'estructura d'una base de dades i necessitem realitzar consultes dinàmiques.
@@ -481,12 +492,13 @@ Aquest apartat estudia els mecanismes per abordar aquestes situacions.
 
 ---
 
-#### Definició i Modificació d’Estructures
+### Definició i Modificació d’Estructures
 
 Les sentències **DDL (Data Definition Language)** són instruccions SQL que defineixen o modifiquen l'estructura d'una base de dades. Les podem executar amb les interfícies `Statement` o `PreparedStatement`, com hem vist amb DML.
 
-##### Exemple d'instrucció SQL DDL:
+#### Exemple d'instrucció SQL DDL:
 ```sql
+
 CREATE TABLE IF NOT EXISTS usuaris (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
@@ -497,18 +509,22 @@ CREATE TABLE IF NOT EXISTS usuaris (
 ---
 
 ##### **Ús del modificador `IF NOT EXISTS`**
+
 Aquest modificador assegura que l'operació només es realitzarà si l'element (taula, vista, etc.) no existeix.
 
 **Aplicacions habituals:**
+
 - Crear bases de dades i les seves estructures (taules, restriccions, vistes, índexs...).
 - En aplicacions locals o mòbils, on és freqüent que cada instal·lació requereixi una base de dades independent.
 
 ---
 
 ##### **Exemple en Java: Crear una Taula**
+
 Amb `Statement`, podem crear una taula de manera programàtica:
 
 ```java
+
 Statement stmt = conn.createStatement();
 String sql = "CREATE TABLE IF NOT EXISTS usuaris (" +
              "id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -543,6 +559,7 @@ Quan desconeixem l'estructura d'una base de dades, podem obtenir informació mit
 Podem utilitzar el mètode `getTables()` per obtenir una llista de les taules existents:
 
 ```java
+
 DatabaseMetaData metaData = conn.getMetaData();
 ResultSet rs = metaData.getTables(null, null, "%", new String[]{"TABLE"});
 
@@ -569,6 +586,7 @@ while (rs.next()) {
 **Consulta de columnes d'una taula:**
 
 ```java
+
 ResultSet rs = metaData.getColumns(null, null, "usuaris", null);
 
 while (rs.next()) {
