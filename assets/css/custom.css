@@ -76,14 +76,15 @@ h1 code, h2 code {
   width: 170px !important; /* Amplada de la barra lateral */
 }
 
+
 /* Estil per als enllaços de la barra lateral */
 .nav-list a {
   font-family: 'Calibri', sans-serif !important;
-  color: #31f300 !important; /* Blau fosc per als enllaços de la barra lateral */
+  color: #264d85 !important; /* Blau fosc per als enllaços de la barra lateral */
 }
 
 .nav-list a:hover {
-  color: #e010e0 !important; /* Blau fosc més intens en hover */
+  color: #1f79ee !important; /* Blau fosc més intens en hover */
 }
 
 /* Estil per als títols de la barra lateral */
