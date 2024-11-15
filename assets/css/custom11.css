@@ -1,0 +1,213 @@
+/* Archivo: custom.css */
+
+/* === GENERAL === */
+/* Cambiar el fondo de toda la página */
+body {
+    font-family: 'Calibri', sans-serif !important; /* Calibri como fuente principal */
+    font-size: 14px !important; /* Tamaño de letra para el texto principal */
+    color: #000000 !important; /* Color negro para el texto */
+    background-color: #f0f4f8 !important; /* Azul claro suave de fondo */
+    line-height: 1.8 !important; /* Altura de línea para mejor legibilidad */
+    margin: 0 !important; /* Elimina márgenes extra */
+}
+
+/* === ENCABEZADO === */
+/* Personalizar el encabezado del sitio */
+.header {
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    color: #1a355c !important; /* Azul oscuro menos intenso */
+    padding: 10px !important;
+    text-align: center !important;
+    border-radius: 5px !important; /* Bordes redondeados */
+    box-shadow: none !important; /* Elimina las sombras */
+}
+
+.header a {
+    color: #1a355c !important; /* Color de los enlaces en el encabezado */
+    text-decoration: none !important; /* Quitar subrayado */
+}
+
+.header a:hover {
+    color: #325eaf !important; /* Azul más intenso en hover */
+    text-decoration: underline !important; /* Subrayado al pasar el mouse */
+}
+
+/* === MENÚ LATERAL === */
+/* Estilo del menú de navegación */
+.sidebar {
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    padding: 10px !important;
+    width: 170px !important; /* Ancho del menú lateral */
+}
+
+/* Estilo de los enlaces del menú lateral */
+.sidebar a {
+    font-family: 'Calibri', sans-serif !important;
+    color: #1a355c !important; /* Azul oscuro */
+}
+
+.sidebar a:hover {
+    color: #325eaf !important; /* Azul más intenso en hover */
+}
+
+/* Estilo de los títulos de las secciones en el menú lateral */
+.sidebar .nav-header {
+    font-weight: bold !important;
+    font-size: 1.2rem !important; /* Tamaño más grande */
+    color: #1a355c !important; /* Azul oscuro */
+}
+
+/* === CONTENIDO PRINCIPAL === */
+/* Estilo del contenido principal */
+.main-content {
+    background-color: #f0f4f8 !important; /* Fondo azul claro */
+    border: none !important; /* Sin bordes */
+    padding: 20px !important; /* Espaciado interno */
+    border-radius: 0px !important; /* Sin bordes redondeados */
+    margin-left: 0 !important; /* Sin margen izquierdo */
+    max-width: 100% !important; /* Ocupa todo el espacio disponible */
+}
+
+/* Estilo de los encabezados */
+h1, h2 {
+    font-family: 'Calibri', sans-serif !important;
+    color: #1a355c !important; /* Azul oscuro */
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    padding: 10px !important;
+    font-weight: bold !important;
+    border-radius: 5px !important; /* Bordes redondeados */
+    box-shadow: none !important; /* Sin sombra */
+    text-align: center !important; /* Centrar texto */
+    margin-bottom: 20px !important;
+}
+
+h3, h4, h5, h6 {
+    font-family: 'Calibri', sans-serif !important;
+    color: #1a355c !important; /* Azul oscuro */
+    background-color: transparent !important; /* Sin fondo */
+    padding: 10px !important;
+    font-weight: bold !important;
+    border-radius: 0px !important; /* Sin bordes redondeados */
+    box-shadow: none !important; /* Sin sombra */
+    margin-bottom: 20px !important;
+}
+
+/* Estilo para código dentro de encabezados */
+h1 code, h2 code {
+    background-color: #d0e6f7 !important; /* Fondo azul claro */
+    color: inherit !important; /* Mantiene el color del encabezado */
+    font-family: inherit !important; /* Fuente igual a la del encabezado */
+    font-size: inherit !important; /* Tamaño igual al encabezado */
+    font-weight: inherit !important; /* Mantiene el peso del encabezado */
+    padding: 0.1em 0.2em !important; /* Espaciado interno */
+    border-radius: 0.2em !important; /* Bordes ligeramente redondeados */
+    border: none !important; /* Sin bordes */
+    white-space: normal !important; /* Permite saltos de línea */
+}
+
+/* === TABLAS === */
+/* Estilo de las tablas */
+table {
+    width: 100% !important; /* Asegura que ocupen todo el ancho */
+    border-collapse: collapse !important; /* Quita espacios entre celdas */
+    margin-bottom: 1.5rem !important; /* Espaciado inferior */
+    font-size: 0.95rem !important;
+}
+
+th, td {
+    border: 1px solid #ddd !important; /* Bordes ligeros */
+    padding: 8px !important; /* Espaciado interno */
+}
+
+th {
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    color: #1a355c !important; /* Texto azul oscuro */
+    text-align: left !important; /* Alinear a la izquierda */
+}
+
+/* === CÓDIGO Y BLOQUES DE CÓDIGO === */
+/* Resaltado de bloques de código */
+.highlight pre, pre, code {
+    font-family: 'Consolas', monospace !important; /* Consolas para código */
+    font-size: 12px !important; /* Tamaño pequeño */
+    font-weight: bold !important; /* Texto en negrita */
+    background-color: #f5f5f5 !important; /* Fondo gris claro */
+    color: #000000 !important; /* Texto negro */
+    padding: 15px !important; /* Espaciado interno */
+    border: none !important; /* Sin bordes */
+    border-radius: 0px !important; /* Sin bordes redondeados */
+    margin: 10px 0 !important; /* Espaciado arriba y abajo */
+    white-space: pre-wrap !important; /* Permite saltos de línea */
+    overflow-x: auto !important; /* Desplazamiento horizontal si necesario */
+}
+
+/* === PIE DE PÁGINA === */
+/* Personalizar el pie de página */
+.footer {
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    color: #1a355c !important; /* Texto azul oscuro */
+    text-align: center !important; /* Centrar texto */
+    padding: 10px 0 !important; /* Espaciado interno */
+    font-size: 0.85rem !important; /* Tamaño reducido */
+}
+
+
+
+
+/* === SECCIÓN DESPLEGABLE (DETAILS Y SUMMARY) === */
+/* Estilo para el contenedor desplegable */
+details {
+    background-color: #dbe2ef !important; /* Fondo azul claro */
+    border: 1px solid #1a355c !important; /* Borde azul oscuro */
+    border-radius: 5px !important; /* Bordes redondeados */
+    padding: 10px !important; /* Espaciado interno */
+    margin-bottom: 20px !important; /* Espaciado inferior entre bloques */
+    font-family: 'Calibri', sans-serif !important; /* Fuente principal */
+    color: #1a355c !important; /* Texto azul oscuro */
+    cursor: pointer !important; /* Cambia el cursor a puntero */
+}
+
+/* Estilo para el resumen (título visible) */
+summary {
+    font-weight: bold !important; /* Texto en negrita */
+    font-size: 14px !important; /* Tamaño del texto */
+    color: #1a355c !important; /* Color azul oscuro */
+    text-align: left !important; /* Alineado a la izquierda */
+    margin-bottom: 10px !important; /* Espaciado inferior */
+}
+
+/* Cambiar el símbolo del desplegable */
+summary::before {
+    content: "+ "; /* Símbolo cuando está cerrado */
+    color: #1a355c !important; /* Color azul oscuro */
+    font-weight: bold !important; /* Símbolo en negrita */
+}
+
+details[open] summary::before {
+    content: "- "; /* Símbolo cuando está abierto */
+    color: #1a355c !important; /* Color azul oscuro */
+    font-weight: bold !important; /* Símbolo en negrita */
+}
+
+/* Estilo para el contenido dentro del desplegable */
+details > *:not(summary) {
+    margin-top: 10px !important; /* Espaciado superior del contenido */
+    padding-left: 10px !important; /* Indentación ligera del contenido */
+    border-left: 2px solid #1a355c !important; /* Línea decorativa izquierda */
+}
+
+/* Ajuste para bloques de código dentro de <details> */
+details code, details pre {
+    background-color: #f5f5f5 !important; /* Fondo gris claro */
+    padding: 10px !important; /* Espaciado interno */
+    border-radius: 3px !important; /* Bordes ligeramente redondeados */
+    font-family: 'Consolas', monospace !important; /* Consolas para código */
+    font-size: 12px !important; /* Tamaño pequeño */
+    color: #000000 !important; /* Texto negro */
+    margin-top: 5px !important; /* Espaciado superior */
+    border: none !important; /* Sin bordes */
+    box-shadow: none !important; /* Sin sombra */
+    overflow-x: auto !important; /* Scroll horizontal si es necesario */
+}
+
+
