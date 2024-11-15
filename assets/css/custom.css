@@ -87,7 +87,7 @@ h1 code, h2 code {
 }
 
 /* Estil per als títols de la barra lateral */
-.navbar-brand {
+.navbar .navbar-brand {
   font-size: 16px !important; /* Ajusta la mida del text del títol "Just the Docs Template" */
   color: #ff0707 !important; /* Blau fosc per al text */
 }
