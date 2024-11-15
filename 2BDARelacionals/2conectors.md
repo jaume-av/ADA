@@ -179,21 +179,6 @@ Per connectar una aplicació Java a una base de dades amb JDBC, seguirem els seg
 
 Resumint, per connectar una base de dates a una aplicació java amb JDBC seguirem 4 passos:
 
-```
-
-1. Carregar el driver.
-2. Establir la connexió.
-3. Executar sentencies SQL.
-4. Alliberar recursos.
-``` 
-
-
-
-
-
-### Resum: Passos per Connectar una Base de Dades a una Aplicació Java amb JDBC
-
-Per connectar una base de dades a una aplicació Java amb JDBC seguirem aquests quatre passos fonamentals:
 
 ---
 1. **Carregar el driver.**
@@ -202,13 +187,6 @@ Per connectar una base de dades a una aplicació Java amb JDBC seguirem aquests 
 4. **Alliberar recursos.**
 
 ---
-
-## Exemple de Connexió i Consulta a Bases de Dades
-
-A continuació es mostra un exemple pràctic de com realitzar una connexió a una base de dades MySQL, executar una consulta i processar els resultats.
-
-{: .text-center}
-![alt text](imatges/connectors7.png)
 
 ---
 
@@ -223,6 +201,12 @@ Class.forName("com.mysql.cj.jdbc.Driver");
 ```
 
 Aquest mètode assegura que el driver es carregue a memòria, permetent establir connexions a la base de dades.
+
+
+En este exemple connectem a una base de dades relacional **mySql**, en cas de utilitzar un altre Sistema de Gestió de Base de Dades, caldria carregar els drivers corresponents.
+
+---
+**Nota:** Si carreguem les dependències amb maven o gradle, no cladrà posar esta línia.
 
 ---
 
@@ -307,7 +291,7 @@ conn.close();
 
 ---
 
-### IMPORTANT
+## IMPORTANT
 1. **Imports necessaris:**
    Tots els imports per manejar bases de dades estan inclosos en el paquet `java.sql`.
 
@@ -318,7 +302,7 @@ conn.close();
 2. **Gestió d'Excepcions:**
    La majoria dels mètodes relatius a bases de dades poden llançar l'excepció `SQLException`. Per tant, és essencial utilitzar blocs `try/catch` per capturar i gestionar aquestes excepcions.
 
-   **Exemple1:**
+   **Exemple:**
    ```java
    try {
        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nombredb", "usuari", "contrasenya");
@@ -337,13 +321,124 @@ conn.close();
    }
    ```
 
-**Exemple2:**
+
+## Exemple de Connexió i Consulta a Bases de Dades en Java
+
+A continuació es mostra un exemple complet a partir de l'estructura d'uda BDA Relacional, de com realitzar una connexió a una base de dades **MySQL**, executar una consulta i processar els resultats.
+
+Usem JDBC (Java Database Connectivity), recorda que JDBC és una API de Java que permet connectar aplicacions Java a bases de dades relacionals, enviar consultes SQL i processar els resultats.
+
+En aquest exemple, treballarem amb una base de dades anomenada **Empresa** i una taula anomenada **Empleats**. L'estructura de la taula és la següent:
+
+### Detalls de la Base de Dades i Taula
+---
+
+- **DBName**: Empresa
+- **TableName**: Empleats
+- **Camps**:
+  - `NIF` - `Varchar(9)` (Clau primària)
+  - `Nom` - `Varchar(100)`
+  - `Cognoms` - `Varchar(100)`
+  - `Salari` - `Float (6,2)`
 
 ---
-{: .text-center}
-![alt text](imatges/connectors8Exemple.png)
 
----
+### Exemple de Connexió JDBC
+
+A continuació, es presenta un codi en Java que es connecta a la base de dades "Empresa", realitza una consulta sobre la taula "Empleats" i mostra els resultats.
+
+#### Codi Java
+
+```java
+public static void main(String[] args) {
+    // Carregar el Driver
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+
+        // Establim la connexió amb la BBDD
+        Connection connexio= DriverManager.getConnection("jdbc:mysql://localhost/empresa", "root", "");
+
+        // Preparem la consulta
+        Statement sentència= connexio.createStatement();
+        String sql= "Select * from empleados";
+        ResultSet resultat= sentència.executeQuery(sql);
+
+        // Recorrem el resultSet obtenint el seu contingut
+        while(resultat.next()) {
+            String nif= resultat.getString("nif");
+            String nom= resultat.getString("nombre");
+            String cognoms= resultat.getString("Apellidos");
+            Double salari= resultat.getDouble("salario");
+            System.out.println(nif+ " " + nom + " " +cognoms+ " " +salari);
+        }
+        
+        // Alliberem els recursos
+        resultat.close();
+        sentència.close();
+        connexio.close();
+
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+```
+
+### Explicació del Codi
+
+1. **Càrrega del Driver**:  
+   ```java
+
+   Class.forName("com.mysql.jdbc.Driver");
+   ```
+   Aquest codi carrega el controlador JDBC de MySQL per establir la connexió. És important assegurar-se de tindre el controlador JDBC en el classpath del projecte.
+
+2. **Establiment de la Connexió**:  
+   ```java
+
+   Connection connexio= DriverManager.getConnection("jdbc:mysql://localhost/empresa", "root", "");
+   ```
+   S'utilitza `DriverManager.getConnection` per establir la connexió amb la base de dades. En aquest cas, la URL de connexió és "jdbc:mysql://localhost/empresa" i es connecta amb l'usuari "root" sense contrasenya.
+
+3. **Preparació i Execució de la Consulta**:  
+   ```java
+
+   Statement sentència= connexio.createStatement();
+   String sql= "Select * from empleados";
+   ResultSet resultat= sentència.executeQuery(sql);
+   ```
+   Creem un objecte `Statement` per enviar la consulta SQL a la base de dades i després executem la consulta amb `executeQuery`, que retorna un `ResultSet` amb els resultats.
+
+4. **Recorregut del ResultSet**:  
+   ```java
+
+   while(resultat.next()) {
+       String nif= resultat.getString("nif");
+       String nom= resultat.getString("nombre");
+       String cognoms= resultat.getString("Apellidos");
+       Double salari= resultat.getDouble("salario");
+       System.out.println(nif+ " " + nom + " " +cognoms+ " " +salari);
+   }
+   ```
+   S'utilitza un bucle `while` per recórrer cada fila del `ResultSet`. `getString()` i `getDouble()` recuperen els valors de les columnes "nif", "nombre", "Apellidos" i "salario".
+
+5. **Alliberament de Recursos**:  
+   ```java
+
+   resultat.close();
+   sentència.close();
+   connexio.close();
+   ```
+   **És important tancar el `ResultSet`, el `Statement` i la `Connection` per alliberar recursos i evitar fugues de memòria.**
+
+6. **Gestió d'Excepcions**:  
+
+   El codi gestiona dues excepcions possibles:
+   - `ClassNotFoundException` per capturar errors de càrrega del controlador.
+   - `SQLException` per capturar errors de connexió, consulta o manipulació de la base de dades.
+
+
 
 ## 4. Execució de Sentències DML
 
@@ -363,7 +458,9 @@ Per executar aquestes sentències SQL en Java, hem d'utilitzar objectes de tipus
 
 ## La Interfície Statement
 
-La interfície **Statement** permet crear objectes `Statement` per executar sentències SQL. Com és una interfície, no es pot instanciar directament. En canvi, s'ha d'obtenir mitjançant el mètode `createStatement()` de la classe `Connection` (com s'ha vist en exemples anteriors).
+La interfície **Statement** permet crear objectes `Statement` per executar sentències SQL. 
+    
+Com és una interfície, no es pot instanciar directament. En canvi, s'ha d'obtenir mitjançant el mètode `createStatement()` de la classe `Connection` (com s'ha vist en exemples anteriors).
 
 ### Mètodes de `Statement`
 
@@ -393,11 +490,20 @@ El **`PreparedStatement`** és una versió més avançada i flexible de `Stateme
 
 Els **placeholders** (o marcadors de posició) dins de les consultes SQL es representen amb signes d'interrogació (`?`). Cada placeholder té un índex que comença des de **1** i s'ha d'assignar un valor abans d'executar la consulta.
 
+```java
+
+
+String insert="insert into empleats values(?,?,?,?)";
+
+```
+
 ### Avantatges de `PreparedStatement`:
 - Les consultes es **precompilen** una vegada i es poden executar múltiples vegades amb valors d'entrada diferents, millorant el rendiment.
 - Major seguretat, ja que ajuda a prevenir atacs **SQL Injection**.
 
 ---
+
+
 
 ### Mètodes de `PreparedStatement`
 
@@ -407,7 +513,7 @@ Els **placeholders** (o marcadors de posició) dins de les consultes SQL es repr
 | **`int executeUpdate()`** | Similar al mètode `executeUpdate` de la interfície `Statement`.                              |
 | **`boolean execute()`**  | Similar al mètode `execute` de la interfície `Statement`.                                     |
 
-##### Assignació de Valors als Placeholders
+### Assignació de Valors als Placeholders
 
 | Mètode                         | Tipus SQL    |
 |--------------------------------|--------------|
@@ -419,6 +525,7 @@ Els **placeholders** (o marcadors de posició) dins de les consultes SQL es repr
 
 Per assignar un **valor NULL**:
 ```java
+
 pstmt.setNull(1, java.sql.Types.VARCHAR);
 ```
 
@@ -441,7 +548,7 @@ while (rs.next()) {
 
 ---
 
-#### La Classe ResultSet
+### La Classe ResultSet
 
 El **`ResultSet`** és una estructura que conté els resultats d'una consulta SQL. Permet accedir a cada fila retornada i obtenir-ne els valors mitjançant el nom o l'índex de les columnes.
 
