@@ -79,17 +79,17 @@ h1 code, h2 code {
 /* Estil per als enllaços de la barra lateral */
 .nav-list a {
   font-family: 'Calibri', sans-serif !important;
-  color: #1a355c !important; /* Blau fosc per als enllaços de la barra lateral */
+  color: #31f300 !important; /* Blau fosc per als enllaços de la barra lateral */
 }
 
 .nav-list a:hover {
-  color: #325eaf !important; /* Blau fosc més intens en hover */
+  color: #e010e0 !important; /* Blau fosc més intens en hover */
 }
 
 /* Estil per als títols de la barra lateral */
 .navbar-brand {
   font-size: 16px !important; /* Ajusta la mida del text del títol "Just the Docs Template" */
-  color: #1a355c !important; /* Blau fosc per al text */
+  color: #ff0707 !important; /* Blau fosc per al text */
 }
 
 /* Estil per a blocs de codi o text preformat */
