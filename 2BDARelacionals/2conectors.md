@@ -1,3 +1,11 @@
+---
+title: 2.1.- Connectors a Base de Dades Relacionals. JDBC
+parent: ase de Dades Relacionals
+grand_parent: Persistència de Fitxers
+has_children: true
+layout: default
+nav_order: 10
+---
 
 
 # Maneig de Connectors
