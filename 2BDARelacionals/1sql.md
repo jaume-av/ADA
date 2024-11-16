@@ -211,4 +211,7 @@ Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodo
 
 ---
 
-[Resum sintaxi SQL](2BDARelacionals/Repas SQL.pdf)
+[Resum SQL](2BDARelacionals/ResumSQL.pdf)
+
+[SQL amb exercicis](2BDARelacionals/SQLambExercicis.pdf)
+
