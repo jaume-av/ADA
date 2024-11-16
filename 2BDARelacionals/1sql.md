@@ -210,8 +210,11 @@ Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodo
 3. **Manipulació i Consulta amb SQL**: Es fan servir ordres com `INSERT`, `SELECT`, `UPDATE` per gestionar les dades.
 
 ---
+## **Recursos Addicionals**
 
-[Resum SQL](2BDARelacionals/ResumSQL.pdf)
+[Resum SQL](/2BDARelacionals/resumSQL.pdf)
 
-[SQL amb exercicis](2BDARelacionals/SQLambExercicis.pdf)
+[SQL amb exercicis](/2BDARelacionals/SQLambExercicis.pdf)
+
+
 
