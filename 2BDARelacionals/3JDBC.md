@@ -1,10 +1,10 @@
 ---
-title: 2.2.- Connectors a Base de Dades Relacionals. JDBC
-parent: Base de Dades Relacionals
+title: 3. JDBC - Connectors a Base de Dades Relacionals. 
+parent: Persistència en Base de Dades
 
 has_children: true
 layout: default
-nav_order: 20
+nav_order: 30
 ---
 
 
@@ -703,3 +703,9 @@ while (rs.next()) {
 ```
 
 ---
+
+
+
+asdasdasdasd
+
+**ssdsds**

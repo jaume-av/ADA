@@ -1,264 +1,214 @@
+---
+title: 1. introducció a les Bases de Dades. 
+parent: Persistència en Base de Dades
+
+has_children: true
+layout: default
+nav_order: 10
+---
 
 
-# **Resum SQL**
 
-SQL, o Structured Query Language (llenguatge de consulta estructurada), és un llenguatge per comunicar-se amb bases de dades. S'utilitza per seleccionar dades específiques i crear informes complexos.     
 
-SQL és un llenguatge de dades universal i s'utilitza en pràcticament totes les tecnologies que processen dades.
-
-### **Exemple de Dades**
-
-**PAÍS**
-
-| id | nom      | població | superfície |
-|----|----------|----------|------------|
-| 1  | França   | 66600000 | 640680     |
-| 2  | Alemanya | 80700000 | 357000     |
-
-...
-
-**CIUTAT**
-
-| id | nom   | id_pais | població | classificació |
-|----|-------|---------|----------|---------------|
-| 1  | París | 1       | 2243000  | 5             |
-| 2  | Berlín| 2       | 3460000  | 3             |
-
-...
+# **Introducció a les Bases de Dades**
 
 ---
 
-## **Consultar una sola taula**
+Les **bases de dades** són sistemes que permeten **emmagatzemar, gestionar i recuperar dades** de **manera organitzada** i eficient. Són una peça fonamental en el desenvolupament de programari, ja que permeten treballar amb grans volums d'informació de manera estructurada, segura i accessible.
 
-- **Recuperar totes les columnes de la taula `pais`:**
-    ```sql
-    SELECT *
-    FROM pais;
-    ```
+---
+Una base de dades és una **col·lecció d'informació organitzada** de manera que **pot ser fàcilment accedida, gestionada i actualitzada**. Pot contenir dades de molts tipus, com ara números, textos, imatges o qualsevol altra informació que necessite ser emmagatzemada.
 
-- **Recuperar les columnes `id` i `nom` de la taula `ciutat`:**
-    ```sql
-    SELECT id, nom
-    FROM ciutat;
-    ```
-
-- **Recuperar els noms de les ciutats ordenats per la columna `classificacio` en ordre ascendent (ASC):**
-    ```sql
-    SELECT nom
-    FROM ciutat
-    ORDER BY classificacio ASC;
-    ```
-
-- **Recuperar els noms de les ciutats ordenats per la columna `classificacio` en ordre descendent (DESC):**
-    ```sql
-    SELECT nom
-    FROM ciutat
-    ORDER BY classificacio DESC;
-    ```
+- **Exemple bàsic**: Un registre d'una escola podria contindre dades d'estudiants (noms, edats, qualificacions).
+- **Objectiu**: Facilitar l'accés i la manipulació de dades de manera eficient i coherent.
 
 ---
 
-## **Àlies**
+## **2. Tipus de Bases de Dades**
 
-- **Columnes**
-    ```sql
-    SELECT nom AS nom_ciutat
-    FROM ciutat;
-    ```
+### **2.1. Bases de Dades Relacionals**
+- Emmagatzemen dades en taules formades per files i columnes (estructures tabulars). Les dades es poden relacionar entre si mitjançant claus primàries i estrangeres.  
+- **Per exemple**: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server.  
+ -**S'utilitza** en aplicacions empresarials, comerç electrònic o gestió d'usuaris.  
+-**Característiques**: Utilitzen SQL (Structured Query Language) per accedir i gestionar dades.
 
-- **Taules**
-    ```sql
-    SELECT pa.nom, ci.nom
-    FROM ciutat AS ci
-    JOIN pais AS pa
-    ON ci.id_pais = pa.id;
-    ```
+#### **2.2. Bases de Dades NoSQL**
+- Dissenyades per gestionar dades no estructurades o semi-estructurades. Són més flexibles que les relacionals.  
 
----
+**Tipus principals:** 
+- **Documents**: Emmagatzemen dades en formats com **JSON** o **BSON**. Per exemple: **MongoDB**.  
+- **Clau-valor**: Cada dada es guarda com una **parella clau-valo**r. Per exemple: **Redis**.  
+- **Columnes àmplies**: Optimitzades per a **grans volums de dades** distribuïdes. Per exemple: **Cassandra**.  
+- **Gràfics**: Emmagatzemen relacions complexes entre dades. Per exemple: **Neo4j**.  
+**S'utilitza** en aplicacions en temps real, sistemes de recomanació, **Big Data**.
 
-## **Filtrar Resultats**
+#### **2.3. Bases de Dades Jeràrquiques**
+- Organitzen les dades en una estructura d'arbre, amb nodes i relacions de pare-fill.  
+- **Per exemple**: IBM Information Management System (**IMS**).  
+- **S'utilitza** en **sistemes antics o legacy**, com aplicacions financeres o logístiques.
 
-### **Operadors de Comparació**
+#### **2.4. Bases de Dades en Xarxa**
+- Són una evolució de les jeràrquiques, on un node pot tindre múltiples relacions amb altres nodes.  
+- **Per exemple**: Base de dades IDMS.  
+- **Utilizades** en sistemes de gestió d'inventaris o cadenes de subministrament.
 
-- **Recuperar els noms de les ciutats la classificació de les quals siga superior a 3:**
-    ```sql
-    SELECT nom
-    FROM ciutat
-    WHERE classificacio > 3;
-    ```
+#### **2.5. Bases de Dades Orientades a Objectes**
+- Integren els principis de la programació orientada a objectes (POO) amb les bases de dades. Les dades es guarden com a objectes.  
+- **Per exemple**: ObjectDB, db4o.  
+- **S'utilitzen** en aplicacions complexes amb dades relacionals i no relacionals.
 
-- **Recuperar els noms de les ciutats que no siguen ni Berlín ni Madrid:**
-    ```sql
-    SELECT nom
-    FROM ciutat
-    WHERE nom != 'Berlín'
-      AND nom != 'Madrid';
-    ```
+#### **2.6. Bases de Dades Distribuïdes**
+-Les dades es reparteixen entre diversos servidors o nodes, però es gestionen com una única base de dades.  
+-**Per exemple**: Cassandra, Google Spanner.  
+-**S'utilitza** en sistemes globals, alta disponibilitat, Big Data.
 
----
+#### **2.7. Bases de Dades en Memòria**
+- Emmagatzemen dades directament a la memòria RAM per a un accés ultra ràpid.  
+- **Per exemple**: Redis, Memcached.  
+- **S'utilitza** en caché de dades, aplicacions en temps real.
 
-### **Operadors de Text**
-
-- **Recuperar els noms de les ciutats que comencen per "P" o acaben en "s":**
-    ```sql
-    SELECT nom
-    FROM ciutat
-    WHERE nom LIKE 'P%'
-      OR nom LIKE '%s';
-    ```
-
-- **Recuperar els noms de les ciutats que comencen per qualsevol lletra seguida de "adrid" (com Madrid, d'Espanya):**
-    ```sql
-    SELECT nom
-    FROM ciutat
-    WHERE nom LIKE '_adrid';
-    ```
+#### **2.8. Bases de Dades en el Núvol**
+- Emmagatzemen dades en servidors al núvol, accessibles via internet.  
+- **Per exemple**: Firebase, Amazon RDS.  
+- **Utilitzades** en aplicacions modernes i escalables.
 
 ---
 
-### **Altres Operadors**
+### **3. Components d'una Base de Dades**
 
-- **Recuperar els noms de les ciutats amb poblacions compreses entre 500.000 i 5 milions d'habitants:**
-    ```sql
-    SELECT nom
-    FROM ciutat
-    WHERE poblacio BETWEEN 500000 AND 5000000;
-    ```
-
-- **Recuperar els noms de les ciutats que tenen un valor en la classificació:**
-    ```sql
-    SELECT nom
-    FROM ciutat
-    WHERE classificacio IS NOT NULL;
-    ```
-
-- **Recuperar els noms de les ciutats situades en països amb ID 1, 4, 7 o 8:**
-    ```sql
-    SELECT nom
-    FROM ciutat
-    WHERE id_pais IN (1, 4, 7, 8);
-    ```
+1. **Dades**: Informació emmagatzemada (per exemple, noms d'usuaris, productes).
+2. **Sistema de Gestió de Bases de Dades (SGBD)**: Programari que gestiona les bases de dades.
+   - Per exemple: **MySQL**, **PostgreSQL**, **MongoDB**.
+3. **Usuari**: Persona o aplicació que accedeix a les dades.
+4. **Interfície d'Usuari**: Mitjà per accedir a les bases de dades, com aplicacions o consultes SQL.
 
 ---
 
-## **Consultar a diverses taules**
+### **4. Beneficis de les Bases de Dades**
 
-### **INNER JOIN**
-
-`JOIN` (o explícitament `INNER JOIN`) retorna les files en les quals coincideixen els valors en ambdues taules.
-```sql
-SELECT ciutat.nom, pais.nom
-FROM ciutat
-[INNER] JOIN pais
-ON ciutat.id_pais = pais.id;
-
-
-```
-
-**CIUTAT  -   PAÍS**
-| id   | nom       | id_pais |      | id   | nom       |
-|------|-----------|---------|------|------|-----------|
-| 1    | París     | 1       |      | 1    | França    |
-| 2    | Berlín    | 2       |      | 2    | Alemanya  |
+- **Organització**: Permeten estructurar dades de manera lògica.
+- **Accessibilitat**: Faciliten l'accés ràpid i eficient a grans volums de dades.
+- **Integritat**: Mantenen la coherència i precisió de les dades.
+- **Seguretat**: Protegeixen les dades mitjançant permisos, encriptació i còpies de seguretat.
+- **Escalabilitat**: Les bases modernes poden créixer segons les necessitats del sistema.
 
 ---
 
-#### **LEFT JOIN**
+### **5. Aplicacions de les Bases de Dades**
 
-`LEFT JOIN` retorna totes les files de la taula de l'esquerra amb les files corresponents de la taula de la dreta. Si no coincideix cap fila de la taula de la dreta, retorna `NULL` com a valors de la taula dreta.
-```sql
-SELECT ciutat.nom, pais.nom
-FROM ciutat
-LEFT JOIN pais
-ON ciutat.id_pais = pais.id;
-```
-**CIUTAT  -   PAÍS**
-| id   | nom       | id_pais |      | id   | nom       |
-|------|-----------|---------|------|------|-----------|
-| 1    | París     | 1       |      | 1    | França    |
-| 2    | Berlín    | 2       |      | 2    | Alemanya  |
-| 3    | Varsòvia  | 4       |      | NULL | NULL      |
+- Sistemes de comerç electrònic (Amazon, eBay).
+- Xarxes socials (Facebook, Instagram).
+- Gestió empresarial (ERP, CRM).
+- Emmagatzematge en el núvol (Google Drive, Dropbox).
+- Sistemes d'anàlisi de dades i Big Data.
 
 ---
 
-#### **RIGHT JOIN**
 
-`RIGHT JOIN` retorna totes les files de la taula de la dreta amb les files corresponents de la taula de l'esquerra. Si no coincideix cap fila de la taula esquerra, retorna `NULL` com a valors de la taula esquerra.
-```sql
-SELECT ciutat.nom, pais.nom
-FROM ciutat
-RIGHT JOIN pais
-ON ciutat.id_pais = pais.id;
-```
-**CIUTAT  -   PAÍS**
-| id   | nom       | id_pais |      | id   | nom       |
-|------|-----------|---------|------|------|-----------|
-| 1    | París     | 1       |      | 1    | França    |
-| 2    | Berlín    | 2       |      | 2    | Alemanya  |
-| NULL | NULL      | NULL    |      | 3    | Islàndia  |
+
 
 ---
 
-#### **FULL JOIN**
+## 3. Bases de Dades Entitat-Relació (ER)
 
-`FULL JOIN` (o explícitament `FULL OUTER JOIN`) retorna totes les files de les dues taules. Si no coincideix cap fila de l'altra taula, retorna valors `NULL`.
-```sql
-SELECT ciutat.nom, pais.nom
-FROM ciutat
-FULL [OUTER] JOIN pais
-ON ciutat.id_pais = pais.id;
-```
-**CIUTAT  -   PAÍS**
-| id   | nom       | id_pais |      | id   | nom       |
-|------|-----------|---------|------|------|-----------|
-| 1    | París     | 1       |      | 1    | França    |
-| 2    | Berlín    | 2       |      | 2    | Alemanya  |
-| 3    | Varsòvia  | 4       |      | NULL | NULL      |
-| NULL | NULL      | NULL    |      | 3    | Islàndia  |
+Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodologia per representar l'estructura lògica de les dades mitjançant conceptes com **entitats, relacions i atributs.** Aquest model permet dissenyar bases de dades relacionalment, reflectint clarament les relacions entre les dades abans d'implementar-les en un sistema de gestió de bases de dades (SGBD).
 
----
+#### **Conceptes Principals del Model ER**
+1. **Entitat**:
+   - Representa un objecte del món real amb característiques identificables.
+   - **Exemple**: En una base de dades d'estudiants, una entitat podria ser "Estudiant".
 
-### **Operacions de Conjunts**
+2. **Atribut**:
+   - És una propietat o característica de l'entitat.
+   - **Exemple**: Per a l'entitat "Estudiant", els atributs podrien ser "Nom", "Cognoms", "Edat".
 
-#### **UNION**
+3. **Relació**:
+   - Defineix com interactuen o es connecten les entitats entre si.
+   - **Exemple**: Una relació "Estudia" pot connectar l'entitat "Estudiant" amb l'entitat "Assignatura".
 
-`UNION` combina els resultats de dos conjunts de resultats i exclou els duplicats.
-```sql
-SELECT nom
-FROM ciclisme
-WHERE pais = 'DE'
-UNION
-SELECT nom
-FROM patinatge
-WHERE pais = 'DE';
-```
+4. **Clau Primària**:
+   - És un atribut que identifica de manera única cada instància d'una entitat.
+   - **Exemple**: L'atribut "ID Estudiant" pot ser la clau primària de l'entitat "Estudiant".
 
-#### **INTERSECT**
+5. **Cardinalitat**:
+   - Indica la quantitat de connexions possibles entre entitats.
+   - **Exemple**: Un estudiant pot estar matriculat en moltes assignatures (relació 1:N).
 
-`INTERSECT` retorna només les files que apareixen en ambdós conjunts de resultats.
-```sql
-SELECT nom
-FROM ciclisme
-WHERE pais = 'DE'
-INTERSECT
-SELECT nom
-FROM patinatge
-WHERE pais = 'DE';
-```
-
-#### **EXCEPT**
-
-`EXCEPT` retorna només les files que apareixen en el primer conjunt de resultats, però no en el segon.
-```sql
-SELECT nom
-FROM ciclisme
-WHERE pais = 'DE'
-EXCEPT
-SELECT nom
-FROM patinatge
-WHERE pais = 'DE';
-```
+#### **Avantatges del Model ER**
+- **Claredat**: Permet visualitzar fàcilment les dades i les seves relacions.
+- **Organització**: Facilita la planificació abans de crear una base de dades.
+- **Flexibilitat**: Es pot adaptar a bases de dades més complexes.
 
 ---
 
-Aquesta és la traducció completa en valencià, amb totes les taules i el format indicat per mantenir la claredat i distinció entre les taules `CIUTAT` i `PAÍS` quan apareixen juntes en les operacions de `JOIN`.
+## 4. SQL (Structured Query Language)
+
+**SQL** és un llenguatge estàndard utilitzat per interactuar amb bases de dades relacionals. Amb SQL, els usuaris poden crear, modificar, consultar i gestionar dades de manera eficient. És compatible amb la majoria dels sistemes de gestió de bases de dades, com MySQL, PostgreSQL, Oracle Database i SQL Server.
+
+#### **Categories Principals d'Ordres SQL**
+1. **DML (Data Manipulation Language)**:
+   - Per gestionar dades dins de les taules.
+   - **Ordres principals**:
+     - `SELECT`: Recuperar dades.
+     - `INSERT`: Afegir dades.
+     - `UPDATE`: Actualitzar dades.
+     - `DELETE`: Eliminar dades.
+   - **Exemple**:
+     ```sql
+     SELECT Nom, Cognoms FROM Estudiants WHERE Edat > 18;
+     ```
+
+2. **DDL (Data Definition Language)**:
+   - Per definir i modificar l'estructura de la base de dades.
+   - **Ordres principals**:
+     - `CREATE`: Crear taules, esquemes o bases de dades.
+     - `ALTER`: Modificar taules existents.
+     - `DROP`: Eliminar taules o bases de dades.
+   - **Exemple**:
+     ```sql
+     CREATE TABLE Estudiants (
+         ID INT PRIMARY KEY,
+         Nom VARCHAR(50),
+         Cognoms VARCHAR(50),
+         Edat INT
+     );
+     ```
+
+3. **DCL (Data Control Language)**:
+   - Per gestionar permisos i control d'accés.
+   - **Ordres principals**:
+     - `GRANT`: Atorgar permisos.
+     - `REVOKE`: Revocar permisos.
+
+4. **TCL (Transaction Control Language)**:
+   - Per gestionar transaccions.
+   - **Ordres principals**:
+     - `COMMIT`: Confirma els canvis.
+     - `ROLLBACK`: Reverteix els canvis.
+   - **Exemple**:
+     ```sql
+     BEGIN TRANSACTION;
+     UPDATE Estudiants SET Edat = 20 WHERE ID = 1;
+     COMMIT;
+     ```
+
+#### **Característiques Principals de SQL**
+- **Declaratiu**: Permet als usuaris descriure què volen fer amb les dades, sense haver de definir com fer-ho.
+- **Estàndard**: És reconegut i utilitzat àmpliament en bases de dades relacionals.
+- **Potent**: Pot gestionar grans volums de dades i relacions complexes.
+
+---
+
+### **Relació entre el Model ER i SQL**
+
+- El **Model ER** es fa servir per dissenyar l'estructura conceptual de les dades abans de crear-les.
+- **SQL** és l'eina que implementa aquest disseny en una base de dades relacional.
+
+#### **Procés típic**:
+1. **Disseny amb el Model ER**: Es defineixen entitats, atributs i relacions.
+2. **Creació amb SQL**: S'utilitzen ordres com `CREATE TABLE` per construir les taules basades en el model ER.
+3. **Manipulació i Consulta amb SQL**: Es fan servir ordres com `INSERT`, `SELECT`, `UPDATE` per gestionar les dades.
+
+---
+
+[Resum sintaxi SQL](2BDARelacionals/Repas SQL.pdf)
