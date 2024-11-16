@@ -212,9 +212,9 @@ Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodo
 ---
 ## **Recursos Addicionals**
 
-[Resum SQL](/2BDARelacionals/resumSQL.pdf)
+[Resum SQL](/ADD24/2BDARelacionals/resumSQL.pdf)
 
-[SQL amb exercicis](/2BDARelacionals/SQLambExercicis.pdf)
+[SQL amb exercicis](/ADD24/2BDARelacionals/SQLambExercicis.pdf)
 
 
 
