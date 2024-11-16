@@ -28,11 +28,12 @@ Una base de dades és una **col·lecció d'informació organitzada** de manera q
 
 ### **2.1. Bases de Dades Relacionals**
 - Emmagatzemen dades en taules formades per files i columnes (estructures tabulars). Les dades es poden relacionar entre si mitjançant claus primàries i estrangeres.  
-- **Per exemple**: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server.  
+- **Per exemple**: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server.       
+- 
  -**S'utilitza** en aplicacions empresarials, comerç electrònic o gestió d'usuaris.  
 -**Característiques**: Utilitzen SQL (Structured Query Language) per accedir i gestionar dades.
 
-#### **2.2. Bases de Dades NoSQL**
+### **2.2. Bases de Dades NoSQL**
 - Dissenyades per gestionar dades no estructurades o semi-estructurades. Són més flexibles que les relacionals.  
 
 **Tipus principals:** 
@@ -42,32 +43,32 @@ Una base de dades és una **col·lecció d'informació organitzada** de manera q
 - **Gràfics**: Emmagatzemen relacions complexes entre dades. Per exemple: **Neo4j**.  
 **S'utilitza** en aplicacions en temps real, sistemes de recomanació, **Big Data**.
 
-#### **2.3. Bases de Dades Jeràrquiques**
+### **2.3. Bases de Dades Jeràrquiques**
 - Organitzen les dades en una estructura d'arbre, amb nodes i relacions de pare-fill.  
 - **Per exemple**: IBM Information Management System (**IMS**).  
 - **S'utilitza** en **sistemes antics o legacy**, com aplicacions financeres o logístiques.
 
-#### **2.4. Bases de Dades en Xarxa**
+### **2.4. Bases de Dades en Xarxa**
 - Són una evolució de les jeràrquiques, on un node pot tindre múltiples relacions amb altres nodes.  
 - **Per exemple**: Base de dades IDMS.  
 - **Utilizades** en sistemes de gestió d'inventaris o cadenes de subministrament.
 
-#### **2.5. Bases de Dades Orientades a Objectes**
+### **2.5. Bases de Dades Orientades a Objectes**
 - Integren els principis de la programació orientada a objectes (POO) amb les bases de dades. Les dades es guarden com a objectes.  
 - **Per exemple**: ObjectDB, db4o.  
 - **S'utilitzen** en aplicacions complexes amb dades relacionals i no relacionals.
 
-#### **2.6. Bases de Dades Distribuïdes**
+### **2.6. Bases de Dades Distribuïdes**
 -Les dades es reparteixen entre diversos servidors o nodes, però es gestionen com una única base de dades.  
 -**Per exemple**: Cassandra, Google Spanner.  
 -**S'utilitza** en sistemes globals, alta disponibilitat, Big Data.
 
-#### **2.7. Bases de Dades en Memòria**
+### **2.7. Bases de Dades en Memòria**
 - Emmagatzemen dades directament a la memòria RAM per a un accés ultra ràpid.  
 - **Per exemple**: Redis, Memcached.  
 - **S'utilitza** en caché de dades, aplicacions en temps real.
 
-#### **2.8. Bases de Dades en el Núvol**
+### **2.8. Bases de Dades en el Núvol**
 - Emmagatzemen dades en servidors al núvol, accessibles via internet.  
 - **Per exemple**: Firebase, Amazon RDS.  
 - **Utilitzades** en aplicacions modernes i escalables.
@@ -109,11 +110,11 @@ Una base de dades és una **col·lecció d'informació organitzada** de manera q
 
 ---
 
-## 3. Bases de Dades Entitat-Relació (ER)
+## 3. Bases de Dades Relacionals (Entitat-Relació)
 
 Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodologia per representar l'estructura lògica de les dades mitjançant conceptes com **entitats, relacions i atributs.** Aquest model permet dissenyar bases de dades relacionalment, reflectint clarament les relacions entre les dades abans d'implementar-les en un sistema de gestió de bases de dades (SGBD).
 
-#### **Conceptes Principals del Model ER**
+### **Conceptes Principals del Model ER**
 1. **Entitat**:
    - Representa un objecte del món real amb característiques identificables.
    - **Exemple**: En una base de dades d'estudiants, una entitat podria ser "Estudiant".
@@ -134,7 +135,7 @@ Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodo
    - Indica la quantitat de connexions possibles entre entitats.
    - **Exemple**: Un estudiant pot estar matriculat en moltes assignatures (relació 1:N).
 
-#### **Avantatges del Model ER**
+### **Avantatges del Model ER**
 - **Claredat**: Permet visualitzar fàcilment les dades i les seves relacions.
 - **Organització**: Facilita la planificació abans de crear una base de dades.
 - **Flexibilitat**: Es pot adaptar a bases de dades més complexes.
@@ -145,7 +146,7 @@ Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodo
 
 **SQL** és un llenguatge estàndard utilitzat per interactuar amb bases de dades relacionals. Amb SQL, els usuaris poden crear, modificar, consultar i gestionar dades de manera eficient. És compatible amb la majoria dels sistemes de gestió de bases de dades, com MySQL, PostgreSQL, Oracle Database i SQL Server.
 
-#### **Categories Principals d'Ordres SQL**
+### **Categories Principals d'Ordres SQL**
 1. **DML (Data Manipulation Language)**:
    - Per gestionar dades dins de les taules.
    - **Ordres principals**:
@@ -192,19 +193,19 @@ Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodo
      COMMIT;
      ```
 
-#### **Característiques Principals de SQL**
+### **Característiques Principals de SQL**
 - **Declaratiu**: Permet als usuaris descriure què volen fer amb les dades, sense haver de definir com fer-ho.
 - **Estàndard**: És reconegut i utilitzat àmpliament en bases de dades relacionals.
 - **Potent**: Pot gestionar grans volums de dades i relacions complexes.
 
 ---
 
-### **Relació entre el Model ER i SQL**
+## **Relació entre el Model ER i SQL**
 
 - El **Model ER** es fa servir per dissenyar l'estructura conceptual de les dades abans de crear-les.
 - **SQL** és l'eina que implementa aquest disseny en una base de dades relacional.
 
-#### **Procés típic**:
+### **Procés típic**:
 1. **Disseny amb el Model ER**: Es defineixen entitats, atributs i relacions.
 2. **Creació amb SQL**: S'utilitzen ordres com `CREATE TABLE` per construir les taules basades en el model ER.
 3. **Manipulació i Consulta amb SQL**: Es fan servir ordres com `INSERT`, `SELECT`, `UPDATE` per gestionar les dades.
@@ -212,9 +213,9 @@ Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodo
 ---
 ## **Recursos Addicionals**
 
-[Resum SQL](/ADD24/2BDARelacionals/resumSQL.pdf)
+[Resum SQL](/ADA/2BDARelacionals/resumSQL.pdf)
 
-[SQL amb exercicis](/ADD24/2BDARelacionals/SQLambExercicis.pdf)
+[SQL amb exercicis](/ADA/2BDARelacionals/SQLambExercicis.pdf)
 
 
 
