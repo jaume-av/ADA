@@ -34,7 +34,7 @@ No obstant això, el paradigma de programació dominant avui dia és la **Progra
 
 ## 2. Connectors
 
-Els sistemes gestors de bases de dades (**SGBD**) utilitzen llenguatges especialitzats per operar amb les dades que emmagatzemen. Mentrestant, les aplicacions s'escriuen en llenguatges de programació de propòsit general, com Java.
+Els sistemes gestors de bases de dades (**SGBD**) utilitzen **llenguatges especialitzats** per operar amb les dades que emmagatzemen. Mentrestant, les aplicacions s'escriuen en llenguatges de programació de propòsit general, com Java.
 
 Per permetre que aquestes aplicacions es comuniquen amb els SGBD, es **necessiten mecanismes específics**. Aquests mecanismes es desenvolupen com a **APIs** i es denominen **connectors**.
 
@@ -47,10 +47,14 @@ Per permetre que aquestes aplicacions es comuniquen amb els SGBD, es **necessite
 
 
 #### Característiques dels connectors:
-- Per treballar amb bases de dades relacionals (RDBMS), s'utilitza el llenguatge **SQL**.
-- Cada RDBMS té la seva pròpia versió de SQL amb peculiaritats específiques, requerint així estructures de baix nivell personalitzades.
 
-L'ús de **drivers** permet desenvolupar una arquitectura genèrica. Els connectors defineixen una interfície comuna entre les aplicacions i les bases de dades, mentre que els drivers s'encarreguen de gestionar les particularitats de cada base de dades.
+- Per treballar amb bases de dades relacionals (**RDBMS**), s'utilitza el llenguatge **SQL**.
+- Cada RDBMS té la seva pròpia **versió de SQL** (dialectes SQL) amb peculiaritats específiques, 
+requerint així estructures de baix nivell personalitzades.
+
+L'ús de **drivers** permet **desenvolupar una arquitectura genèrica**. Els connectors defineixen una interfície 
+comú entre les aplicacions i les bases de dades, 
+mentre que els drivers s'encarreguen de gestionar les particularitats de cada base de dades.
 
 ---
 
@@ -78,7 +82,8 @@ Avui dia, les arquitectures més utilitzades són **ODBC** i **JDBC**, ja que s�
 
 ## 3. JDBC – Accés a Bases de Dades Relacionals
 
-JDBC és una API que permet accedir a fonts de dades relacionals SQL des d'aplicacions Java. Aquesta arquitectura ofereix una interfície comú perquè els fabricants de SGBD puguin crear drivers que connecten les aplicacions Java amb les bases de dades.
+JDBC és una API que permet accedir a fonts de dades relacionals SQL des d'aplicacions Java. 
+Esta arquitectura ofereix una interfície comú perquè els fabricants de SGBD pugen crear drivers que connecten les **aplicacions Java amb les bases de dades**.
 
 ### Característiques de JDBC:
 - JDBC proporciona una **interfície específica per a cada SGBD**, coneguda com a **driver**.
@@ -95,55 +100,14 @@ JDBC és una API que permet accedir a fonts de dades relacionals SQL des d'aplic
 
 ### Tasques principals amb JDBC:
 
-JDBC inclou un conjunt d'interfícies i classes que permeten desenvolupar aplicacions en Java per:
+JDBC inclou un **conjunt d'interfícies i classes** que permeten desenvolupar aplicacions en Java per:
 
 1. **Connectar-se** a una base de dades.
 2. **Enviar consultes** i instruccions d'actualització.
 3. **Recuperar i processar resultats** d'una base de dades en resposta a aquestes consultes.
 
-### Models d'accés amb JDBC:
 
-L’API JDBC és compatible amb dos models d'accés: **model de dues capes** i **model de tres capes**.
-
-- **Model de dues capes**:
-  - L'aplicació Java interactua directament amb la base de dades mitjançant un driver JDBC.
-  - Les sentències SQL s'envien des del programa Java al SGBD, i aquest retorna els resultats.
-  - Pot operar localment o a través de la xarxa.
-
----
-
-{: .text-center}
-![alt text](imatges/connectors4.png)
-
----
-
-
-- **Model de tres capes**:
-  - Les peticions passen per una capa intermèdia que gestiona la comunicació amb la base de dades.
-
-
----
-
-{: .text-center}
-![alt text](imatges/connectors5.png)
-
----
-
-
-
-
-### Tipus de drivers JDBC:
-
-- **JDBC-ODBC Bridge**: Permet accedir a bases de dades JDBC mitjançant ODBC.
-- **Native**: Drivers escrits parcialment en Java i codi natiu específic del SGBD.
-- **Network**: Drivers 100% Java que utilitzen protocols de xarxa per comunicar-se amb el servidor de bases de dades.
-- **Thin**: Drivers 100% Java amb protocol natiu, que tradueixen crides JDBC a crides del protocol del SGBD.
-
-
-
-### Funcionament de JDBC
-
-JDBC defineix un conjunt de classes i interfícies al paquet `java.sql`. Les més importants són:
+### Totes estes classes i interfícies les podem trobar al paquet `java.sql`. Les més importants són:
 
 
 | Classe/Interfície      | Descripció                                                                                  |
@@ -161,7 +125,7 @@ JDBC defineix un conjunt de classes i interfícies al paquet `java.sql`. Les mé
 
 ---
 
-### Passos per a utilitzar JDBC en una aplicació Java
+## Passos per a utilitzar JDBC en una aplicació Java
 
 Per connectar una aplicació Java a una base de dades amb JDBC, seguirem els següents passos:
 
@@ -206,7 +170,7 @@ Aquest mètode assegura que el driver es carregue a memòria, permetent establir
 En este exemple connectem a una base de dades relacional **mySql**, en cas de utilitzar un altre Sistema de Gestió de Base de Dades, caldria carregar els drivers corresponents.
 
 ---
-**Nota:** Si carreguem les dependències amb maven o gradle, no cladrà posar esta línia.
+**Nota:** Si carreguem les dependències amb **maven o gradle**, no cladrà posar esta línia.
 
 ---
 
@@ -223,8 +187,43 @@ A continuació, establim una connexió a la base de dades usant el mètode **`ge
 Connection conn = DriverManager.getConnection(
     "jdbc:mysql://localhost:3306/nom.db", "usuari", "contrasenya");
 ```
+On:
+- `jdbc:mysql`: indica que es tracta d'una base de dades MySQL.
+- `localhost:3306`: és la URL de la base de dades.
+- `nom.db`: és el nom de la base de dades.
+- `usuari`: és el nom d'usuari de la base de dades.
+- `contrasenya`: és la contrasenya d'usuari.
+
+**Per a altres SGBD, la URL pot variar.**
+
+- **Per a  SQLite:**
+
+```java
+
+Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/nom.db");
+```
+
+on 
+- `jdbc:sqlite`: indica que es tracta d'una base de dades SQLite.
+- `src/main/resources/nom.db` és la ruta on es troba la base de dades.
+
+Com es local, no requereix usuari ni contrasenya.
 
 ---
+
+ - **PostgreSQL**:
+```java
+
+ Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/nom.db", "usuari", "contrasenya");
+```
+
+-  **Oracle**:
+```java
+
+ Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:nom.db", "usuari", "contrasenya");
+```
+etc...
+
 
 ### 3. Executar Sentències SQL
 

@@ -27,11 +27,10 @@ Una base de dades és una **col·lecció d'informació organitzada** de manera q
 ## **2. Tipus de Bases de Dades**
 
 ### **2.1. Bases de Dades Relacionals**
-- Emmagatzemen dades en taules formades per files i columnes (estructures tabulars). Les dades es poden relacionar entre si mitjançant claus primàries i estrangeres.  
+- Emmagatzemen dades en taules formades per files i columnes (estructures tabulars). Les dades es poden relacionar entre si mitjançant claus primàries (CP) i alienes (CAj).  
 - **Per exemple**: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server.       
-- 
- -**S'utilitza** en aplicacions empresarials, comerç electrònic o gestió d'usuaris.  
--**Característiques**: Utilitzen SQL (Structured Query Language) per accedir i gestionar dades.
+- **S'utilitza** en aplicacions empresarials, comerç electrònic o gestió d'usuaris.  
+-**Característiques**: **Utilitzen SQL** (Structured Query Language) per accedir i gestionar dades.
 
 ### **2.2. Bases de Dades NoSQL**
 - Dissenyades per gestionar dades no estructurades o semi-estructurades. Són més flexibles que les relacionals.  
@@ -40,13 +39,15 @@ Una base de dades és una **col·lecció d'informació organitzada** de manera q
 - **Documents**: Emmagatzemen dades en formats com **JSON** o **BSON**. Per exemple: **MongoDB**.  
 - **Clau-valor**: Cada dada es guarda com una **parella clau-valo**r. Per exemple: **Redis**.  
 - **Columnes àmplies**: Optimitzades per a **grans volums de dades** distribuïdes. Per exemple: **Cassandra**.  
-- **Gràfics**: Emmagatzemen relacions complexes entre dades. Per exemple: **Neo4j**.  
-**S'utilitza** en aplicacions en temps real, sistemes de recomanació, **Big Data**.
+- **Gràfics**: Emmagatzemen relacions complexes entre dades. Per exemple: **Neo4j**.       
+
+Este tipus de base de dades s'utilitzen en aplicacions web, xarxes socials, Big Data (grans volums de dades) o sistemes distribuïts (com xarxes de sensors) o Ineternet of things (IoT).
+ 
 
 ### **2.3. Bases de Dades Jeràrquiques**
 - Organitzen les dades en una estructura d'arbre, amb nodes i relacions de pare-fill.  
 - **Per exemple**: IBM Information Management System (**IMS**).  
-- **S'utilitza** en **sistemes antics o legacy**, com aplicacions financeres o logístiques.
+- **S'utilitzen** en **sistemes antics o legacy**, com aplicacions financeres o logístiques.
 
 ### **2.4. Bases de Dades en Xarxa**
 - Són una evolució de les jeràrquiques, on un node pot tindre múltiples relacions amb altres nodes.  
@@ -75,27 +76,7 @@ Una base de dades és una **col·lecció d'informació organitzada** de manera q
 
 ---
 
-### **3. Components d'una Base de Dades**
-
-1. **Dades**: Informació emmagatzemada (per exemple, noms d'usuaris, productes).
-2. **Sistema de Gestió de Bases de Dades (SGBD)**: Programari que gestiona les bases de dades.
-   - Per exemple: **MySQL**, **PostgreSQL**, **MongoDB**.
-3. **Usuari**: Persona o aplicació que accedeix a les dades.
-4. **Interfície d'Usuari**: Mitjà per accedir a les bases de dades, com aplicacions o consultes SQL.
-
----
-
-### **4. Beneficis de les Bases de Dades**
-
-- **Organització**: Permeten estructurar dades de manera lògica.
-- **Accessibilitat**: Faciliten l'accés ràpid i eficient a grans volums de dades.
-- **Integritat**: Mantenen la coherència i precisió de les dades.
-- **Seguretat**: Protegeixen les dades mitjançant permisos, encriptació i còpies de seguretat.
-- **Escalabilitat**: Les bases modernes poden créixer segons les necessitats del sistema.
-
----
-
-### **5. Aplicacions de les Bases de Dades**
+### **Podem trobar Bases de Dades en qualsevol àmbit com:**
 
 - Sistemes de comerç electrònic (Amazon, eBay).
 - Xarxes socials (Facebook, Instagram).
@@ -192,11 +173,6 @@ Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodo
      UPDATE Estudiants SET Edat = 20 WHERE ID = 1;
      COMMIT;
      ```
-
-### **Característiques Principals de SQL**
-- **Declaratiu**: Permet als usuaris descriure què volen fer amb les dades, sense haver de definir com fer-ho.
-- **Estàndard**: És reconegut i utilitzat àmpliament en bases de dades relacionals.
-- **Potent**: Pot gestionar grans volums de dades i relacions complexes.
 
 ---
 
