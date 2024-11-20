@@ -212,12 +212,14 @@ Com es local, no requereix usuari ni contrasenya.
 ---
 
  - **PostgreSQL**:
+  
 ```java
 
  Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/nom.db", "usuari", "contrasenya");
 ```
 
 -  **Oracle**:
+  
 ```java
 
  Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:nom.db", "usuari", "contrasenya");
