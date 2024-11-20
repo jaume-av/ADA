@@ -531,7 +531,7 @@ Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`exec
 
 ### **Exemples dels mètodes amb múltiples placeholders**
 
-- **`executeQuery()`**
+- **executeQuery()**
 - 
   ```java
 
@@ -550,7 +550,7 @@ Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`exec
 
   rs.close();
   pstmt.close();
-  
+
   ```
 
   - La consulta selecciona productes amb un preu menor de 50, de la categoria "Electrònica" i disponibles (`true`).
@@ -558,8 +558,10 @@ Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`exec
 
 ---
 
-- **`executeUpdate()`**:
+- **executeUpdate()**:
+  
   ```java
+
   PreparedStatement pstmt = conn.prepareStatement(
       "UPDATE productes SET preu = ?, categoria = ? WHERE id = ?"
   );
@@ -571,13 +573,15 @@ Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`exec
   System.out.println("Files afectades: " + filesActualitzades);
 
   pstmt.close();
+
   ```
   - La consulta actualitza el preu i la categoria d'un producte identificat pel seu `id`.
   - S'utilitzen placeholders per a tipus `Double`, `String` i `Integer`.
 
 ---
 
-- **`execute()`**:
+- **execute()**:
+- 
   ```java
   PreparedStatement pstmt = conn.prepareStatement(
       "INSERT INTO productes (nom, preu, categoria, disponible) VALUES (?, ?, ?, ?)"
