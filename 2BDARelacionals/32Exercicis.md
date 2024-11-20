@@ -8,7 +8,7 @@ nav_order: 20
 ---
 
 
-## Ampliació de la Base de Dades Empresa**
+## Ampliació de la Base de Dades d'Empresa
 
 L’empresa vol gestionar els seus departaments i assignar cada empleat a un departament. Completa les següents tasques utilitzant operacions DDL i DML:
 
@@ -27,7 +27,8 @@ L’empresa vol gestionar els seus departaments i assignar cada empleat a un dep
 5. **Realitza una consulta** que mostri els empleats juntament amb el nom del departament al qual pertanyen.
 
 **Sortida esperada:**
-```plaintext
+```
+
 NIF: 123456789, Nom: Pep, Cognoms: Martínez González, Departament: Recursos Humans
 NIF: 987654321, Nom: Marta, Cognoms: Soler Sánchez, Departament: Desenvolupament
 NIF: 111111111, Nom: Fina, Cognoms: Valls Beltran, Departament: Comptabilitat
@@ -42,8 +43,9 @@ NIF: 111111111, Nom: Fina, Cognoms: Valls Beltran, Departament: Comptabilitat
 
 ---
 
-#### **1. Crear la taula `Departaments`**
+### **1. Crear la taula `Departaments`**
 ```sql
+
 CREATE TABLE IF NOT EXISTS Departaments (
     IdDepartament INTEGER PRIMARY KEY AUTOINCREMENT,
     NomDepartament VARCHAR(100) NOT NULL,
@@ -53,19 +55,21 @@ CREATE TABLE IF NOT EXISTS Departaments (
 
 ---
 
-#### **2. Modificar la taula `Empleats`**
+### **2. Modificar la taula `Empleats`**
 Afegim una columna `IdDepartament` a la taula `Empleats` que actuarà com a clau forana.
 
 ```sql
+
 ALTER TABLE Empleats ADD COLUMN IdDepartament INTEGER REFERENCES Departaments(IdDepartament);
 ```
 
 ---
 
-#### **3. Inserir dades a la taula `Departaments`**
+### **3. Inserir dades a la taula `Departaments`**
 Afegim informació de departaments a la taula `Departaments`.
 
 ```sql
+
 INSERT INTO Departaments (NomDepartament, Responsable) VALUES
 ('Recursos Humans', 'Marta Pérez'),
 ('Desenvolupament', 'Jaume Martí'),
@@ -74,10 +78,11 @@ INSERT INTO Departaments (NomDepartament, Responsable) VALUES
 
 ---
 
-#### **4. Assignar un departament a cada empleat**
+### **4. Assignar un departament a cada empleat**
 Actualitzem la taula `Empleats` per assignar un departament a cada empleat. 
 
 ```sql
+
 UPDATE Empleats SET IdDepartament = CASE
     WHEN NIF = '123456789' THEN 1 -- Recursos Humans
     WHEN NIF = '987654321' THEN 2 -- Desenvolupament
@@ -90,10 +95,11 @@ END;
 
 ---
 
-#### **5. Consultar empleats i departaments**
+### **5. Consultar empleats i departaments**
 Unim la informació de les taules `Empleats` i `Departaments` per mostrar el nom, cognoms i departament de cada empleat.
 
 ```sql
+
 SELECT e.NIF, e.Nom, e.Cognoms, d.NomDepartament
 FROM Empleats e
 LEFT JOIN Departaments d ON e.IdDepartament = d.IdDepartament;
@@ -102,7 +108,7 @@ LEFT JOIN Departaments d ON e.IdDepartament = d.IdDepartament;
 ---
 
 
-## Consultes  amb `PreparedStatement` i Placeholders**
+## Consultes  amb `PreparedStatement` i Placeholders
 
 Utilitzant la base de dades `Empresa` amb les taules `Empleats` i `Departaments`, resol els següents exercicis.
 
@@ -180,7 +186,8 @@ Utilitza l’operador `LIKE` amb placeholders per trobar els empleats dels depar
 ---
 
 ### **Exemple de Sortida per l'Exercici 6**
-```plaintext
+```
+
 NIF: 987654321, Nom: Marta, Cognoms: Soler Sánchez, Salari: 3200.00
 NIF: 111111111, Nom: Fina, Cognoms: Valls Beltran, Salari: 3100.00
 ...
@@ -191,7 +198,8 @@ Aquest conjunt d’exercicis et permetrà aprofundir en l'ús de `PreparedStatem
 
 Eixides esperades:
 
-```plaintext
+```
+
 1. Tots els empleats:
 NIF: 123456789, Nom: Pep, Cognoms: Martínez González
 NIF: 987654321, Nom: Marta, Cognoms: Soler Sánchez

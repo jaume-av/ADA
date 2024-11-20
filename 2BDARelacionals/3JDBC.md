@@ -534,6 +534,7 @@ Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`exec
 - **`executeQuery()`**
 - 
   ```java
+
   PreparedStatement pstmt = conn.prepareStatement(
       "SELECT * FROM productes WHERE preu < ? AND categoria = ? AND disponible = ?"
   );
@@ -549,6 +550,7 @@ Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`exec
 
   rs.close();
   pstmt.close();
+  
   ```
 
   - La consulta selecciona productes amb un preu menor de 50, de la categoria "Electrònica" i disponibles (`true`).
