@@ -1049,3 +1049,256 @@ public class ExemplePreparedStatement {
 }
 ```
 
+## **Execució de Sentències DDL**
+
+Encara que la majoria d'operacions que es realitzen des d'una aplicació client són de manipulació de dades (DML), hi ha situacions en què cal dur a terme operacions de **definició de dades (DDL)**. Aquestes operacions permeten definir o modificar l'estructura de la base de dades.
+
+Les principals sentències DDL són:
+
+
+
+- **CREATE**: Per crear taules, vistes, índexs, etc.
+- **ALTER**: Per modificar l'estructura d'objectes existents.
+- **DROP**: Per eliminar objectes com taules o índexs.
+
+Aquestes sentències es poden executar utilitzant les interfícies `Statement` o `PreparedStatement`, però no hi ha cap diferència significativa entre elles, ja que no hi ha paràmetres variables (**placeholders**) en les sentències DDL.
+
+
+
+---
+
+### **Exemples d'Operacions DDL amb `Statement`**
+
+---
+
+**1. Crear una Taula (`CREATE`)**
+Aquest exemple crea la taula `usuaris` només si no existeix.
+
+```java
+Statement stmt = conn.createStatement();
+String sql = "CREATE TABLE IF NOT EXISTS usuaris (" +
+             "id INT AUTO_INCREMENT PRIMARY KEY, " +
+             "nom VARCHAR(100) NOT NULL, " +
+             "correu VARCHAR(100) UNIQUE NOT NULL)";
+stmt.executeUpdate(sql); // Executa la sentència CREATE
+stmt.close();
+```
+
+---
+
+**2. Modificar una Taula (`ALTER`)**
+Aquest exemple afegeix una columna `edat` a la taula `usuaris`.
+
+```java
+Statement stmt = conn.createStatement();
+String sql = "ALTER TABLE usuaris ADD edat INT";
+stmt.executeUpdate(sql); // Executa la sentència ALTER
+stmt.close();
+```
+
+---
+
+**3. Eliminar una Taula (`DROP`)**
+Aquest exemple elimina la taula `usuaris` si existeix.
+
+```java
+Statement stmt = conn.createStatement();
+String sql = "DROP TABLE IF EXISTS usuaris";
+stmt.executeUpdate(sql); // Executa la sentència DROP
+stmt.close();
+```
+
+---
+
+En les anteriors operacions:
+- El modificador **`IF NOT EXISTS`** evita errors si la taula ja existeix (en `CREATE`).
+- El modificador **`IF EXISTS`** evita errors si la taula no existeix (en `DROP`).
+- Recorda tancar el `Statement` per alliberar recursos després de cada operació.
+
+---
+
+
+
+# En Resum 
+
+
+
+1. **Carregar el Driver JDBC**:
+
+     ```java
+     Class.forName("com.mysql.cj.jdbc.Driver");
+     ```
+
+     - Carrega el driver necessari per establir la connexió amb la base de dades.
+
+     - **Nota**: Si utilitzem **Maven o Gradle**, no és necessari incloure aquesta línia, ja que els drivers es carreguen automàticament.
+
+2. **Establir la connexió amb la base de dades**:
+  
+     ```java
+
+     Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nomdb", "usuari", "contrasenya");
+     ```
+     - **URL**: Localització de la base de dades (e.g., `jdbc:mysql://localhost:3306/nomdb`).
+     - **Usuari** i **Contrasenya**: Credencials d'accés a la base de dades.
+   - **Nota**: Per altres sistemes, la URL pot variar (e.g., SQLite: `jdbc:sqlite:ruta`).
+
+3. **Crear l'objecte per executar sentències SQL**:
+   - Per executar SQL, primer creeu un objecte que us permeti enviar sentències a la base de dades:
+     - **Amb un `Statement`**:
+       ```java
+       Statement stmt = conn.createStatement();
+       ```
+     - **Amb un `PreparedStatement`** (si hi ha paràmetres variables):
+       ```java
+       PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM taula WHERE columna = ?");
+       ```
+
+4. **Executar una sentència SQL**:
+   - Per executar SQL utilitzeu els mètodes següents:
+     - **Amb `Statement`**:
+       - **Consulta `SELECT`**:
+         ```java
+         ResultSet rs = stmt.executeQuery("SELECT * FROM taula");
+         ```
+       - **Operacions DML (`INSERT`, `UPDATE`, `DELETE`)**:
+         ```java
+         int filesAfectades = stmt.executeUpdate("INSERT INTO taula (columna) VALUES ('valor')");
+         ```
+     - **Amb `PreparedStatement`**:
+       - **Assignació de valors**:
+         ```java
+         pstmt.setString(1, "valor");
+         ```
+       - **Execució de la consulta**:
+         ```java
+         ResultSet rs = pstmt.executeQuery();  // Per a SELECT
+         ```
+       - **Execució d'operacions DML**:
+         ```java
+         int filesAfectades = pstmt.executeUpdate();
+         ```
+
+5. **Recuperar i processar resultats**:
+   - **Amb un `ResultSet`** (per consultes `SELECT`):
+
+     ```java
+
+     while (rs.next()) {
+         System.out.println(rs.getString("columna"));
+     }
+     ```
+
+6. **Alliberar recursos**:
+   - Tanqueu els objectes per evitar fugues de memòria:
+     ```java
+     rs.close();
+     stmt.close();
+     conn.close();
+     ```
+
+---
+
+
+
+## Exemple amb `Statement`
+
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class ExempleStatement {
+    public static void main(String[] args) {
+        try {
+            // Carregar el driver (opcional amb Maven/Gradle)
+            Class.forName("org.sqlite.JDBC");
+
+            // Establir la connexió
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/nomdb.sqlite");
+
+
+            // Crear Statement
+            Statement stmt = conn.createStatement();
+
+            // Executar un SELECT
+            ResultSet rs = stmt.executeQuery("SELECT * FROM taula");
+            while (rs.next()) {
+                System.out.println("Columna1: " + rs.getString("columna1"));
+            }
+
+            // Executar un INSERT
+            int filesInsertades = stmt.executeUpdate("INSERT INTO taula (columna1) VALUES ('valorNou')");
+            System.out.println("Files insertades: " + filesInsertades);
+
+            // Executar un DELETE
+            int filesEsborrades = stmt.executeUpdate("DELETE FROM taula WHERE columna1 = 'valorNou'");
+            System.out.println("Files esborrades: " + filesEsborrades);
+
+            // Tancar recursos
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+---
+
+### Exemple amb `PreparedStatement`
+
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class ExemplePreparedStatement {
+    public static void main(String[] args) {
+        try {
+            // Carregar el driver (opcional amb Maven/Gradle)
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establir la connexió
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/nomdb.sqlite");
+
+
+            // SELECT amb PreparedStatement
+            PreparedStatement pstmtSelect = conn.prepareStatement("SELECT * FROM taula WHERE columna1 = ?");
+            pstmtSelect.setString(1, "valor");
+            ResultSet rs = pstmtSelect.executeQuery();
+            while (rs.next()) {
+                System.out.println("Columna1: " + rs.getString("columna1"));
+            }
+
+            // INSERT amb PreparedStatement
+            PreparedStatement pstmtInsert = conn.prepareStatement("INSERT INTO taula (columna1) VALUES (?)");
+            pstmtInsert.setString(1, "valorNou");
+            int filesInsertades = pstmtInsert.executeUpdate();
+            System.out.println("Files insertades: " + filesInsertades);
+
+            // DELETE amb PreparedStatement
+            PreparedStatement pstmtDelete = conn.prepareStatement("DELETE FROM taula WHERE columna1 = ?");
+            pstmtDelete.setString(1, "valorNou");
+            int filesEsborrades = pstmtDelete.executeUpdate();
+            System.out.println("Files esborrades: " + filesEsborrades);
+
+            // Tancar recursos
+            rs.close();
+            pstmtSelect.close();
+            pstmtInsert.close();
+            pstmtDelete.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
