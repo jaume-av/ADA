@@ -459,32 +459,39 @@ Per executar aquestes sentències SQL en Java, hem d'utilitzar objectes de tipus
 
 ## La Interfície Statement
 
-La interfície **Statement** permet crear objectes `Statement` per executar sentències SQL. 
+La interfície **Statement** s'utilitza per crear crear objectes que permenten executar sentències SQL. 
     
-Com és una interfície, no es pot instanciar directament. En canvi, s'ha d'obtenir mitjançant el mètode `createStatement()` de la classe `Connection` (com s'ha vist en exemples anteriors).
+Com és una interfície, no es pot instanciar directament.
+
+ En canvi, s'ha d'obtenir mitjançant el mètode `createStatement()` de la classe `Connection` (com hem vist en exemples anteriors).
 
 ### Mètodes de `Statement`
 
 | Mètode                                | Descripció                                                                                   |
 |---------------------------------------|---------------------------------------------------------------------------------------------|
 | **`ResultSet executeQuery(String query)`** | Executa sentències SQL que recuperen dades. Retorna un objecte `ResultSet` amb les dades recuperades. |
-| **`int executeUpdate(String query)`** | Executa sentències com `INSERT`, `UPDATE` o `DELETE`. Retorna un enter amb el nombre de registres afectats. |
-| **`boolean execute(String query)`**   | Executa qualsevol consulta SQL. Si retorna un `ResultSet`, el mètode retorna `true`; en cas contrari, `false`. |
+| **`int executeUpdate(String query)`** | Executa sentències com `INSERT`, `UPDATE` o `DELETE`. Retorna un enter amb el número de registres afectats. |
+| **`boolean execute(String query)`**   | Executa qualsevol consulta SQL. Si retorna `true` si hi ha un `ResultSet`, en cas contrari, `false`. |
 
-En cas que el mètode `execute()` retorne `false`, podem utilitzar:
-- **`getUpdateCount()`**: Per obtenir el nombre de registres afectats.
+En cas que el mètode `execute()` retorne `false` (es a dir, si no retorna un **ResultSet**), podem utilitzar:
+- **`getUpdateCount()`**: Per obtenir el nombre de registres afectats si la consulta no retorna un `resultset`.
+
+```java
+
+if (!stmt.execute("UPDATE productes SET preu = preu * 1.1 WHERE preu < 50")) {
+    int filesAfectades = stmt.getUpdateCount();
+    System.out.println("Files afectades: " + filesAfectades);
+}
+
+```
 
 ---
 
+
 ## La Interfície PreparedStatement
 
-És molt habitual l'ús de variables dins d'una sentència SQL:
-- Valors a inserir, actualitzar o esborrar
-- Filtres en consultes de selecció.
-- Qualsevol consulta amb parts variables.
-- Etc.
+És molt habitual l’ús de **variables** dins d’una **sentència SQL**, com ara **valors a inserir, actualitzar o filtrar**. Per a aquest tipus de consultes, hem de fer ús de les anomenades **Sentències Preparades** (`Prepared Statements`).
 
-Per a estge tipus deconsultes que tenen parts variables, hem de fer ús de les anomenades **Sentències Preparades** (**prepared Statements**)
 
 El **`PreparedStatement`** és una versió més avançada i flexible de `Statement`. Es fa servir principalment quan les consultes SQL inclouen **paràmetres variables**.
 
@@ -508,87 +515,239 @@ String insert="insert into empleats values(?,?,?,?)";
 
 ### Mètodes de `PreparedStatement`
 
-| Mètode                   | Descripció                                                                                  |
-|--------------------------|----------------------------------------------------------------------------------------------|
-| **`ResultSet executeQuery()`** | Similar al mètode `executeQuery` de la interfície `Statement`.                          |
-| **`int executeUpdate()`** | Similar al mètode `executeUpdate` de la interfície `Statement`.                              |
-| **`boolean execute()`**  | Similar al mètode `execute` de la interfície `Statement`.                                     |
+Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`executeUpdate`** i **`execute`**, que funcionen de manera similar als de `Statement`, però amb l'addició de placeholders (`?`) per valors dinàmics.
 
-### Assignació de Valors als Placeholders
 
-| Mètode                         | Tipus SQL    |
-|--------------------------------|--------------|
-| `void setString(int index, String valor)` | `VARCHAR`   |
-| `void setBoolean(int index, boolean valor)` | `BIT`        |
-| `void setInt(int index, int valor)`       | `INTEGER`    |
-| `void setDouble(int index, double valor)` | `DOUBLE`     |
-| `void setDate(int index, Date valor)`     | `DATE`       |
+**Mètodes de PreparedStatement**
 
-Per assignar un **valor NULL**:
+
+| **Mètode**         | **Descripció**                                                                 |
+|---------------------|-------------------------------------------------------------------------------|
+| `executeQuery()`    | Retorna un `ResultSet` amb els resultats d'una consulta `SELECT`.            |
+| `executeUpdate()`   | Executa sentències SQL com `INSERT`, `UPDATE` o `DELETE` i retorna les files afectades. |
+| `execute()`         | Executa qualsevol consulta SQL. Retorna `true` si genera un `ResultSet` o `false` altrament. |
+
+---
+
+### **Exemples dels mètodes amb múltiples placeholders**
+
+- **`executeQuery()`**
+- 
+  ```java
+  PreparedStatement pstmt = conn.prepareStatement(
+      "SELECT * FROM productes WHERE preu < ? AND categoria = ? AND disponible = ?"
+  );
+  pstmt.setDouble(1, 50.0);            // Placeholder 1: Double
+  pstmt.setString(2, "Electrònica");   // Placeholder 2: String
+  pstmt.setBoolean(3, true);           // Placeholder 3: Boolean
+
+  ResultSet rs = pstmt.executeQuery(); // Executar la consulta
+
+  while (rs.next()) {
+      System.out.println("ID: " + rs.getInt("id") + ", Nom: " + rs.getString("nom"));
+  }
+
+  rs.close();
+  pstmt.close();
+  ```
+
+  - La consulta selecciona productes amb un preu menor de 50, de la categoria "Electrònica" i disponibles (`true`).
+  - S'utilitzen placeholders per a tipus `Double`, `String` i `Boolean`.
+
+---
+
+- **`executeUpdate()`**:
+  ```java
+  PreparedStatement pstmt = conn.prepareStatement(
+      "UPDATE productes SET preu = ?, categoria = ? WHERE id = ?"
+  );
+  pstmt.setDouble(1, 59.99);           // Placeholder 1: Double
+  pstmt.setString(2, "Accessoris");    // Placeholder 2: String
+  pstmt.setInt(3, 5);                  // Placeholder 3: Integer
+
+  int filesActualitzades = pstmt.executeUpdate(); // Executar l'actualització
+  System.out.println("Files afectades: " + filesActualitzades);
+
+  pstmt.close();
+  ```
+  - La consulta actualitza el preu i la categoria d'un producte identificat pel seu `id`.
+  - S'utilitzen placeholders per a tipus `Double`, `String` i `Integer`.
+
+---
+
+- **`execute()`**:
+  ```java
+  PreparedStatement pstmt = conn.prepareStatement(
+      "INSERT INTO productes (nom, preu, categoria, disponible) VALUES (?, ?, ?, ?)"
+  );
+  pstmt.setString(1, "Càmera");        // Placeholder 1: String
+  pstmt.setDouble(2, 349.99);          // Placeholder 2: Double
+  pstmt.setString(3, "Fotografia");    // Placeholder 3: String
+  pstmt.setBoolean(4, true);           // Placeholder 4: Boolean
+
+  boolean resultat = pstmt.execute(); // Executar la consulta
+  if (!resultat) {
+      System.out.println("Files afectades: " + pstmt.getUpdateCount());
+  }
+
+  pstmt.close();
+  ```
+  - La consulta insereix un nou producte amb diversos atributs (`nom`, `preu`, `categoria` i `disponible`).
+  - S'utilitzen placeholders per a tipus `String`, `Double` i `Boolean`.
+
+---
+
+
+
+**Nota important**: Quan s'utilitza `PreparedStatement` per executar una consulta `SELECT`, és imprescindible obtenir els resultats mitjançant un objecte `ResultSet`. 
+
+
+---
+
+**Exemple**:
 ```java
 
-pstmt.setNull(1, java.sql.Types.VARCHAR);
+ResultSet rs = pstmt.executeQuery(); // Obtenim els resultats de la consulta
+while (rs.next()) {
+    System.out.println("Nom: " + rs.getString("nom")); // Accés a les dades
+}
 ```
 
 ---
 
-### Exemple amb `PreparedStatement`
+### **La Classe ResultSet**
+
+El `ResultSet` és una estructura proporcionada per JDBC que conté els **resultats d'una consulta SQL**. Representa un conjunt de files retornades pel SGBD i permet accedir als valors de les columnes de cada fila a través del **nom** o **l'índex** de la columna.
+
+Quan utilitzem un objecte `PreparedStatement` amb el mètode `executeQuery()`, el resultat de la consulta es retorna dins d'un `ResultSet`. 
+    
+Per accedir a les dades d'aquest resultat, és necessari recórrer les files una a una.
+
+---
+
+#### **Mètodes de ResultSet**
+| **Mètode**               | **Tipus Java** | **Descripció**                                                           |
+|--------------------------|----------------|---------------------------------------------------------------------------|
+| `getString(int columna)` | `String`       | Retorna el valor de la columna indicada (per índex) com a cadena.         |
+| `getString(String nom)`  | `String`       | Retorna el valor de la columna indicada (per nom) com a cadena.           |
+| `getInt(int columna)`    | `int`          | Retorna el valor de la columna com un enter.                              |
+| `getDouble(int columna)` | `double`       | Retorna el valor de la columna com un número decimal.                     |
+| `getDate(int columna)`   | `Date`         | Retorna el valor de la columna com una data (`java.sql.Date`).            |
+
+---
+
+#### **Recorregut d'un ResultSet**
+
+El `ResultSet` utilitza un punter que inicialment es troba **abans de la primera fila**. Per accedir a les dades, és necessari avançar el punter fila per fila utilitzant el mètode `next()`. Cada vegada que el punter es mou, es pot accedir als valors de la fila actual utilitzant els mètodes `getX()`.
+
+- **El mètode `next()`**:
+  - Mou el punter a la següent fila.
+  - Retorna `true` si existeix una fila vàlida.
+  - Retorna `false` si no queden més files.
+
+- **Mètodes `getX()`**:
+  - Accedeixen al valor d'una columna de la fila actual.
+  - Es poden utilitzar amb l'índex de la columna (1-based) o amb el nom de la columna.
+
+---
+
+### **Exemples**
+
+### **Recorregut bàsic del ResultSet**
+Aquest exemple recorre les files retornades d'una taula `productes` per mostrar el `id`, el `nom` i el `preu` de cada producte.
 
 ```java
 
-PreparedStatement pstmt = conn.prepareStatement(
-    "SELECT LastName, FirstName FROM Person.Contact WHERE LastName = ?");
-pstmt.setString(1, "Smith");
+ResultSet rs = pstmt.executeQuery(); // Executa una consulta SELECT
+while (rs.next()) {
+    int id = rs.getInt("id");          // Accés per nom de columna
+    String nom = rs.getString("nom");
+    double preu = rs.getDouble("preu");
+    System.out.println("ID: " + id + ", Nom: " + nom + ", Preu: " + preu);
+}
+rs.close(); // Tanca el ResultSet
+```
+
+### **Accés utilitzant índexs de columnes**
+És possible accedir als valors de les columnes utilitzant els seus índexs, que comencen en **1**:
+
+```java
 ResultSet rs = pstmt.executeQuery();
-
 while (rs.next()) {
-    System.out.println("Cognom: " + rs.getString("LastName"));
-    System.out.println("Nom: " + rs.getString("FirstName"));
+    int id = rs.getInt(1);             // Accés per índex
+    String nom = rs.getString(2);
+    double preu = rs.getDouble(3);
+    System.out.println("ID: " + id + ", Nom: " + nom + ", Preu: " + preu);
 }
+rs.close();
 ```
 
----
+### **Control de ResultSet buit**
+Abans de processar les dades, podem verificar si el `ResultSet` conté alguna fila:
 
-### La Classe ResultSet
-
-El **`ResultSet`** és una estructura que conté els resultats d'una consulta SQL. Permet accedir a cada fila retornada i obtenir-ne els valors mitjançant el nom o l'índex de les columnes.
-
-##### Mètodes de `ResultSet`
-
-| Mètode                           | Tipus Java       |
-|----------------------------------|------------------|
-| `getString(int columna)`         | `String`         |
-| `getInt(int columna)`            | `int`            |
-| `getDouble(int columna)`         | `double`         |
-| `getDate(int columna)`           | `Date`           |
-
----
-
-### Recorregut d'un `ResultSet`
-
-El `ResultSet` utilitza un punter que inicialment es troba abans de la primera fila. Per recórrer-lo:
-1. El mètode `next()` mou el punter a la següent fila i retorna `true` si existeix.
-2. Utilitzem els mètodes `getX()` per accedir als valors de les columnes.
-
-**Exemple:**
 ```java
-
-while (rs.next()) {
-    System.out.println("Cognom: " + rs.getString("LastName"));
-    System.out.println("Nom: " + rs.getString("FirstName"));
+ResultSet rs = pstmt.executeQuery();
+if (!rs.next()) {
+    System.out.println("No s'han trobat resultats.");
+} else {
+    do {
+        System.out.println("ID: " + rs.getInt("id") + ", Nom: " + rs.getString("nom"));
+    } while (rs.next());
 }
+rs.close();
+```
+
+### **Gestió de tipus diferents**
+Aquest exemple mostra com accedir a valors de columnes amb diferents tipus (`String`, `Double`, `Boolean`, i `Date`):
+
+```java
+ResultSet rs = pstmt.executeQuery();
+while (rs.next()) {
+    String nom = rs.getString("nom");
+    double preu = rs.getDouble("preu");
+    boolean disponible = rs.getBoolean("disponible");
+    java.sql.Date dataAlta = rs.getDate("data_alta");
+
+    System.out.println("Nom: " + nom + ", Preu: " + preu +
+                       ", Disponible: " + disponible +
+                       ", Data d'Alta: " + dataAlta);
+}
+rs.close();
 ```
 
 ---
 
+**Recorda:**
+- Tancar el `ResultSet` després de processar-lo per evitar fuites de recursos:
+```java
+rs.close();
+```
 
+- Si el `ResultSet` s'utilitza dins d'un bloc `try-with-resources`, es tancarà automàticament:
+```java
+try (ResultSet rs = pstmt.executeQuery()) {
+    while (rs.next()) {
+        System.out.println("Nom: " + rs.getString("nom"));
+    }
+}
+```
 
+**Curiositat:**
+```
+El bloc try-with-resources assegura que tots els recursos declarats dins del seu parèntesi seran automàticament tancats al final del bloc try, fins i tot si es produeix una excepció
 
+han de ser instàncies d’una classe que implementi la interfície AutoCloseable o Closeable com:
+
+ - Gestió d'arxius (BufferedReader, FileInputStream, FileOutputStream, etc.)
+ - Connexions a bases de dades (Connection, Statement, ResultSet de JDBC).
+ - Connexions de xarxa (sockets, streams).
+
+```
 
 
 ### 5. Execució de Sentències DDL
 
-Encara que la majoria d'operacions que es realitzen des d'una aplicació client contra una base de dades són de **manipulació de dades (DML)**, hi ha situacions en què cal dur a terme operacions de **definició de dades (DDL)**. Aquestes operacions permeten modificar l'estructura de la base de dades.
+Encara que la majoria d'operacions que es realitzen des d'una aplicació client són de **manipulació de dades (DML)**, hi ha situacions en què cal dur a terme operacions de **definició de dades (DDL)**. Les **DDL** són operacions que permeten modificar l'estructura de la base de dades.
 
 #### Casos comuns:
 
