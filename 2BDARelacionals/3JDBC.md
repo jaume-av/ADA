@@ -531,8 +531,10 @@ Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`exec
 
 ### **Exemples dels mètodes amb múltiples placeholders**
 
-- **executeQuery()**
-- 
+**executeQuery()**
+  
+
+ 
   ```java
 
   PreparedStatement pstmt = conn.prepareStatement(
@@ -558,7 +560,7 @@ Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`exec
 
 ---
 
-- **executeUpdate()**:
+**executeUpdate()**:
   
   ```java
 
@@ -580,8 +582,8 @@ Els mètodes més comuns de `PreparedStatement` són **`executeQuery`**, **`exec
 
 ---
 
-- **execute()**:
-- 
+**execute()**:
+  
   ```java
   PreparedStatement pstmt = conn.prepareStatement(
       "INSERT INTO productes (nom, preu, categoria, disponible) VALUES (?, ?, ?, ?)"
@@ -621,7 +623,7 @@ while (rs.next()) {
 
 ---
 
-### **La Classe ResultSet**
+## La Classe ResultSet **
 
 El `ResultSet` és una estructura proporcionada per JDBC que conté els **resultats d'una consulta SQL**. Representa un conjunt de files retornades pel SGBD i permet accedir als valors de les columnes de cada fila a través del **nom** o **l'índex** de la columna.
 
@@ -631,7 +633,10 @@ Per accedir a les dades d'aquest resultat, és necessari recórrer les files una
 
 ---
 
-#### **Mètodes de ResultSet**
+### **Mètodes de ResultSet**
+
+
+
 | **Mètode**               | **Tipus Java** | **Descripció**                                                           |
 |--------------------------|----------------|---------------------------------------------------------------------------|
 | `getString(int columna)` | `String`       | Retorna el valor de la columna indicada (per índex) com a cadena.         |
@@ -642,7 +647,7 @@ Per accedir a les dades d'aquest resultat, és necessari recórrer les files una
 
 ---
 
-#### **Recorregut d'un ResultSet**
+### **Recorregut d'un ResultSet**
 
 El `ResultSet` utilitza un punter que inicialment es troba **abans de la primera fila**. Per accedir a les dades, és necessari avançar el punter fila per fila utilitzant el mètode `next()`. Cada vegada que el punter es mou, es pot accedir als valors de la fila actual utilitzant els mètodes `getX()`.
 
@@ -739,7 +744,9 @@ try (ResultSet rs = pstmt.executeQuery()) {
 ```
 
 **Curiositat:**
-```
+
+---
+
 El bloc try-with-resources assegura que tots els recursos declarats dins del seu parèntesi seran automàticament tancats al final del bloc try, fins i tot si es produeix una excepció
 
 han de ser instàncies d’una classe que implementi la interfície AutoCloseable o Closeable com:
@@ -748,7 +755,9 @@ han de ser instàncies d’una classe que implementi la interfície AutoCloseabl
  - Connexions a bases de dades (Connection, Statement, ResultSet de JDBC).
  - Connexions de xarxa (sockets, streams).
 
-```
+--- 
+
+
 
 
 ### 5. Execució de Sentències DDL
@@ -777,6 +786,7 @@ Aquestes sentències es poden executar utilitzant les interfícies `Statement` o
 Aquest exemple crea la taula `usuaris` només si no existeix.
 
 ```java
+
 Statement stmt = conn.createStatement();
 String sql = "CREATE TABLE IF NOT EXISTS usuaris (" +
              "id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -792,6 +802,7 @@ stmt.close();
 Aquest exemple afegeix una columna `edat` a la taula `usuaris`.
 
 ```java
+
 Statement stmt = conn.createStatement();
 String sql = "ALTER TABLE usuaris ADD edat INT";
 stmt.executeUpdate(sql); // Executa la sentència ALTER
@@ -804,6 +815,7 @@ stmt.close();
 Aquest exemple elimina la taula `usuaris` si existeix.
 
 ```java
+
 Statement stmt = conn.createStatement();
 String sql = "DROP TABLE IF EXISTS usuaris";
 stmt.executeUpdate(sql); // Executa la sentència DROP
@@ -828,6 +840,7 @@ En les anteriors operacions:
 1. **Carregar el Driver JDBC**:
 
      ```java
+
      Class.forName("com.mysql.cj.jdbc.Driver");
      ```
 
@@ -857,6 +870,7 @@ En les anteriors operacions:
        ```
 
 4. **Executar una sentència SQL**:
+5. 
    - Per executar SQL utilitzeu els mètodes següents:
      - **Amb `Statement`**:
        - **Consulta `SELECT`**:
@@ -881,7 +895,7 @@ En les anteriors operacions:
          int filesAfectades = pstmt.executeUpdate();
          ```
 
-5. **Recuperar i processar resultats**:
+6. **Recuperar i processar resultats**:
    - **Amb un `ResultSet`** (per consultes `SELECT`):
 
      ```java
@@ -891,7 +905,7 @@ En les anteriors operacions:
      }
      ```
 
-6. **Alliberar recursos**:
+7. **Alliberar recursos**:
    - Tanqueu els objectes per evitar fugues de memòria:
      ```java
      rs.close();
