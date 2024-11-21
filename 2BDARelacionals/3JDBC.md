@@ -623,7 +623,7 @@ while (rs.next()) {
 
 ---
 
-## La Classe ResultSet **
+## La Classe ResultSet
 
 El `ResultSet` és una estructura proporcionada per JDBC que conté els **resultats d'una consulta SQL**. Representa un conjunt de files retornades pel SGBD i permet accedir als valors de les columnes de cada fila a través del **nom** o **l'índex** de la columna.
 

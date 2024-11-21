@@ -36,12 +36,8 @@ NIF: 111111111, Nom: Fina, Cognoms: Valls Beltran, Departament: Comptabilitat
 ```
 
 
-### Pistes - Sentències SQL:
+## Pistes - Sentències SQL:
 
-
-### **Sentències SQL per a Completar l'Exercici**
-
----
 
 ### **1. Crear la taula `Departaments`**
 ```sql
