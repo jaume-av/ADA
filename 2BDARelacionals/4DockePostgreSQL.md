@@ -1,5 +1,5 @@
 ---
-title: 4. Docker - Postgress. 
+title: 4. Docker - PostgreSql. 
 parent: Persistència en Base de Dades
 has_children: true
 layout: default
