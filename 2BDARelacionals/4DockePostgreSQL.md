@@ -1,3 +1,15 @@
+
+---
+title: 4. Docker - Postgress. 
+parent: Persistència en Base de Dades
+has_children: true
+layout: default
+nav_order: 35
+---
+
+
+
+
 # Connexió Base de Dades amb Docker
 
 Instal·lació de **PostgreSQL** i **pgAdmin** utilitzant **Docker** i **Docker Compose**.
