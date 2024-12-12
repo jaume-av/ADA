@@ -1,4 +1,3 @@
-
 ---
 title: 4. Docker - Postgress. 
 parent: Persistència en Base de Dades
