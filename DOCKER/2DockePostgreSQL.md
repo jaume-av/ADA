@@ -114,6 +114,7 @@ volumes:
      volumes:
        postgres_data:
        postgres_data2:
+       
      ```
 
 ---
@@ -222,7 +223,7 @@ Hauriem de veure dos contenidors en execució:
     - 
 3. **Accedir al volum Docker per a inspeccionar dades:**
    ```bash
-   
+
    docker volume inspect postgres_data
    ```
 
