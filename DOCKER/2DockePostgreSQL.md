@@ -1,9 +1,9 @@
 ---
-title: 4. Docker - PostgreSql. 
-parent: Persistència en Base de Dades
+title: Docker - PostgreSql. 
+parent: Docker
 has_children: true
 layout: default
-nav_order: 35
+nav_order: 20
 ---
 
 
@@ -121,7 +121,7 @@ volumes:
 2. Iniciem els serveis:
 
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
    - L'opció `-d` inicia els contenidors en segon pla.
 
@@ -165,13 +165,13 @@ Hauriem de veure dos contenidors en execució:
 
 - **Detindre els serveis:**
   ```bash
-  docker-compose down
+  docker compose down
   ```
   - Deté i elimina els contenidors, però els volums persistents (dades) es conserven.
 
 - **Reiniciar els serveis:**
   ```bash
-  docker-compose up -d
+  docker compose up -d
   ```
 
   - Inicia els contenidors en segon pla, sense perdre les dades.
@@ -183,7 +183,7 @@ Hauriem de veure dos contenidors en execució:
   - Mostra els contenidors en execució. Si no apareixen, s'han detingut.
   
 
-> **Nota:** Evita utilitzar `docker-compose down --volumes` tret que vulgues eliminar permanentment les dades.
+> **Nota:** Evita utilitzar `docker compose down --volumes` tret que vulgues eliminar permanentment les dades.
 
 ---
 
@@ -224,8 +224,8 @@ Hauriem de veure dos contenidors en execució:
 
 ### **Com es conserven les dades?**
 Les dades es guarden en el volum Docker `postgres_data`, que és independent dels contenidors. Açò significa que:
-- Pots detindre els serveis amb `docker-compose down` i les dades es mantindran.
-- Només es perden si elimines el volum manualment amb `docker volume rm` o utilitzes `docker-compose down --volumes`.
+- Pots detindre els serveis amb `docker compose down` i les dades es mantindran.
+- Només es perden si elimines el volum manualment amb `docker volume rm` o utilitzes `docker compose down --volumes`.
 
 **Per a transferir o reutilitzar dades en un altre ordinador:**
 - **Exporta les dades amb `pg_dump`** i restaura-les en el nou sistema.
@@ -266,10 +266,10 @@ Les dades es guarden en el volum Docker `postgres_data`, que és independent del
 ---
 
 #### **Docker Compose**
-- **Iniciar serveis definits en `docker-compose.yml`:** `docker-compose up -d`  
-- **Detindre i eliminar els serveis:** `docker-compose down`  
-- **Detindre i eliminar serveis amb volums:** `docker-compose down --volumes`  
-- **Verificar l'estat dels serveis:** `docker-compose ps`  
+- **Iniciar serveis definits en `docker-compose.yml`:** `docker compose up -d`  
+- **Detindre i eliminar els serveis:** `docker compose down`  
+- **Detindre i eliminar serveis amb volums:** `docker compose down --volumes`  
+- **Verificar l'estat dels serveis:** `docker compose ps`  
 
 ---
 
