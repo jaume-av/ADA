@@ -20,6 +20,7 @@ Instal·lació de **PostgreSQL** i **pgAdmin** utilitzant **Docker** i **Docker 
 Abans de començar, assegura't de tindre instal·lat:
 
 ```bash
+
 docker --version
 docker compose version
 # Si usem una versió antiga de Docker Compose:
@@ -29,6 +30,7 @@ docker compose version
 en cas contrari:
 
 ```bash
+
 sudo apt update
 sudo apt install docker.io
 ```
@@ -50,7 +52,6 @@ Una vegada instal·lat **Docker** amb **Docker Compose**, seguirem ls següents 
 
 ```yaml
 
-version: '3.8'
 
 services:
   postgres:
@@ -105,6 +106,7 @@ volumes:
    - Per exemple, si volem posar una base de dades en `/var/lib/postgresql/data2`, afegiríem un volum addicional:
   
      ```yaml
+
      volumes:
        - postgres_data:/var/lib/postgresql/data
        - postgres_data2:/var/lib/postgresql/data2
@@ -122,6 +124,7 @@ volumes:
 2. Iniciem els serveis:
 
    ```bash
+
    docker compose up -d
    ```
    - L'opció `-d` inicia els contenidors en segon pla.
@@ -129,6 +132,7 @@ volumes:
 3. Verifiquem que els serveis estan en execució:
    
    ```bash
+
    docker ps
    ```
 
@@ -166,12 +170,14 @@ Hauriem de veure dos contenidors en execució:
 
 - **Detindre els serveis:**
   ```bash
+
   docker compose down
   ```
   - Deté i elimina els contenidors, però els volums persistents (dades) es conserven.
 
 - **Reiniciar els serveis:**
   ```bash
+
   docker compose up -d
   ```
 
@@ -179,6 +185,7 @@ Hauriem de veure dos contenidors en execució:
 
 - **Verificar l'estat dels contenidors:**
   ```bash
+
   docker ps
   ```
   - Mostra els contenidors en execució. Si no apareixen, s'han detingut.
@@ -193,6 +200,7 @@ Hauriem de veure dos contenidors en execució:
 1. **Respaldar les dades amb `pg_dump`:**
    Si volem exportar una còpia de la base de dades executarem el següent comandament:
    ```bash
+
    docker exec -it postgres_db pg_dump -U el_meu_usuari -d la_meua_base_de_dades > backup.sql
    ```
    - Amb este comandament, es crea un fitxer SQL anomenat `backup.sql` amb les dades de la base de dades. El contingut del fitxer es pot restaurar en un altre sistema.
@@ -200,6 +208,7 @@ Hauriem de veure dos contenidors en execució:
 2. **Restaurar dades amb `psql`:**
    Per a restaurar un fitxer SQL:
    ```bash
+
    docker exec -i postgres_db psql -U el_meu_usuari -d la_meua_base_de_dades < backup.sql
    ```
    - Este comandament importa les dades del fitxer `backup.sql` a la base de dades.
@@ -213,6 +222,7 @@ Hauriem de veure dos contenidors en execució:
     - 
 3. **Accedir al volum Docker per a inspeccionar dades:**
    ```bash
+   
    docker volume inspect postgres_data
    ```
 
