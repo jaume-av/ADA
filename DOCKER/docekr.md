@@ -115,7 +115,7 @@ Eina per definir i gestionar aplicacions multi-container. Utilitza un arxiu YAML
 
 #### **Exemple de docker-compose.yml**
 ```yaml
-version: "3.8"
+version: "3.8" #Obsoleto
 services:
   web:
     image: nginx
@@ -194,7 +194,7 @@ docker run -d -p 5000:5000 my-python-app
 ### **Executar una aplicació multi-container**
 Defineix els serveis al fitxer `docker-compose.yml`:
 ```yaml
-version: "3.8"
+version: "3.8" #Obsoleto
 services:
   db:
     image: postgres
@@ -238,7 +238,7 @@ docker run -d -v my-data:/data my-container
 ### **Aplicació web amb base de dades**
 1. Crea un fitxer `docker-compose.yml`:
    ```yaml
-   version: "3.8"
+   version: "3.8" #Obsoleto
    services:
      web:
        image: nginx

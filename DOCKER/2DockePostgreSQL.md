@@ -30,7 +30,7 @@ en cas contrari:
 
 ```bash
 sudo apt update
-sudo apt install docker.io docker-compose
+sudo apt install docker.io
 ```
 
 o manualment:
@@ -40,7 +40,7 @@ o manualment:
 
 ---
 
-Una vegada instal·lat Docker i Docker Compose, seguirem ls següents passos per a configurar **PostgreSQL** i **pgAdmin**:
+Una vegada instal·lat **Docker** amb **Docker Compose**, seguirem ls següents passos per a configurar **PostgreSQL** i **pgAdmin**:
 
 
 ## **1: Creació del fitxer `docker-compose.yml`**
@@ -82,7 +82,7 @@ volumes:
   postgres_data:
 ```
 
-### **Es te fitxer configura `docker-compose.yml`:**
+### **Este fitxer configura `docker-compose.yml`:**
 
 1. **Servei `postgres`:**
    - Utilitza la imatge oficial `postgres:15`.
@@ -101,8 +101,9 @@ volumes:
 3. **Volum `postgres_data`:**
    - Este volum emmagatzema les dades de PostgreSQL, mantenint-les persistents fins i tot si el contenidor es reinicia o s'elimina.
    - Si vullguerem posar més bases de dades en altres ubicacions dins del contenidor, podríem crear volums addicionals i mapejar-los a altres rutes, assegurant que cada base de dades tinga el seu propi volum per a una millor organització i gestió.
+  
    - Per exemple, si volem posar una base de dades en `/var/lib/postgresql/data2`, afegiríem un volum addicional:
-   - 
+  
      ```yaml
      volumes:
        - postgres_data:/var/lib/postgresql/data
