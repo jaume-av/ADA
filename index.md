@@ -7,9 +7,8 @@ has_toc: true
 ---
 
 
-# Streams
-{: .text-center }
 
+{: .text-center }
 ![alt text](assets/imatges/ada.png)
 
 

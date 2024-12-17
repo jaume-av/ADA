@@ -1,6 +1,6 @@
 ---
-title: Docker - PostgreSql. 
-parent: Desplegament
+title: 2.- Docker - PostgreSql. 
+parent: ANNEX - DESPLEGAMENT
 has_children: true
 layout: default
 nav_order: 20

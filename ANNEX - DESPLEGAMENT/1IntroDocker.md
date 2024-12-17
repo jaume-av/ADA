@@ -1,7 +1,7 @@
 ---
 
-title: Introducció a Docker i Docker Compose
-parent: Desplegament
+title: 1.- Introducció a Docker i Docker Compose
+parent: ANNEX - DESPLEGAMENT
 
 has_children: true
 layout: default
