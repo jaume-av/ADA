@@ -43,30 +43,36 @@ També evitarem possibles conflictes amb altres aplicacions o versions de llibre
 
 ---
 
-**1. Instal·lació i configuració de Docker**
+## **1. Instal·lació i configuració de Docker**
 
-**Per a Linux**
+### **Per a Linux**
 
-Per a instal·lar Docker podem usar aquestes comandes des del terminal:
+Abans de començar, assegura't de tindre instal·lat:
 
 ```bash
-# 1. Baixa el script d’instal·lació oficial de Docker:
-curl -fsSL https://get.docker.com -o get-docker.sh
 
-# 2. Executa el script per instal·lar Docker:
-sh get-docker.sh
-
-# 3. Permet que Docker s'execute com un usuari no-root (opcional però recomanat):
-sudo usermod -aG docker $USER
-
-# 4. Actualitza el grup per aplicar els canvis:
-newgrp docker
-
-# 5. Comprova que Docker s’ha instal·lat correctament:
 docker --version
+docker compose version
+# Si usem una versió antiga de Docker Compose:
+ docker-compose --version
 ```
 
-**Per a Windows i macOS**
+en cas contrari:
+
+```bash
+
+sudo apt update
+sudo apt install docker.io
+```
+
+o manualment:
+
+1. **Docker:** Pots descarregar-lo des de [Docker](https://www.docker.com/).
+2. **Docker Compose:** Generalment, ve integrat amb Docker. Si no, pots seguir les instruccions d'instal·lació [ací](https://docs.docker.com/compose/install/).
+
+---
+
+### **Per a Windows i macOS**
 
 Per aquests sistemes, pots descarregar **Docker Desktop**, que inclou tot el necessari per començar. Els passos són:
 
@@ -81,9 +87,9 @@ docker --version
 
 ---
 
-**2. Conceptes bàsics de Docker**
+## **2. Conceptes bàsics de Docker**
 
-**Contenidors**  
+### **Contenidors**  
 Un **contenidor** és una "instància en execució" d’una imatge. És com un programa que s'està executant a la teua màquina, però de manera aïllada de la resta del sistema. 
 
 Un contenidor conté tot el necessari per fer funcionar una aplicació: codi, llibreries, configuracions, etc.
@@ -118,7 +124,7 @@ This message shows that your installation appears to be working correctly.
 
 ---
 
-**Imatges**  
+### **Imatges**  
 Una **imatge** és com una "plantilla" que utilitzem per crear contenidors. Conté el sistema de fitxers, biblioteques, dependències i tot el que l'aplicació necessita.
 
 **Què és una imatge?**
@@ -142,7 +148,7 @@ docker pull nginx
 docker run -d -p 8080:80 nginx
 ```
 
-**A la comanda anterior:**
+**Al codi anterior:**
 
 - **-d**: Executa el contenidor en segon pla (mode "detached").  
 - **-p 8080:80**: Mapeja el port 8080 del teu ordinador al port 80 del contenidor. Això vol dir que pots accedir al servidor Nginx escrivint http://localhost:8080 al teu navegador.  
@@ -156,7 +162,7 @@ Si volem provar com funciona un servidor web per a la nostra aplicació. En lloc
 
 ---
 
-**Dockerfile**  
+### **Dockerfile**  
 Un **Dockerfile** és un arxiu de text que conté un conjunt d'instruccions per crear una imatge Docker personalitzada. És com una "recepta" que defineix com serà la imatge.
 
 **Exemple bàsic de Dockerfile:**  
@@ -195,7 +201,7 @@ Això crearà una imatge anomenada **my-node-app**.
 
 ---
 
-**3. Docker Compose: Gestió d'Aplicacions Multi-Container**
+## **3. Docker Compose: Gestió d'Aplicacions Multi-Container**
 
 **Què és Docker Compose?**  
 - Docker Compose és una eina que ens permet definir i gestionar aplicacions amb múltiples contenidors.  
@@ -216,7 +222,7 @@ Suposem que volem executar una aplicació que consta de:
 
 Amb Docker Compose, el fitxer de configuració seria així:
 
-**Fitxer docker-compose.yml**
+### **Fitxer docker-compose.yml**
 
 ```yaml
 version: "3.8" # Versió de Docker Compose
@@ -245,25 +251,25 @@ services:
 docker compose up
 ```
 
-**Què fa aquesta comanda?**  
+**La comanda anterior**  
 - Llegeix el fitxer **docker-compose.yml**.  
 - Descarrega les imatges necessàries (Nginx i MySQL).  
 - Crea i inicia els contenidors definits.  
 
-3. Accedeix al teu navegador i escriu:  
+* Accedeix al teu navegador i escriu:  
 ```
 http://localhost:8080
 ```
 Aquí veuràs la pàgina predeterminada del servidor Nginx.
 
-4. Per aturar els contenidors:  
+* Per aturar els contenidors:  
 ```bash
 docker compose down
 ```
 
 ---
 
-**Exemple: Aplicació amb codi propi**
+### **Exemple: Aplicació amb codi propi**
 
 Suposem que tenim una aplicació **Node.js** que vol accedir a una base de dades **PostgreSQL**. Això és com ho configuraries.
 
@@ -316,7 +322,7 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
-**Exemple de codi Node.js (fitxer app.js)**
+### **Exemple de codi Node.js (fitxer app.js)**
 
 ```javascript
 const express = require("express");
@@ -333,7 +339,7 @@ app.listen(3000, () => {
 
 ---
 
-**Resum de comandes útils de Docker Compose**
+## **Resum de comandes útils de Docker Compose**
 
 - **Iniciar serveis**:
 ```bash
@@ -357,7 +363,7 @@ docker compose restart <nom_del_servei>
 
 ---
 
-**4. Volums i Persistència de Dades**
+## **4. Volums i Persistència de Dades**
 
 **Què són els volums?**  
 Un volum és una manera de guardar dades fora del sistema de fitxers intern d’un contenidor. Això significa que, fins i tot si el contenidor s'elimina o reinicia, les dades es mantenen.
@@ -369,7 +375,7 @@ Un volum és una manera de guardar dades fora del sistema de fitxers intern d’
 
 ---
 
-**Crear un volum manualment**  
+### **Crear un volum manualment**  
 Pots crear un volum de manera senzilla amb Docker.
 
 1. Crea un volum anomenat **my-data**:
@@ -381,8 +387,6 @@ docker volume create my-data
 ```bash
 docker run -d -v my-data:/data busybox
 ```
-
-**Explicació de la comanda:**  
 - **-v my-data:/data**: Mapeja el volum **my-data** al directori **/data** dins del contenidor.  
 - **busybox**: És una imatge minimalista que pots utilitzar per provar coses senzilles.  
 
@@ -393,7 +397,7 @@ docker volume ls
 
 ---
 
-**Volums amb Docker Compose**
+### **Volums amb Docker Compose**
 
 Els volums es poden definir fàcilment en un fitxer **docker-compose.yml**.
 
@@ -417,7 +421,7 @@ volumes:
 
 ---
 
-**5. Xarxes en Docker**
+## **5. Xarxes en Docker**
 
 En Docker, els contenidors utilitzen xarxes per comunicar-se entre ells o amb l'exterior. Docker proporciona diferents tipus de xarxes que pots utilitzar segons les necessitats de la teua aplicació.
 
@@ -473,7 +477,7 @@ ping container1
 
 ---
 
-**6. Optimització d’Imatges amb Dockerfile**
+## **6. Optimització d’Imatges amb Dockerfile**
 
 Els **Dockerfile** són essencials per crear imatges personalitzades, però també poden ser ineficients si no els estructurem correctament. Aquí tens algunes pràctiques recomanades per optimitzar-los:
 
@@ -525,7 +529,7 @@ Pots utilitzar eines com [Docker Slim](https://dockerslim.com/) per reduir encar
 
 ---
 
-**7. Desplegament d’Aplicacions en Producció**
+## **7. Desplegament d’Aplicacions en Producció**
 
 Quan estàs preparat per portar una aplicació a producció, cal considerar diversos aspectes:
 
@@ -590,13 +594,13 @@ server {
 
 ---
 
-**8. Resum Docker i Docker Compose**
+## **8. Resum Docker i Docker Compose**
 
 A continuació, es mostra una taula amb les ordres principals de **Docker** i **Docker Compose**, classificades per categoria i amb una breu descripció de la seva funcionalitat.
 
 ---
 
-**Ordres Principals de Docker**
+### **Ordres Principals de Docker**
 
 | **Categoria**        | **Comanda**             | **Descripció**                                              | **Exemple**                  |
 |----------------------|------------------------|------------------------------------------------------------|-------------------------------|
@@ -626,7 +630,7 @@ A continuació, es mostra una taula amb les ordres principals de **Docker** i **
 
 ---
 
-**Ordres Principals de Docker Compose**
+### **Ordres Principals de Docker Compose**
 
 | **Categoria**        | **Comanda**              | **Descripció**                                                | **Exemple**                  |
 |----------------------|-------------------------|--------------------------------------------------------------|-------------------------------|
