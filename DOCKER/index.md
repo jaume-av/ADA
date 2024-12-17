@@ -1,5 +1,5 @@
 ---
-title: Docker
+title: Desplegament
 layout: default
 parent: Accés a Dades
 nav_order: 100
@@ -8,7 +8,7 @@ has_toc: true
 ---
 
 
-# Docker
+# Desplegament
 
 ## Taula de Continguts
 {:toc}

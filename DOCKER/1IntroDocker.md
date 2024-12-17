@@ -1,6 +1,6 @@
 ---
 title: Introducció a Docker i Docker Compose
-parent: Docker
+parent: Desplegament
 
 has_children: true
 layout: default
@@ -30,7 +30,7 @@ Però, què és un **contenidor**? Hem de pensar eun un contenidor com una "caix
 
 Esta **"caixa"** pot funcionar a qualsevol ordinador que tinga **Docker** instal·lat, independentment de les diferències entre els sistemes operatius.
 
-### Avantqatges d'usar Docker
+### Avantatges d'usar Docker
 
 - **Portabilitat**: Pots portar la teva aplicació a qualsevol màquina sense preocupar-te si té instal·lades les mateixes coses.
 - **Eficiència**: Consumeix molts menys recursos que una màquina virtual.

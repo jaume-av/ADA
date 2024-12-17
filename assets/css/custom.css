@@ -44,6 +44,11 @@ h3, h4, h5, h6 {
   background-color: transparent !important; /* Elimina el fons */
   box-shadow: none !important; /* Elimina les ombres */
 }
+
+h3 {
+  border-bottom: 1px solid #1a355c !important; /* Vora fina (2px) per als h3 */
+}
+
 h1 code, h2 code {
   background-color: #d0e6f7 !important; /* Color de fons blau suau */
   color: inherit !important; /* Manté el color de la capçalera */
