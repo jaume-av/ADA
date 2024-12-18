@@ -1,12 +1,10 @@
-
-
+---
 title: 3.- NGINX  
 parent: ANNEX - DESPLEGAMENT  
 has_children: true
 layout: default  
 nav_order: 30  
-
-
+---
 
 # NGINX - SERVIDOR WEB  
 
@@ -28,31 +26,31 @@ Però no sols això, també fa de **repartidor de trànsit** (reverse proxy) i p
 ---
 
 ## **Usos d'NGINX**  
-NGINX té moltes funcions, però les més importants són aquestes:
+**NGINX** té moltes funcions, però les més importants són les seguents:
 
 ---
 
-### **1️ Servidor web (la més típica)**  
-Quan obriu una pàgina web (com **http://localhost:8080/index.html**), NGINX s’encarrega d’enviar-vos l'arxiu **index.html** que es troba en el servidor.  
+### **1️. Servidor web (la més típica)**  
+Quan obriu una pàgina web (com **http://localhost:8080/index.html**), **NGINX** s’encarrega d’enviar-vos l'arxiu **index.html** que es troba en el servidor.  
 
 **Exemple**:  
-Si teniu arxius HTML, CSS i imatges, NGINX us envia tot això al navegador, com si fora el "cambrer" que us porta el menjar a la taula.  
+Si teniu arxius HTML, CSS i imatges, **NGINX** us envia tot això al navegador, com si fora el "cambrer" que us porta el menjar a la taula.  
 
-**Per a què?**  
+**I per a què?**  
 - Per a mostrar pàgines web estàtiques (HTML, CSS, imatges, etc.).  
 
-**Com ho fem?**  
-Amb aquesta comanda de Docker:  
+**Com es fa?**  
+Amb esta comanda de Docker:  
 ```bash
 docker run --name nginx-container \
     -v $(pwd)/resources/fitxersWeb:/usr/share/nginx/html:ro \
     -p 8080:80 -d nginx
 ```
-Això fa que pugueu veure la pàgina **http://localhost:8080/index.html** al vostre navegador.  
+Això fa que puagam veure la pàgina **http://localhost:8080/index.html** al nostre navegador.  
 
 ---
 
-### **2️ Reverse proxy (el "distribuïdor de comandes")**  
+### **2️. Reverse proxy (el "distribuïdor de comandes")**  
 Imagineu que teniu moltes "paradetes de menjar" (servidors) i cada una fa una tasca diferent:  
 - Una fa pizzes.  
 - L'altra fa hamburgueses.  
@@ -60,24 +58,26 @@ Imagineu que teniu moltes "paradetes de menjar" (servidors) i cada una fa una ta
 
 Quan arriba un client, no ha de saber quina paradeta fa cada cosa. Ell només li demana menjar al **cambrer principal (NGINX)** i aquest sap on ha d'enviar la comanda. Això és el que fa NGINX com a **reverse proxy**.
 
-**Exemple**:  
-Suposeu que teniu 3 aplicacions:  
+**Per exemple**:  
+Suponem que tenim 3 aplicacions:  
 - **App 1**: Web d'HTML estàtica.  
 - **App 2**: API de dades.  
 - **App 3**: Aplicació en Node.js.  
 
-NGINX pot redirigir les peticions segons la URL:  
+**NGINX** pot redirigir les peticions segons la URL:  
 - **http://localhost/app1** → Serveix la pàgina HTML.  
 - **http://localhost/api** → Redirigeix a l’API.  
 - **http://localhost/app2** → Serveix l'aplicació Node.js.  
 
-**Per a què?**  
+**Amb quin objectiu?**  
 - Per a tindre un únic punt d’entrada per a diverses aplicacions o serveis.  
 - Per a no exposar els servidors interns a l'exterior (més seguretat).  
 
-**Com ho fem?**  
-Creem una configuració per a NGINX com aquesta:  
+**Com es fa?**  
+Creem una configuració per a **NGINX** com aquesta: 
+
 ```nginx
+
 server {
     listen 80;
 
@@ -94,12 +94,12 @@ server {
     }
 }
 ```
-Ara, quan accediu a **http://localhost/app1**, NGINX us enviarà a **http://localhost:8081**.  
+Ara, quan accedim a **http://localhost/app1**, **NGINX** ens enviarà a **http://localhost:8081**.  
 Per a **http://localhost/api**, NGINX us enviarà a **http://localhost:8082**.  
 
 ---
 
-###  **3️ Balancer de càrrega (el "repartidor d'usuaris")**  
+###  **3️. Balancer de càrrega (el "repartidor d'usuaris")**  
 Quan una pàgina web rep **milers d'usuaris al mateix temps**, un sol servidor es pot col·lapsar. Per a evitar això, es posen **molts servidors** a treballar junts, però... **com sap cada usuari a quin servidor ha d'anar?** Ací entra NGINX!  
 
 NGINX distribueix als usuaris entre els diferents servidors.  
@@ -110,8 +110,11 @@ Exemple:
 - **Usuari 4** → Servidor A (comencem de nou).  
 
 **Exemple**:  
-Si teniu tres servidors d'aplicació, NGINX pot repartir el tràfic entre ells amb aquesta configuració:  
+
+Si tenim tres servidors d'aplicació, **NGINX** pot repartir el tràfic entre ells amb esta configuració:  
+
 ```nginx
+
 upstream backend_servers {
     server servidor1.example.com;
     server servidor2.example.com;
@@ -126,7 +129,7 @@ server {
     }
 }
 ```
-Ara, cada vegada que una persona entra en la web, NGINX l'envia a un servidor diferent.
+Ara, cada vegada que una persona entra en la web, **NGINX** l'envia a un servidor diferent.
 
 **Per a què?**  
 - Per a evitar la saturació d’un únic servidor.  
@@ -134,14 +137,15 @@ Ara, cada vegada que una persona entra en la web, NGINX l'envia a un servidor di
 
 ---
 
-### **4️ Caché de contingut (molt més ràpid)**  
+### **4️. Caché de contingut (molt més ràpid)**  
 Imagina que sempre demaneu la mateixa comanda a la paradeta (pizza de 4 formatges).  
 El cambrer pot tindre aquesta pizza "preparada" i només ha de servir-la ràpidament.  
-Això és el que fa NGINX quan guarda les respostes de les webs al "caché".
+Això és el que fa **NGINX** quan guarda les respostes de les webs al "caché".
 
 Quan la següent persona demana la mateixa pàgina, **NGINX la retorna molt més ràpidament** sense haver de tornar a demanar-la al servidor.
 
-**Exemple**:  
+**Exemple**:
+
 Pots activar la caché amb aquesta configuració:  
 ```nginx
 proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=cache_zone:10m;
@@ -194,7 +198,7 @@ NGINX és un dels servidors més utilitzats al món, però com qualsevol tecnolo
   - Pot gestionar **milers de connexions simultànies** sense crear nous fils o processos, cosa que Apache no pot fer de forma tan eficient.  
   - NGINX no carrega mòduls innecessaris, només serveix fitxers estàtics d'una forma simple i ràpida.  
 
-> **Exemple d'ús pràctic**: Si el vostre lloc web només serveix HTML, CSS, JS i imatges, **NGINX és la millor opció**. Per contra, Tomcat o Node.js serien excessius, ja que estan pensats per a executar aplicacions dinàmiques.
+> **Exemple d'ús**: Si el vonostrestre lloc web només serveix HTML, CSS, JS i imatges, **NGINX és la millor opció**. Per contra, Tomcat o Node.js serien excessius, ja que estan pensats per a executar aplicacions dinàmiques.
 
 ---
 
@@ -205,7 +209,7 @@ NGINX és un dels servidors més utilitzats al món, però com qualsevol tecnolo
   - Pot redirigir el trànsit de manera dinàmica segons la URL, cosa que Apache també fa, però NGINX ho fa amb menys ús de memòria.  
   - **Amaga la IP i el port interns** dels servidors d'aplicació, millorant la seguretat.  
 
-> **Exemple d'ús pràctic**: Imagina que tens una API en Node.js a **localhost:3000** i vols accedir a l'API a través de **/api/**. Amb NGINX, pots fer aquesta redirecció de forma ràpida i senzilla, evitant exposar la IP o el port de l'API. Aquesta funcionalitat també es pot aconseguir amb **Apache** o **HAProxy**, però NGINX ho fa de forma més eficient.
+> **Exemple d'ús pràctic**: Imaginem que tenim una API en Node.js a **localhost:3000** i vols accedir a l'API a través de **/api/**. Amb NGINX, pots fer aquesta redirecció de forma ràpida i senzilla, evitant exposar la IP o el port de l'API. Aquesta funcionalitat també es pot aconseguir amb **Apache** o **HAProxy**, però NGINX ho fa de forma més eficient.
 
 ---
 
@@ -216,7 +220,7 @@ NGINX és un dels servidors més utilitzats al món, però com qualsevol tecnolo
   - Consumeix menys recursos, ja que no crea un fil o procés per a cada connexió, com fa Apache.  
   - La configuració és molt senzilla en comparació amb un **Load Balancer d'Apache o HAProxy**.  
 
-> **Exemple d'ús pràctic**: Si teniu una aplicació gran que necessita diversos servidors de backend (per exemple, diverses instàncies d'un servidor Node.js o Tomcat), NGINX pot distribuir les peticions entre aquests servidors per no saturar-ne cap. Apache també pot fer-ho, però el seu rendiment no és tan bo quan es tracta de moltes connexions simultànies.
+> **Exemple d'ús**: Si tenim una aplicació gran que necessita diversos servidors de backend (per exemple, diverses instàncies d'un servidor Node.js o Tomcat), NGINX pot distribuir les peticions entre aquests servidors per no saturar-ne cap. Apache també pot fer-ho, però el seu rendiment no és tan bo quan es tracta de moltes connexions simultànies.
 
 ---
 
