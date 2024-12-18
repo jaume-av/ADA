@@ -17,7 +17,7 @@ Per poder desplegar amb **NGINX** pagines web estàtiques, hem de mapejar les ca
 Usarem la comnada `docker run` per a iniciar un contenidor NGINX i mapejar les carpetes del nostre projecte.
 
 ```bash
-docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d nginx
+docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -p 8080:80 -d nginx
 ```
 
 ---
@@ -86,8 +86,19 @@ Si al nostre sistema tenim la carpeta `/jaume/vaigaaprovar/` amb aquesta estruct
 Quan accedim a **http://localhost/index.html**, veurem l'arxiu **index.html** de la carpeta `/jaume/vaigaaprovar/`.
 
 ---
+```bash
+-p 8080:80
+```
 
-### **-d**
+Exposa el port 80 dins del contenidor **docker** al port de la nostra maquina o **host** 8080.
+
+El contenidor NGINX s'executa i escolta el port 80 dins del contenidor, amb `-p` Docker realitza una assignació de ports entre el contenidor i la maquina host, el que ens permetrà accedir al servidor NGINX  des de `http://localhost:8080`
+
+Es a dir, amb `-p 8080:80`, el port 80 del contenidor s'associa amb el port 8080 de la màquina host, permetent accedir a NGINX des de http://localhost:8080.
+
+Si no es fa esta assinació no podrem accedir des del host.
+
+
 ```bash
 -d
 ```
@@ -123,7 +134,7 @@ Este és el **nom de la imatge Docker** que es farà servir.
 Per tant, si volem servir els arxius HTML i CSS del nostre projecte, podem utilitzar la comanda:
 
 ```bash
-docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d nginx
+docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -p 8080:80 -d nginx
 ```
 
 ---
@@ -133,28 +144,17 @@ docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d nginx
 2. **Assignem el nom `some-nginx`** al contenidor.  
 3. **Mapejem la carpeta `/some/content/`** (del nostre PC) a **`/usr/share/nginx/html/`** (al contenidor NGINX).  
 4. NGINX **serveix els arxius estàtics** que estiguen a la carpeta **/some/content/**.  
-5. S'executa en **segon pla (-d)**, per la qual cosa no ocupa la terminal.  
-
----
-
+5. **Exposa el port 80 del contenidor al port 8080 del host** perquè es puga accedir al servidor NGINX des del navegador amb la URL **http://localhost:8080**.
+6. S'executa en **segon pla (-d)**, per la qual cosa no ocupa la terminal.  
 
 
-| **Part**             | **Significat**                                      |
-|---------------------|-----------------------------------------------------|
-| `docker run`         | Executa un contenidor Docker basat en una imatge.    |
-| `--name some-nginx`  | Assigna un nom al contenidor per a identificar-lo (en aquest cas, `some-nginx`). |
-| `-v /some/content:/usr/share/nginx/html:ro` | Mapeja una carpeta del teu sistema al contenidor d'NGINX (el volum). |
-| `-d`                 | Executa el contenidor en segon pla (mode "detach").  |
-| `nginx`              | Nom de la imatge base que s'usarà per al contenidor. |
-
----
 
 
 ## **Consideracions**
 
 ### **Què passa si no utilitze `-v /some/content:/usr/share/nginx/html`?**
 NGINX utilitzarà la carpeta per defecte **/usr/share/nginx/html** que està dins de la imatge Docker.  
-Esta carpeta només conté una pàgina HTML per defecte, la famosa **Benvingut a NGINX**.
+Esta carpeta només conté una pàgina HTML per defecte,  **Benvingut a NGINX**.
 
 ---
 
@@ -177,50 +177,10 @@ Accedeix de nou a **http://localhost/index.html** i veuràs els canvis.
 
 ---
 
-### **Com ature o elimine el contenidor?**
-Per a aturar el contenidor:
-```bash
-docker stop some-nginx
-```
-
-Per a eliminar el contenidor:
-```bash
-docker rm some-nginx
-```
-
----
-
-### **Com reinicie el contenidor?**
-```bash
-docker restart some-nginx
-```
-
----
-
-## **Resum**
-- **Serveix arxius HTML/CSS amb NGINX** directament des del teu ordinador.  
-- Usa l'opció `-v /some/content:/usr/share/nginx/html:ro` per a mapar la carpeta **/some/content** del teu ordinador al contenidor.  
-- Els canvis a la carpeta **/some/content** es reflecteixen automàticament al navegador.  
-- Pots aturar, reiniciar o eliminar el contenidor amb les comandes de Docker.  
-
----
+## Projecte Fitxers amb NGINX
 
 
-# Cas
-
-### **Objectiu**
-1. Utilitzar les carpetes **`resources/fitxersWeb`** i **`resources/css`** per a servir els fitxers **HTML i CSS** amb NGINX.
-2. Assegurar-se que si es modifica l'arxiu **JSON d'entrada**, els fitxers **HTML es regeneren automàticament**.
-3. Configurar **NGINX** per a servir els fitxers sense necessitat de reiniciar-lo o recompilar res.
-
----
-
-## 🚀 **Passos per implementar la solució**
-
----
-
-### 🔹 **Pas 1: Estructura del projecte**
-Organitza el projecte segons aquesta estructura:
+Partim de la següent estructura de carpetes i fitxers:
 
 ```markdown
 📦 **ADA-P1-CiutatsNginx**
@@ -239,19 +199,14 @@ Organitza el projecte segons aquesta estructura:
 
 ---
 
-### 🔹 **Pas 2: Configuració del sistema per generar els fitxers HTML**
-Cada vegada que es modifique l'arxiu **JSON d'entrada**, el sistema ha de:
-1. Llegir l'arxiu **JSON**.
-2. Utilitzar **Thymeleaf** per generar els fitxers **HTML**.
-3. Guardar els HTML generats en la carpeta **`resources/fitxersWeb`**.
+* **Exercici 1 : Servir amb NGINX tota la carpeta `resources` del projecte.**
 
----
+* **Exercici 2 : Servir amb NGINX la carpeta `fitxersWeb` i `css` del projecte.**
 
-### 🔹 **Pas 3: Configurar NGINX per servir els fitxers**
+>**També tindràs que mapejar la carpeta d'imatges si existeix.**  
 
-Per a **servir directament les carpetes `fitxersWeb` i `css`**, es pot muntar la configuració en un contenidor de **NGINX**.
+Per a este exercici, usa l'expressió:
 
-#### 1️⃣ **Comanda Docker per iniciar NGINX**:
 ```bash
 docker run --name nginx-static-server \
     -v $(pwd)/src/main/resources/fitxersWeb:/usr/share/nginx/html:ro \
@@ -259,9 +214,8 @@ docker run --name nginx-static-server \
     -p 8080:80 -d nginx
 ```
 
----
+on:
 
-### 🔍 **Explicació del comando**:
 - **`--name nginx-static-server`**: Assigna un nom al contenidor Docker.
 - **`-v $(pwd)/src/main/resources/fitxersWeb:/usr/share/nginx/html:ro`**:  
   Mapeja la carpeta `fitxersWeb` com a la carpeta arrel que NGINX servirà.
@@ -270,107 +224,61 @@ docker run --name nginx-static-server \
 - **`-p 8080:80`**: Redirecciona el port 80 del contenidor al port **8080** del teu sistema local.
 - **`-d nginx`**: Inicia NGINX en segon pla.
 
----
+> `$(pwd)` és una ordre de shell que s'utilitza per a obtindre la ruta completa del directori de treball actual. És una forma de capturar i utilitzar dinàmicament la ubicació actual de la terminal.
 
-### 🔹 **Pas 4: Accedir a l'aplicació**
-Una vegada el contenidor està funcionant, pots accedir a l'aplicació des del navegador a la següent adreça:
+**Atenciò**
 
-```
-http://localhost:8080/index.html
-```
+Quan NGINX serveix els arxius:  
+* `resources/fitxersWeb` es mapetja a `/usr/share/nginx/html` (arrel del servidor).  
+* `resources/css` es mapetja a `/usr/share/nginx/html/css`.  
 
----
+per tant, cal tindre amb compte les rutes relatives:  
 
-### 🔹 **Pas 5: Automatitzar el procés**
-Per automatitzar el procés de generació dels HTML i la configuració de NGINX, pots crear un **script bash**.
-
-#### **Script `start.sh`**:
-```bash
-#!/bin/bash
-
-# 1. Compilar i executar l'aplicació Java
-echo "Compilant i executant l'aplicació Java..."
-mvn clean package
-java -cp target/tu-proyecto.jar Main &
-
-# 2. Reiniciar NGINX amb Docker
-echo "Iniciant NGINX amb Docker..."
-docker stop nginx-static-server
-docker rm nginx-static-server
-docker run --name nginx-static-server \
-    -v $(pwd)/src/main/resources/fitxersWeb:/usr/share/nginx/html:ro \
-    -v $(pwd)/src/main/resources/css:/usr/share/nginx/html/css:ro \
-    -p 8080:80 -d nginx
-```
-
----
-
-### 🚀 **Com executar tot el procés automàticament**
-1. Fes el script **executable** amb la següent comanda:
-   ```bash
-   chmod +x start.sh
-   ```
-
-2. Executa l'script per generar els HTML i iniciar NGINX:
-   ```bash
-   ./start.sh
-   ```
-
----
-
-## 🎉 **Resultat final**
-1. Els fitxers **HTML** generats s'emmagatzemen en la carpeta **`resources/fitxersWeb`**.
-2. Els **arxius CSS** s'utilitzen des de la carpeta **`resources/css`**.
-3. **NGINX** serveix automàticament els arxius HTML i CSS en:  
-   👉 **http://localhost:8080/index.html**.
-4. Cada vegada que s'actualitze el fitxer **data.json**, l'script regenerarà els HTML i NGINX servirà els nous arxius.
-
----
-
-## 🚀 **Resum**
-1. **Carpeta `fitxersWeb` i `css`**: Serveix els fitxers estàtics directament.
-2. **Automatització**: Regenera automàticament els HTML quan es modifiquen els fitxers JSON.
-3. **Configuració NGINX**: Serveix els arxius directament, sense reiniciar.
-4. **Accés immediat**: Accedeix a **http://localhost:8080/index.html** per veure la versió més actualitzada.
-
----
-
-
-
-# RUTES
-
-📦 **ADA-P1-CiutatsNginx**
-├── 📁 .idea                 # Configuració de l'entorn IntelliJ IDEA
-├── 📁 src
-│   ├── 📁 main              # Conté el codi principal de l'aplicació
-│   │   ├── 📁 java          # Fitxers amb codi font Java
-│   │   └── 📁 resources     # Recursos estàtics i dinàmics
-│   │       ├── 📁 css       # Arxius CSS per als estils
-│   │       ├── 📁 fitxersWeb # HTML generat que es servirà per NGINX
-│   │       ├── 📁 json      # Fitxers JSON amb les dades d'entrada
-│   │       └── 📁 templates # Plantilles Thymeleaf per generar HTML
-├── 📁 target                # Carpeta on Maven generarà els arxius compilats
-└── 📄 .gitignore            # Arxius i carpetes ignorats pel sistema de control de versions
-
-Quan NGINX serveix els arxius:
-* resources/fitxersWeb es mapeja a /usr/share/nginx/html (arrel del servidor).
-* resources/css es mapeja a /usr/share/nginx/html/css.
-
-per tant :
-
+```html
 <link rel="stylesheet" href="css/monument.css">
-canviar a 
+```
+canviar a  
+```html
 <link rel="stylesheet" href="/css/monument.css">
+```
 
+### **Comandes que pots utilitzar**
 
+* Llistar contenidors docker actius:
 
-docker run --name p1-nginx -v /home/jaume/IdeaProjects/ADA-P1-CiutatsNginx/src/main/resources/:/usr/share/nginx/html:ro -p 8080:80 -d nginx
+```bash
+docker docker ps
+```
+* Llistar contenidors actius i inactius:
 
+```bash
+docker docker ps -a
+```
+
+* Parar el contenidor:
+```bash
+docker stop some-nginx
+```
+* Eliminar el contenidor:
+```bash
+docker rm some-nginx
+```
+* Reinicar el contenidor:
+
+```bash
+docker restart some-nginx
+```
+
+## Per a entrar en el sistema de fitxers del contenidor NGINX:
+
+```bash
 docker exec -it p1-nginx /bin/sh
-cd /usr/share/nginx/
+```
+
+Una volta dins podem accedir als arxius que hem servit amb:
+
+```bash
+cd /usr/share/nginx/html
 ls -l
 
-
-docker stop p1-nginx
-
-docker rm p1-nginx
+```
