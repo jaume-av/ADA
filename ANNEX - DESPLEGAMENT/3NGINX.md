@@ -10,8 +10,11 @@ nav_order: 30
 
 # NGINX - SERVIDOR WEB  
 
+
+
 [NGINX - enllaç a dockerhub](https://hub.docker.com/_/nginx)
----
+
+
 
 Imagineu que teniu una paradeta de menjar ràpid en una festa i arriba molta gent alhora per demanar menjar. Vosaltres, com a persones, no podeu atendre totes les persones al mateix temps, però... i si poseu algú a l'entrada que reba totes les comandes i les distribuïsca a diferents cuiners que preparen cada comanda? Això és exactament el que fa **NGINX**.
 
