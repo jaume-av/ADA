@@ -1,7 +1,7 @@
 ---
 
 title: 3.1.- Cas Pràctic - Projecte Fitxers  
-parent: ANNEX - DESPLEGAMENT  
+parent: NGINX 
 has_children: true
 layout: default  
 nav_order: 35  
