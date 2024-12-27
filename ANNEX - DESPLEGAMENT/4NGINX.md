@@ -1,9 +1,9 @@
 ---
-title: 3.- NGINX  
+title: 4.- NGINX  
 parent: ANNEX - DESPLEGAMENT  
 has_children: true
 layout: default  
-nav_order: 30  
+nav_order: 40  
 ---
 
 # NGINX - SERVIDOR WEB  
