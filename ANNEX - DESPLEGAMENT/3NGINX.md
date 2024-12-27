@@ -284,3 +284,4 @@ NGINX és un dels servidors més utilitzats al món, però com qualsevol tecnolo
 | Connectar bases de dades   | ❌ No      | ❌ No      | ✅ Sí      | ✅ Sí       |
 
 ---
+
