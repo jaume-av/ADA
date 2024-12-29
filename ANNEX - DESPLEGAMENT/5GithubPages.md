@@ -29,7 +29,7 @@ El procés és senzill:
 
 **2. Pàgines amb contingut generat prèviament:**.
 
-   - Projectes que usen eines per generar fitxers estàtics a partir de dades, com en el nostre cas**.
+   - Projectes que usen eines per generar fitxers estàtics a partir de dades, **com en el nostre cas**.
    - **Exemples**:
      - Llistats d’informació (com ciutats i monuments).
      - Pàgines d’empresa amb contingut fix (qui som, serveis, contacte).

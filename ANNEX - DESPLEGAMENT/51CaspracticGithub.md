@@ -24,10 +24,10 @@ Ho farem de 3 maneres:
 **2.- Mantenint l'estructura de carpetes actual**
 
 * Creem un repositori a **GitHub** amb tot el nostre projecte.
-* Com no podem configurar subcarpetes arbitràries (com `src/main/resources/fitxersWeb`) perquè GitHub Pages només permet publicar des de `/root` o `/docs`, hem de buscar altres alternatives com Render, Netlify o Vercel.
 * En este cas farem trampa i crearem un arxiu `index.html` a la carpeta arrel del repositori amb un enllaç a la carpeta `fitxersWeb`.
 
 **3.- Utilitzant Render**
 
+* Com no podem configurar subcarpetes arbitràries (com `src/main/resources/fitxersWeb`) perquè GitHub Pages només permet publicar des de `/root` o `/docs`, hem de buscar altres alternatives com Render, Netlify o Vercel.
 * Eliminem l'anterior arxiu `index.html` i creem un servei web en Render.
 
