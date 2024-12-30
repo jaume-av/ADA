@@ -31,3 +31,5 @@ Abans de començar, assegura't de tenir:
 2. Obre la URL en el teu navegador per verificar que l'aplicació s'ha desplegat correctament.
 
 
+
+
