@@ -1,10 +1,10 @@
 ---
 
-title: 3.1.- Cas Pràctic - Projecte Fitxers  
-parent: 3.- NGINX  
+title: 4.1.- Cas Pràctic - Projecte Fitxers  
+parent: 4.- NGINX  
 has_children: true
 layout: default  
-nav_order: 35  
+nav_order: 45  
 
 ---
 
