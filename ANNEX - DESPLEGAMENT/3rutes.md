@@ -155,6 +155,9 @@ Les rutes absolutes són més segures perquè defineixen el camí complet al rec
 - **Avantatge**: Garantixen que el navegador trobe els recursos des de l’arrel del servidor o del subdirectori.
 - **Inconvenient**: Cal ajustar-les si canvia el subdirectori o el domini.
 
+> NOTA: Una bona configuracio amb rutes relatives ens permetrà desplegar l'aplicació sense problemes en qualsevol entorn.
+
+
 ---
 
 ### 2. **Configurar `<base>` per a rutes relatives**

@@ -169,6 +169,6 @@ Ho farem de 3 maneres:
 
 **3.- Utilitzant Render**
 
-* Com no podem configurar subcarpetes arbitràries (com `src/main/resources/fitxersWeb`) perquè GitHub Pages només permet publicar des de `/root` o `/docs`, hem de buscar altres alternatives com Render, o també podem utilitzar **Netlify** o **Vercel**, o també 
+* Com no podem configurar subcarpetes arbitràries (com `src/main/resources/fitxersWeb`) perquè GitHub Pages només permet publicar des de `/root` o `/docs`, hem de buscar altres alternatives com **Render**, o també podem utilitzar **Netlify** o **Vercel**, o també 
 * Eliminem l'anterior arxiu `index.html` i creem un servei web en Render.
 
