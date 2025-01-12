@@ -266,6 +266,7 @@ private Long id;
 ---
 
 #### **Resum**
+
 | Estratègia           | Bases de dades compatibles    | Comentari                     |
 |----------------------|-------------------------------|-------------------------------|
 | `AUTO`              | Totes                        | Selecció automàtica per JPA. |
