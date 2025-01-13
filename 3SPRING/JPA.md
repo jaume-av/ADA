@@ -283,7 +283,7 @@ private Long id;
 L'anotació `@Column` s'utilitza per mapar un atribut Java a una columna SQL, permetent personalitzar el nom i les propietats de la columna dins de la base de dades.
 
 #### **Paràmetres**
-- **`name`**: Especifica el nom de la columna a la base de dades. Si no s'indica, s'utilitza el nom de l'atribut Java.
+- **`name`**: Especifica el nom de la columna a la base de dades. **Si no s'indica, s'utilitza el nom de l'atribut Java**.
 - **`nullable`**: Determina si la columna pot tindre valors `NULL`. Per defecte, és `true`.
 - **`unique`**: Indica si els valors de la columna han de ser únics. Per defecte, és `false`.
 - **`length`**: Especifica la longitud màxima de la columna (només aplicable a tipus `String`). El valor per defecte és 255.
@@ -339,7 +339,7 @@ En aquest cas:
 - Si una columna no es defineix amb `@Column`, JPA utilitza valors per defecte segons el nom i el tipus de l'atribut.
 - Les opcions `nullable` i `unique` només afecten el comportament a la base de dades, no al codi Java. 
 
-endre completament l'ús de `@Column`. 😊
+
 
 ---
 
