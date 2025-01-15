@@ -1,5 +1,5 @@
 ---
-title: 1. JPA. 
+title: JPA. 
 parent: SPRING
 
 has_children: true

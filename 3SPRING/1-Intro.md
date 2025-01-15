@@ -1,4 +1,3 @@
-
 ---
 title: 1. Introducció a Spring Boot. 
 parent: SPRING
