@@ -4,7 +4,7 @@ parent: SPRING
 
 has_children: true
 layout: default
-nav_order: 10
+nav_order: 5
 ---
 
 
@@ -840,19 +840,3 @@ public class Assignatura {
 - Quan les claus de la taula intermèdia són compostes.
 - Quan vols tindre més control sobre la taula intermèdia, incloent-hi la personalització de les claus o camps addicionals.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-https://jose-antonio-henriquez-chavarria.gitbook.io/spring-desde-0/repositorio
