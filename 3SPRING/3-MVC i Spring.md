@@ -9,13 +9,12 @@ nav_order: 30
 ---
 
 
-
-
-
-
 # **Arquitectura MVC i components bàsics en Spring Boot**
 
-El patró **Model-View-Controller (MVC)** és una de les arquitectures més utilitzades en el desenvolupament d'aplicacions web. 
+El patró **Model-View-Controller (MVC)** és una de les arquitectures més utilitzades en el desenvolupament d'aplicacions. 
+
+---
+![alt text](imatges/mvc.png)
 
 ---
 
@@ -46,7 +45,7 @@ MVC és un patró de disseny que separa les responsabilitats d'una aplicació en
 
 En Spring Boot, l'arquitectura MVC es divideix en tres parts principals, cadascuna amb les seues especificitats.
 
-### **Model: Entitats i persistència**
+## **2.1. MODEL: Entitats i persistència**
 
 El **Model** és responsable de gestionar les dades de l'aplicació. En Spring Boot, normalment s'implementa amb:
 1. **Entitats JPA**: Representen taules de la base de dades.
@@ -133,7 +132,7 @@ public class EmpleatService {
 
 ---
 
-### **View: Plantilles HTML amb Thymeleaf**
+## **2.2. VIEW: Plantilles HTML amb Thymeleaf**
 
 La **View** és responsable de presentar les dades a l'usuari. En Spring Boot, es poden utilitzar diversos motors de plantilles (Thymeleaf, JSP, etc.), però Thymeleaf és el més comú.
 
@@ -180,7 +179,7 @@ Creem un fitxer `empleats.html` per mostrar una llista d'empleats.
 
 ---
 
-### **Controller: Gestió de peticions HTTP**
+### **2.3. CONTROLLER: Gestió de peticions HTTP**
 
 El **Controller** és l'encarregat de gestionar les peticions HTTP. En Spring Boot, s'utilitzen anotacions com:
 - `@Controller`: Per gestionar vistes.
@@ -267,6 +266,10 @@ Generació de View (Thymeleaf)
      V
 Resposta HTTP (HTML)
 ```
+
+---
+
+![alt text](imatges/mvc2.png)
 
 ---
 

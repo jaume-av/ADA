@@ -37,7 +37,7 @@ Spring Boot és molt versàtil. Algunes de les aplicacions més comunes són:
 ### **Característiques principals de Spring Boot**
 
 - **1. Simplificació del desenvolupament**
-Amb Spring Boot, no cal que configures manualment fitxers XML llargs o gestionis dependències complexament. Tot es gestiona automàticament o amb fitxers senzills com `application.properties`.
+Amb Spring Boot, no cal que configurem manualment fitxers XML llargs o gestionem dependències complexament. Tot es gestiona automàticament o amb fitxers senzills com `application.properties`.
 
 - **2. Servidor integrat**
 Pots iniciar la teua aplicació amb el servidor ja inclòs (per defecte, **Tomcat**). Això significa que no necessites instal·lar un servidor extern.
@@ -66,24 +66,16 @@ Exemple de dependències Maven:
 ```
 
 - **4. Compatibilitat amb entorns moderns**
-Spring Boot es pot integrar fàcilment amb contenidors com Docker, entorns de núvol com AWS o Google Cloud i eines modernes com Kubernetes.
+Spring Boot es pot integrar fàcilment amb contenidors com Docker, entorns de núvol com **AWS** o **Google Cloud** i eines modernes com **Kubernetes**.
 
 ---
 
 - **5 Avantatges de Spring Boot**
 
-- **Configuració automàtica**: Detecta automàticament les dependències del projecte i les configura.
-- **Ecosistema complet**: És compatible amb **Spring Security**, **Spring Data**, **Spring Cloud**, entre d'altres.
-- **Rendiment alt**: Gràcies a l'optimització de recursos.
-- **Comunitat activa**: Hi ha moltíssima documentació i suport en línia.
-
----
-
-### **6 Per què aprendre Spring Boot?**
-
-- **Demanda al mercat laboral**: És una de les ferramentes més sol·licitades per a desenvolupadors Java.
-- **Versatilitat**: Pots utilitzar-lo per desenvolupar una gran varietat de projectes.
-- **Facilitat d'aprenentatge**: Amb un poc de pràctica, pots desenvolupar aplicacions funcionals en poc temps.
+  - **Configuració automàtica**: Detecta automàticament les dependències del projecte i les configura.
+  - **Ecosistema complet**: És compatible amb **Spring Security**, **Spring Data**, **Spring Cloud**, entre d'altres.
+  - **Rendiment alt**: Gràcies a l'optimització de recursos.
+  - **Comunitat activa**: Hi ha moltíssima documentació i suport en línia.
 
 ---
 
@@ -99,6 +91,9 @@ L'ecosistema **Spring** és un conjunt de mòduls, eines i frameworks dissenyats
 El **cor de l'ecosistema**. Proporciona eines bàsiques per gestionar la lògica d'aplicacions empresarials:
 - **Injecció de dependències (IoC)**: Gestiona la creació i l'ús d'objectes amb anotacions com `@Component` i `@Autowired`.
 - **Programació orientada a aspectes (AOP)**: Permet afegir funcionalitats com la gestió de transaccions o logs sense modificar el codi principal.
+
+
+Nota: La Programació Orientada a Aspectes (AOP) és un paradigma de programació que permet modularitzar funcionalitats transversals a través de l'ús de "aspectes". Un aspecte és un mòdul que encapsula comportaments que poden ser reutilitzats en diferents parts de l'aplicació, com per exemple la gestió de transaccions, la seguretat o el logging.
 
 ---
 
@@ -156,6 +151,7 @@ Facilita la **comunicació asíncrona** entre components:
 ### **Exemple pràctic: Una aplicació completa de l'ecosistema Spring**
 
 Imagina que volem crear un sistema per gestionar **comandes en línia** amb les següents funcionalitats:
+
 1. Autenticació d'usuaris (Spring Security).
 2. Gestió de comandes (Spring Data).
 3. API REST per a les operacions CRUD (Spring Boot + Spring MVC).

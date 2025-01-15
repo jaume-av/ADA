@@ -15,6 +15,11 @@ nav_order: 20
 **Spring Initializr** és una eina poderosa que facilita la creació de projectes **Spring Boot** personalitzats. Aquesta eina permet configurar fàcilment les opcions principals del projecte, seleccionar les dependències necessàries, i definir metadades clau per començar ràpidament. És útil tant per a desenvolupadors novells com per a experts, i està disponible tant en la seva interfície web com integrada en IDEs populars com IntelliJ IDEA o Eclipse.
 
 ---
+
+![alt text](imatges/initializr.png)
+
+---
+
 On:
 
    - **Project**: Tria el sistema de construcció del projecte:
@@ -54,7 +59,7 @@ Aquestes opcions defineixen els identificadors i l'organització del projecte. I
 - Exemples comuns:
   - **Spring Web**: Per crear aplicacions web i APIs REST.
   - **Spring Data JPA**: Per connectar-se a bases de dades relacionals.
-  - **MySQL Driver**: Per interactuar amb una base de dades MySQL.
+  - **PostgreSql Driver**: Per interactuar amb una base de dades MySQL.
 
 3. Fes clic a **Generate**. Descarregaràs un fitxer **ZIP** que conté l'estructura del projecte i les configuracions necessàries.
 
@@ -98,7 +103,7 @@ Quan generem un projecte amb **Spring Initializr** o el configurem manualment, e
 
 - **src/main/java**: Conté el codi font de l'aplicació.
   - **AplicacioSpringBoot.java**: Classe principal anotada amb `@SpringBootApplication`, que serveix com el punt d'entrada de l'aplicació.
-  - **controller**: Conté els controladors que gestionen les peticions HTTP.
+  - **controller**: Conté els controladors que gestionen les peticions HTTP. (**API REST: Get, Post, Put, Delete**)
   - **service**: Inclou la lògica de negoci.
   - **repository**: Gestiona l'accés a la base de dades.
   - **model**: Inclou les entitats JPA que representen les taules de la base de dades.
@@ -112,7 +117,13 @@ Quan generem un projecte amb **Spring Initializr** o el configurem manualment, e
 
 - **pom.xml**: Fitxer de Maven on es defineixen les dependències del projecte.
 
-**Exemples pràctics**
+---
+
+![alt text](imatges/estructura.png)
+
+---
+
+**Exemples**
 
 - Classe principal:
 ```java
@@ -148,7 +159,7 @@ public class ExempleController {
 
 ---
 
-### Configuració  amb `application.properties` o `application.yml`
+## Configuració  amb `application.properties` o `application.yml`
 
 En un projecte Spring Boot, el fitxer **`application.properties`** o **`application.yml`** és el cor de la configuració. Aquest fitxer ens permet establir valors per defecte i configurar components com la base de dades, el servidor o les propietats de seguretat.
 
@@ -161,11 +172,13 @@ En un projecte Spring Boot, el fitxer **`application.properties`** o **`applicat
 
 Exemple amb `application.properties`:
 ```properties
+
 server.port=8081
 spring.datasource.url=jdbc:mysql://localhost:3306/exemple_db
 spring.datasource.username=root
 spring.datasource.password=1234
 spring.jpa.show-sql=true
+
 ```
 
 Exemple equivalent amb `application.yml`:
@@ -214,7 +227,7 @@ spring:
      ```
    - Exemple de fitxers: `application-dev.properties` per a desenvolupament i `application-prod.properties` per a producció.
 
-#### Exemple pràctic de configuració
+**Exemple pràctic de configuració**
 
 1. Configuració `application.properties` per a una aplicació amb PostgreSQL i un port personalitzat:
    ```properties
@@ -245,7 +258,6 @@ spring:
 
 ---
 
-
 - L'estructura del projecte Spring Boot està pensada per separar clarament les responsabilitats i facilitar el manteniment.
 - Els fitxers de configuració `application.properties` o `application.yml` són crucials per definir el comportament de l'aplicació.
-- Amb configuracions senzilles, com el port del servidor o la connexió a la base de dades, podem personalitzar completament l'entorn. 😊
+- Amb configuracions senzilles, com el port del servidor o la connexió a la base de dades, podem personalitzar completament l'entorn.
