@@ -840,3 +840,19 @@ public class Assignatura {
 - Quan les claus de la taula intermèdia són compostes.
 - Quan vols tindre més control sobre la taula intermèdia, incloent-hi la personalització de les claus o camps addicionals.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://jose-antonio-henriquez-chavarria.gitbook.io/spring-desde-0/repositorio
