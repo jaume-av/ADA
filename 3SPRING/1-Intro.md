@@ -81,7 +81,7 @@ Spring Boot es pot integrar fàcilment amb contenidors com Docker, entorns de n�
 
 ## **L'ecosistema Spring**
 
-L'ecosistema **Spring** és un conjunt de mòduls, eines i frameworks dissenyats per ajudar-te a construir aplicacions modernes, escalables i robustes. Aquest ecosistema cobreix totes les necessitats del desenvolupament d'aplicacions, des de la persistència de dades fins a la seguretat o la comunicació entre microserveis.
+Entenem  **ecosistema Spring** com el conjunt de mòduls, eines i frameworks dissenyats per ajudar-nos a construir aplicacions modernes, escalables i robustes. Aquest ecosistema cobreix totes les necessitats del desenvolupament d'aplicacions, des de la persistència de dades fins a la seguretat o la comunicació entre microserveis.
 
 ---
 
@@ -93,7 +93,7 @@ El **cor de l'ecosistema**. Proporciona eines bàsiques per gestionar la lògica
 - **Programació orientada a aspectes (AOP)**: Permet afegir funcionalitats com la gestió de transaccions o logs sense modificar el codi principal.
 
 
-Nota: La Programació Orientada a Aspectes (AOP) és un paradigma de programació que permet modularitzar funcionalitats transversals a través de l'ús de "aspectes". Un aspecte és un mòdul que encapsula comportaments que poden ser reutilitzats en diferents parts de l'aplicació, com per exemple la gestió de transaccions, la seguretat o el logging.
+>**Nota**: La Programació Orientada a Aspectes (AOP) és un paradigma de programació que permet modularitzar funcionalitats transversals a través de l'ús de >"aspectes". Un aspecte és un mòdul que encapsula comportaments que poden ser reutilitzats en diferents parts de l'aplicació, com per exemple la gestió de >transaccions, la seguretat o el logging.
 
 ---
 
