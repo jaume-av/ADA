@@ -16,13 +16,14 @@ Utilitzarem:
 - Spring Boot
 - Spring Data JPA
 - Base de Dades H2 en memòria.
-_ Postman, per a proves dels **endPoints** de la API que gererem.
+- Postman, per a proves dels **endPoints** de la API que gererem.
 
 Mapejarem una taula amb anotacions JPA, crearem un controlador i un servei, i una connexió a H2
 
 ### Creació del Projecte Spring Boot
 
-Accedim a spring initializer: https://start.spring.io/
+Accedim a spring initializer: [Initializr](https://start.spring.io/)
+
 
 ![alt text](imatges/initializr.png)
 
@@ -41,7 +42,7 @@ La nostra API bàsica tindrà la següent estructura:
 
 
 
-- **application.properies**
+- **1.- application.properies**
 
 L'arxiu de configuració `application.properties` és un arxiu de propietats que conté valors clau-valor i és utilitzat per configurar l'aplicació Spring Boot. 
 Es pot utilitzar per configurar la connexió a la base de dades, el port del servidor, etc.
@@ -65,7 +66,7 @@ spring.jpa.hibernate.ddl-auto=update
 ```
 
 
-- **Connexió amb la Base de Dades H2**
+- **2.- Connexió amb la Base de Dades H2**
 
 Configurem des d'IntelliJ la connexió a la base de dades H2:
 
@@ -100,7 +101,7 @@ public class Ciutat {
 ```
 
 
-- **Entitat Ciutat amb Anotacions JPA**
+- **3.- Entitat Ciutat amb Anotacions JPA**
 
 ```java
 
@@ -205,6 +206,8 @@ Una volta creat el projecte, l'executem i provem en el navegador:
 - http://localhost:8080
 
 Després connectem el projecte amb **Postman** i inserim dades amb **POST**
+
+![alt text](imatges/postmqan.png)
 
 
 
