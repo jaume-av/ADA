@@ -50,7 +50,7 @@ En Spring Boot, l'arquitectura MVC es divideix en tres parts principals, cadascu
 El **Model** és responsable de gestionar les dades de l'aplicació. En Spring Boot, normalment s'implementa amb:
 1. **Entitats JPA**: Representen taules de la base de dades.
 2. **Repositoris**: Gestionen l'accés a la base de dades.
-3. **Lògica de negoci**: Es pot implementar en classes de servei.
+3. **Lògica de negoci**: Es pot implementar en classes de servei, com per exemple, validar dades o realitzar càlculs.
 
 **Exemple**
 Creem una entitat `Empleat` per representar una taula de la base de dades.

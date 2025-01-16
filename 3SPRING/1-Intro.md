@@ -18,13 +18,6 @@ nav_order: 10
 
 En poques paraules, **Spring Boot** ens permet crear aplicacions **ràpides i senzilles** amb una estructura robusta i escalable.
 
-### **Característiques principals**:
-
-- **Configuració mínima**: Gràcies a la seva configuració automàtica, pots posar-te en marxa amb pocs passos.
-- **Servidor integrat**: Inclou servidors com **Tomcat** o **Jetty**, per la qual cosa no cal configurar-ne externament.
-- **Suport per a microserveis**: És ideal per construir aplicacions distribuïdes.
-- **Compatible amb Spring Framework**: Pots utilitzar qualsevol funcionalitat de Spring de manera directa.
-
 Spring Boot és molt versàtil. Algunes de les aplicacions més comunes són:
 
 - **APIs REST**: Per a la comunicació entre aplicacions.
