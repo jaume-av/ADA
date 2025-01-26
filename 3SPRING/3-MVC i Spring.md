@@ -9,14 +9,27 @@ nav_order: 30
 ---
 
 
-# **Arquitectura MVC i components bàsics en Spring Boot**
+# **Arquitectura MVC i  Spring Boot**
 
-El patró **Model-View-Controller (MVC)** és una de les arquitectures més utilitzades en el desenvolupament d'aplicacions. 
+El patró **Model-View-Controller (MVC)** és una arquitectura que separa les responsabilitats d’una aplicació en tres components principals:
+
 
 ---
 ![alt text](imatges/mvc.png)
 
 ---
+
+1. **Model**:
+  - Gestiona les dades, la lògica de negoci i les regles d'aplicació.
+   - Conté les classes que representen les dades i interactua amb la base de dades.
+    
+2. **Vista**:
+   - És la interfície d'usuari.
+   - Mostra les dades al client i permet la interacció.
+    
+3. **Controlador**:
+    - Gestiona les peticions de l’usuari.
+    - Actua com a intermediari entre el **Model** i la Vista (**View**).
 
 ## **1.- Patró Model-View-Controller (MVC)**
 
@@ -27,223 +40,446 @@ MVC és un patró de disseny que separa les responsabilitats d'una aplicació en
 - **Controller**: Gestiona les peticions de l'usuari, interacciona amb el Model i actualitza la View.
 
 **Objectius del patró MVC**
-1. **Separació de responsabilitats**:
-   - Cada component té un paper clar i independent.
-2. **Facilitat de manteniment**:
-   - Modificar la interfície (View) no afecta la lògica de negoci (Model).
-3. **Escalabilitat**:
-   - És fàcil afegir noves funcionalitats o modificar components.
+  - **Separació de responsabilitats**:
+      - Cada component té un paper clar i independent, cosa que facilita la comprensió i el manteniment del codi.
+  - **Reutilització de codi**:
+        - És possible reutilitzar el Model i la lògica de negoci en altres aplicacions o components.
+  - **Escalabilitat**:
+        - És fàcil afegir noves funcionalitats sense afectar altres components.
+  - **Facilitat de manteniment**:
+        - Com que el codi està ben separat, és més senzill localitzar i corregir errors.
+  
+**Implementació de MVC amb Spring Boot**
+    
+     Spring Boot ofereix una implementació eficient del patró MVC, ja que proporciona:    
 
-**Relació entre els components**
-- El **Controller** rep les peticions de l'usuari.
-- El **Controller** comunica amb el **Model** per obtenir o actualitzar dades.
-- Les dades del **Model** s'envien al **Controller**, que les passa a la **View** per ser renderitzades.
+     - Gestió automàtica de components:
+    
+       - Amb anotacions com `@Controller`, `@Service` i `@Repository`, podem estructurar el codi fàcilment.
+    
+     - Integració amb bases de dades
+    
+       - Utilitza Spring Data JPA per interactuar amb bases de dades de manera senzilla.
+    
+     - Motor de plantilles:
+    
+       - Thymeleaf permet generar vistes dinàmiques basades en HTML.
+    
+     - API REST integrada:
+     -     
+       - Amb `@RestController`, podem crear APIs que retornen JSON o XML.
+    
+     ------
+    
+**Exemple: Funcionament de MVC en Spring Boot**
+    
+  Petició simple en un projecte MVC:
+    
+  1. **Usuari fa una petició HTTP (GET)** a `http://localhost:8080/ciutats`.
+  2. El **Controlador** (anotat amb `@Controller`) gestiona la petició.
+  3. El **Servei** interactua amb el **Model** per obtenir dades de la base de dades.
+  4. El Controlador envia les dades a la **Vista** (Thymeleaf) per ser renderitzades.
+    
+
 
 ---
 
-## **2.- Components principals de Spring Boot**
 
-En Spring Boot, l'arquitectura MVC es divideix en tres parts principals, cadascuna amb les seues especificitats.
+## **2. Components principals del patró MVC en Spring Boot**
 
-## **2.1. MODEL: Entitats i persistència**
+En l’arquitectura MVC de Spring Boot, cada component té un paper clar. Això ajuda a organitzar l’aplicació i facilita el desenvolupament i manteniment. Els components principals són:
 
-El **Model** és responsable de gestionar les dades de l'aplicació. En Spring Boot, normalment s'implementa amb:
-1. **Entitats JPA**: Representen taules de la base de dades.
-2. **Repositoris**: Gestionen l'accés a la base de dades.
-3. **Lògica de negoci**: Es pot implementar en classes de servei, com per exemple, validar dades o realitzar càlculs.
+1. **Model**: Gestiona les dades i la lògica de negoci.
+2. **Vista**: Mostra les dades a l’usuari.
+3. **Controlador**: Gestiona les peticions HTTP i connecta el Model amb la Vista.
 
-**Exemple**
-Creem una entitat `Empleat` per representar una taula de la base de dades.
+---
+
+## **1. Model: Entitats, Repositoris i Serveis**
+
+El **Model** representa la informació de l’aplicació i com es gestiona. A Spring Boot, el Model es compon de:
+- **Entitats**: Representen taules en la base de dades.
+- **Repositoris**: Gestionen les operacions amb la base de dades.
+- **Serveis**: Encapsulen la lògica de negoci i interactuen amb els repositoris.
+
+###  Entitats
+
+Una **entitat** és una classe que representa una taula en la base de dades. Utilitza anotacions de **JPA (Java Persistence API)** per definir les columnes, claus primàries i relacions.
+
+**Exemple d’una entitat `Ciutat`:**
 
 ```java
 package com.example.model;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "empleat")
-public class Empleat {
+@Entity // Marca aquesta classe com una entitat JPA
+@Table(name = "ciutats") // Opcional: especifica el nom de la taula
+public class Ciutat {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // Defineix la clau primària
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Genera automàticament l'ID
     private Long id;
 
+    @Column(nullable = false) // Marca el camp "nom" com a obligatori
     private String nom;
 
-    private String cognom;
+    private int poblacio;
 
-    private String email;
+    // Constructor per defecte (requerit per JPA)
+    public Ciutat() {}
 
-    // Getters i Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
-    public String getCognom() { return cognom; }
-    public void setCognom(String cognom) { this.cognom = cognom; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    // Constructor personalitzat
+    public Ciutat(String nom, int poblacio) {
+        this.nom = nom;
+        this.poblacio = poblacio;
+    }
+
+    // Getters i setters (necessaris per accedir als camps)
+    
 }
 ```
 
-### **Repositori**
-Creem una interfície per accedir a la base de dades.
+---
+
+### Repositoris
+
+Els **repositoris** són interfícies que gestionen les operacions CRUD (Create, Read, Update, Delete) i consultes personalitzades. A Spring Boot, s’utilitzen `JpaRepository` o `CrudRepository`.
+
+**Exemple d’un repositori `CiutatRepository`:**
 
 ```java
 package com.example.repository;
 
-import com.example.model.Empleat;
+import com.example.model.Ciutat;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface EmpleatRepository extends JpaRepository<Empleat, Long> {
+@Repository // Marca la interfície com un repositori gestionat per Spring
+public interface CiutatRepository extends JpaRepository<Ciutat, Long> {
+
+    // Consulta personalitzada: Cerca ciutats pel nom
+    Iterable<Ciutat> findByNomContaining(String partNom);
 }
 ```
 
-### **Servei**
-Afegim un servei per encapsular la lògica de negoci:
+- **Mètodes inclosos a `JpaRepository`**:
+  - `findAll()`: Obté totes les entitats.
+  - `save(entity)`: Desa o actualitza una entitat.
+  - `deleteById(id)`: Elimina una entitat per ID.
+
+---
+
+###  Serveis
+
+Els **serveis** encapsulen la lògica de negoci. Gestionen la comunicació entre el controlador i el repositori.
+
+**Exemple d’un servei `CiutatService`:**
 
 ```java
 package com.example.service;
 
-import com.example.model.Empleat;
-import com.example.repository.EmpleatRepository;
+import com.example.model.Ciutat;
+import com.example.repository.CiutatRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+@Service // Marca la classe com un servei gestionat per Spring
+public class CiutatService {
 
-@Service
-public class EmpleatService {
+    @Autowired // Injecció de dependència del repositori
+    private CiutatRepository ciutatRepository;
 
-    private final EmpleatRepository empleatRepository;
-
-    public EmpleatService(EmpleatRepository empleatRepository) {
-        this.empleatRepository = empleatRepository;
+    // Retorna totes les ciutats de la base de dades
+    public Iterable<Ciutat> getAllCiutats() {
+        return ciutatRepository.findAll();
     }
 
-    public List<Empleat> obtenirTotsElsEmpleats() {
-        return empleatRepository.findAll();
-    }
-
-    public Empleat guardarEmpleat(Empleat empleat) {
-        return empleatRepository.save(empleat);
+    // Guarda una ciutat nova o actualitza una existent
+    public Ciutat saveCiutat(Ciutat ciutat) {
+        return ciutatRepository.save(ciutat);
     }
 }
 ```
 
 ---
 
-## **2.2. VIEW: Plantilles HTML amb Thymeleaf**
+## **2 Vista: Thymeleaf**
 
-La **View** és responsable de presentar les dades a l'usuari. En Spring Boot, es poden utilitzar diversos motors de plantilles (Thymeleaf, JSP, etc.), però Thymeleaf és el més comú.
+La **Vista** és responsable de presentar les dades a l’usuari. En Spring Boot, es poden utilitzar motors de plantilles com **Thymeleaf**.
 
-**Exemple**
-Creem un fitxer `empleats.html` per mostrar una llista d'empleats.
+**Exemple de plantilla Thymeleaf (`ciutats.html`):**
 
 ```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Llista d'empleats</title>
+    <title>Llista de Ciutats</title>
 </head>
 <body>
-    <h1>Llista d'empleats</h1>
+    <h1>Llista de Ciutats</h1>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
-                <th>Cognom</th>
-                <th>Email</th>
+                <th>Població</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="empleat : ${empleats}">
-                <td th:text="${empleat.id}"></td>
-                <td th:text="${empleat.nom}"></td>
-                <td th:text="${empleat.cognom}"></td>
-                <td th:text="${empleat.email}"></td>
+            <!-- Itera sobre la llista de ciutats passada pel controlador -->
+            <tr th:each="ciutat : ${ciutats}">
+                <td th:text="${ciutat.id}"></td>
+                <td th:text="${ciutat.nom}"></td>
+                <td th:text="${ciutat.poblacio}"></td>
             </tr>
         </tbody>
     </table>
-
-    <h2>Afegir empleat</h2>
-    <form action="/empleats/afegir" method="post">
-        <input type="text" name="nom" placeholder="Nom" required />
-        <input type="text" name="cognom" placeholder="Cognom" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <button type="submit">Afegir</button>
-    </form>
 </body>
 </html>
 ```
 
 ---
 
-### **2.3. CONTROLLER: Gestió de peticions HTTP**
+## **3. Controladors: `@Controller` vs `@RestController`**
 
-El **Controller** és l'encarregat de gestionar les peticions HTTP. En Spring Boot, s'utilitzen anotacions com:
-- `@Controller`: Per gestionar vistes.
-- `@RestController`: Per APIs REST.
+Els **controladors** gestionen les peticions HTTP. Spring Boot ofereix dos tipus principals:
+1. **`@Controller`**: Gestiona vistes HTML.
+2. **`@RestController`**: Retorna respostes en format JSON o XML (ideal per a APIs REST).
 
-**Exemple**
-Creem un controlador per llistar i afegir empleats.
+### **Controlador per a vistes (HTML)**
 
 ```java
 package com.example.controller;
 
-import com.example.model.Empleat;
-import com.example.service.EmpleatService;
+import com.example.service.CiutatService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller
-public class EmpleatController {
+@Controller // Gestiona vistes HTML
+public class CiutatController {
 
-    private final EmpleatService empleatService;
+    @Autowired
+    private CiutatService ciutatService;
 
-    public EmpleatController(EmpleatService empleatService) {
-        this.empleatService = empleatService;
+    @GetMapping("/ciutats") // Ruta per obtenir la llista de ciutats
+    public String getCiutats(Model model) {
+        model.addAttribute("ciutats", ciutatService.getAllCiutats());
+        return "ciutats"; // Retorna la plantilla HTML "ciutats.html"
+    }
+}
+```
+
+### **Controlador REST (JSON)**
+
+```java
+package com.example.controller;
+
+import com.example.model.Ciutat;
+import com.example.service.CiutatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController // Gestiona respostes JSON
+@RequestMapping("/api/ciutats") // Ruta base de l'API
+public class CiutatRestController {
+
+    @Autowired
+    private CiutatService ciutatService;
+
+    @GetMapping // Retorna totes les ciutats en format JSON
+    public Iterable<Ciutat> getAllCiutats() {
+        return ciutatService.getAllCiutats();
     }
 
-    @GetMapping("/empleats")
-    public String llistarEmpleats(Model model) {
-        model.addAttribute("empleats", empleatService.obtenirTotsElsEmpleats());
-        return "empleats";
-    }
-
-    @PostMapping("/empleats/afegir")
-    public String afegirEmpleat(Empleat empleat) {
-        empleatService.guardarEmpleat(empleat);
-        return "redirect:/empleats";
+    @PostMapping // Desa una ciutat enviada en format JSON
+    public Ciutat saveCiutat(@RequestBody Ciutat ciutat) {
+        return ciutatService.saveCiutat(ciutat);
     }
 }
 ```
 
 ---
 
-## **3.- Flux de treball dins de Spring MVC**
+### **Diferències entre `@Controller` i `@RestController`**
 
+| **`@Controller`**                | **`@RestController`**                |
+|----------------------------------|--------------------------------------|
+| Gestiona vistes HTML.            | Retorna dades en format JSON/XML.    |
+| Necessita un motor de plantilles (Thymeleaf). | No necessita motor de plantilles.   |
+| Retorna el nom de la vista (`String`). | Retorna dades (`Object` o col·leccions). |
 
+---
 
-1. **Petició de l'usuari**:
-   - L'usuari accedeix a una URL (ex.: `http://localhost:8080/empleats`).
-   - La petició HTTP es dirigeix al controlador corresponent.
+## **3. Flux de treball dins de Spring MVC**
 
-2. **El controlador processa la petició**:
-   - El mètode anotat amb `@GetMapping` o `@PostMapping` gestiona la petició.
-   - Si cal, el controlador interactua amb el model (base de dades, serveis, etc.).
+En Spring MVC, cada petició HTTP realitzada per un usuari segueix un flux de treball clar i estructurat que passa per diferents components: el **Controlador**, el **Servei**, el **Repositori** i, finalment, la **Vista** (o la resposta en format JSON en cas d'una API REST).
 
-3. **Obtenció de dades del model**:
-   - El controlador utilitza el servei per obtenir les dades necessàries.
-   - Les dades s'envien a la vista mitjançant un objecte `Model`.
+Aquest flux garanteix que cada capa del patró MVC compleix una responsabilitat específica i permet que l'aplicació siga escalable, mantenible i fàcil d'entendre.
 
-4. **Generació de la vista**:
-   - El motor de plantilles (Thymeleaf) processa el fitxer HTML i insereix les dades del model.
-   - La vista renderitzada s'envia com a resposta HTTP al navegador.
+---
 
-### **Diagrama del flux MVC en Spring Boot**
+- **1. Petició de l'usuari**
+    - L'usuari accedeix a una URL, com ara:
+      ```
+      http://localhost:8080/ciutats
+      ```
+    - Aquesta petició HTTP (per exemple, GET, POST, PUT, DELETE) és rebuda pel servidor de Spring Boot.
+
+---
+
+- **2. El controlador processa la petició**
+    - El controlador és el primer component que gestiona la petició.
+    - En funció del tipus de controlador:
+      - **`@Controller`**: Processa peticions que han de retornar vistes HTML.
+      - **`@RestController`**: Retorna respostes en format JSON o XML.
+    - El mètode anotat amb **`@GetMapping`** o **`@PostMapping`**  gestiona la petició.
+    - Si cal, el controlador interactua amb el model (base de dades, serveis, etc.).
+
+**Exemple de Controlador (HTML)**:
+```java
+@Controller
+public class CiutatController {
+
+    @Autowired
+    private CiutatService ciutatService;
+
+    @GetMapping("/ciutats") // Ruta que gestiona la petició GET
+    public String getCiutats(Model model) {
+        // Obtenim les dades del servei i les afegim al model
+        model.addAttribute("ciutats", ciutatService.getAllCiutats());
+        // Retornem la vista "ciutats.html"
+        return "ciutats";
+    }
+}
+```
+
+**Exemple de Controlador REST (JSON)**:
+```java
+@RestController
+@RequestMapping("/api/ciutats")
+public class CiutatRestController {
+
+    @Autowired
+    private CiutatService ciutatService;
+
+    @GetMapping // Gestiona peticions GET per obtenir totes les ciutats
+    public Iterable<Ciutat> getAllCiutats() {
+        // Retorna les dades en format JSON
+        return ciutatService.getAllCiutats();
+    }
+}
+```
+
+---
+
+- **3. El controlador interactua amb el servei**
+    - Si el controlador necessita dades de la base de dades, delega aquesta tasca al **Servei**.
+    - El servei encapsula la lògica de negoci i interactua amb els **Repositoris** per accedir a les dades.
+
+**Exemple de Servei:**
+```java
+@Service
+public class CiutatService {
+
+    @Autowired
+    private CiutatRepository ciutatRepository;
+
+    public Iterable<Ciutat> getAllCiutats() {
+        // Obtenim totes les ciutats de la base de dades
+        return ciutatRepository.findAll();
+    }
+
+    public Ciutat saveCiutat(Ciutat ciutat) {
+        // Guardem una nova ciutat o actualitzem una existent
+        return ciutatRepository.save(ciutat);
+    }
+}
+```
+
+---
+
+- **4. Obtenció de dades del model**
+    - El servei crida al **Repositori** per interactuar amb la base de dades.
+    - El repositori s'encarrega d'executar operacions** CRUD** (Create, Read, Update, Delete) utilitzant ** JPA**.
+
+**Exemple de Repositori:**
+```java
+@Repository
+public interface CiutatRepository extends JpaRepository<Ciutat, Long> {
+
+    // Cerca ciutats pel nom que continga una paraula específica
+    Iterable<Ciutat> findByNomContaining(String partNom);
+}
+```
+
+---
+
+- **5. Generació de la vista o resposta**
+    - Una vegada el servei retorna les dades al controlador:
+      - Si és un **`@Controller`**, el controlador passa les dades a la vista (Thymeleaf).
+      - Si és un **`@RestController`**, el controlador retorna directament les dades en format JSON.
+
+**Exemple de Vista Thymeleaf (`ciutats.html`):**
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Llista de Ciutats</title>
+</head>
+<body>
+    <h1>Llista de Ciutats</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Població</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ciutat : ${ciutats}">
+                <td th:text="${ciutat.id}"></td>
+                <td th:text="${ciutat.nom}"></td>
+                <td th:text="${ciutat.poblacio}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+```
+
+---
+
+- **6. Resposta al client**
+    - Una vegada la vista està generada o les dades en JSON estan preparades:
+      - Spring retorna una resposta HTTP al navegador o client que ha fet la petició.
+      - Si és HTML, es renderitza la pàgina al navegador.
+      - Si és JSON, es pot consumir des d’un frontend o una altra aplicació.
+
+**Exemple de Resposta JSON:**
+```json
+[
+    {
+        "id": 1,
+        "nom": "València",
+        "poblacio": 800000
+    },
+    {
+        "id": 2,
+        "nom": "Barcelona",
+        "poblacio": 1600000
+    }
+]
+```
+
+---
+
+### **Diagrama del flux MVC**
+
+Com es processa una petició en Spring MVC:
 
 ```plaintext
 Usuari (client)
@@ -252,20 +488,34 @@ Usuari (client)
 Petició HTTP (URL)
      |
      V
-Controller (@Controller)
+Controller (@Controller o @RestController)
      |
      V
-Interacció amb Model
+Interacció amb Servei
+     |
+     V
+Interacció amb Repositori (Base de dades)
      |
      V
 Recuperació de dades
      |
      V
-Generació de View (Thymeleaf)
+Vista HTML (Thymeleaf) o JSON/XML
      |
      V
-Resposta HTTP (HTML)
+Resposta HTTP al client
 ```
+
+---
+
+1. L'usuari fa una **petició HTTP**.
+2. El **Controlador** processa la petició i, si cal, crida al **Servei**.
+3. El **Servei** encapsula la lògica de negoci i interactua amb el **Repositori**.
+4. El **Repositori** accedeix a la base de dades per obtenir o modificar dades.
+5. El controlador retorna la resposta al client:
+   - En forma de **Vista HTML** (amb Thymeleaf).
+   - O com a **JSON/XML** en una API REST.
+
 
 ---
 
@@ -273,7 +523,19 @@ Resposta HTTP (HTML)
 
 ---
 
-En definitiva, **MVC en Spring Boot** separa clarament les responsabilitats del Model (dades), View (interfície) i Controller (gestió de flux), garantint mantenibilitat, escalabilitat i flexibilitat en el desenvolupament d'aplicacions web.
+### **Conclusió**
+
+El patró MVC en Spring Boot és clar i estructurat:
+
+- **Model**: Entitats i repositoris per gestionar les dades.
+- **Vista**: HTML o JSON per mostrar les dades al client.
+- **Controlador**: Gestiona peticions i crida als serveis.
+- **Servei**: Conté la lògica de negoci i interactua amb els repositoris.
+
+Aquesta arquitectura facilita el desenvolupament, la comprensió i el manteniment de l'aplicació.
+
+
+
 
 ---
 
@@ -366,16 +628,108 @@ Aquestes aplicacions utilitzen tecnologies compartides per funcionar en múltipl
 
 ---
 
-**Com s'integra amb Spring Boot?**
+## **Backend i Frontend a Spring Boot - Integració**
 
-1. **Backend (Spring Boot)**:
-   - Exposa APIs REST amb `@RestController`.
-   - Configura CORS si el frontend està en un domini diferent:
-     ```java
-     @CrossOrigin(origins = "http://localhost:3000")
-     ```
+El backend desenvolupat amb Spring Boot s'integra fàcilment amb aplicacions frontend o altres sistemes utilitzant **APIs REST** o **WebSockets**.
 
-2. **Frontend**:
-   - Consumeix APIs REST amb eines com Axios, fetch o biblioteques equivalents.
-   - Si utilitzes WebSockets, Spring Boot proporciona una integració fàcil amb **STOMP** i **SockJS**.
+---
 
+### **Creació d'una API REST en Spring Boot**
+
+Un **API REST** permet exposar dades i funcionalitats perquè altres aplicacions les consumisquen.
+
+**Exemple de Controlador REST:**
+```java
+@RestController
+@RequestMapping("/api/ciutats")
+public class CiutatRestController {
+
+    @Autowired
+    private CiutatService ciutatService;
+
+    // Retorna totes les ciutats en format JSON
+    @GetMapping
+    public Iterable<Ciutat> getAllCiutats() {
+        return ciutatService.getAllCiutats();
+    }
+
+    // Desa una nova ciutat enviada en format JSON
+    @PostMapping
+    public Ciutat saveCiutat(@RequestBody Ciutat ciutat) {
+        return ciutatService.saveCiutat(ciutat);
+    }
+}
+```
+
+---
+
+### **Integració amb un Frontend SPA (React)**
+
+**Exemple: Petició des de React utilitzant Axios**
+```javascript
+import axios from 'axios';
+
+// Obtenir totes les ciutats des de l'API REST
+axios.get('http://localhost:8080/api/ciutats')
+    .then(response => {
+        console.log(response.data); // Mostra les ciutats al navegador
+    })
+    .catch(error => {
+        console.error("Error obtenint ciutats:", error);
+    });
+
+// Afegir una nova ciutat
+axios.post('http://localhost:8080/api/ciutats', {
+    nom: 'València',
+    poblacio: 800000
+})
+    .then(response => {
+        console.log("Ciutat afegida:", response.data);
+    })
+    .catch(error => {
+        console.error("Error afegint ciutat:", error);
+    });
+```
+
+---
+
+### **CORS (Cross-Origin Resource Sharing)**
+
+Quan el frontend i el backend estan en dominis diferents, cal configurar el **CORS** perquè el navegador permeta les peticions.
+
+**Configuració de CORS a Spring Boot:**
+```java
+@RestController
+@RequestMapping("/api/ciutats")
+@CrossOrigin(origins = "http://localhost:3000") // Permet peticions des de React (port 3000)
+public class CiutatRestController {
+    // Controlador REST
+}
+```
+
+---
+
+### **Comunicació en temps real amb WebSockets**
+
+Si es necessita una actualització en temps real entre el servidor i el client (per exemple, en aplicacions IoT), podem utilitzar **WebSockets**.
+
+**Configuració bàsica de WebSocket a Spring Boot:**
+```java
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/websocket").withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/topic");
+        config.setApplicationDestinationPrefixes("/app");
+    }
+}
+```
+
+---
