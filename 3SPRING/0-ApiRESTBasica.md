@@ -121,6 +121,26 @@ public class Ciutat {
     // Constructors, getters i setters
 }
 ```
+---
+
+**Les anotacions JPA més importants són:**
+
+
+
+| **Anotació**       | **Propòsit**                                                                                 | **Exemples bàsics**                                                                         |
+|---------------------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| `@Entity`          | Marca una classe com una entitat JPA, representant una taula en la base de dades.        | `@Entity public class Ciutat { ... }` <br> *Defineix la classe `Ciutat` com a entitat JPA, fent que cada instància corresponga a una fila de la taula de la base de dades.* <br> `@Entity public class Usuari { ... }` <br> *La classe `Usuari` serà una altra entitat JPA mapejada a la taula de base de dades per a gestionar informació d'usuaris.* |
+| `@Table`           | Defineix el nom de la taula i altres configuracions (com índexs o restriccions).         | `@Table(name = "ciutats")` <br> *Especifica que aquesta entitat s'emmagatzema en la taula `ciutats` de la base de dades.* <br> `@Table(name = "usuaris", schema = "administracio")` <br> *Mapeja l'entitat `Usuari` a la taula `usuaris` dins de l'esquema `administracio` de la base de dades.* |
+| `@Id`              | Indica quin atribut és la clau primària de l’entitat.                                   | `@Id private Long id;` <br> *Marca l'atribut `id` com a clau primària de l'entitat.* <br> `@Id private String codi;` <br> *Marca l'atribut `codi` com a clau primària si la taula utilitza una clau alfanumèrica en lloc d'un ID numèric.* |
+| `@GeneratedValue`  | Especifica com es generarà el valor de la clau primària (ex.: autoincremental).          | `@GeneratedValue(strategy = GenerationType.IDENTITY)` <br> *Utilitza la configuració d'autoincrement pròpia de la base de dades (com MySQL o PostgreSQL).* <br> `@GeneratedValue(strategy = GenerationType.AUTO)` <br> *Spring selecciona automàticament l'estratègia adequada segons la base de dades.* |
+| `@Column`          | Configura propietats específiques d’una columna (nom, si és nullable, longitud, etc.).   | `@Column(nullable = false, length = 50)` <br> *Indica que aquesta columna no pot ser nul·la i limita la longitud del text a 50 caràcters.* <br> `@Column(name = "nom_ciutat", unique = true)` <br> *Canvia el nom de la columna a `nom_ciutat` i assegura que el seu valor siga únic.* |
+| `@Transient`       | Marca un atribut que no es guardarà en la base de dades.                                | `@Transient private String cache;` <br> *Evita que el camp `cache` siga persistit a la base de dades perquè és temporal.* <br> `@Transient private boolean modificat;` <br> *L'atribut `modificat` s'utilitza per processar dades en memòria, però no es guarda en la base de dades.* |
+| `@Lob`             | Indica que un atribut és un objecte gran, com text llarg o binari.                      | `@Lob private String descripcioDetallada;` <br> *Permet guardar un text molt llarg, com una descripció extensa, en una columna de tipus CLOB.* <br> `@Lob private byte[] imatge;` <br> *Permet guardar dades binàries, com imatges o fitxers, en una columna de tipus BLOB.* |
+
+
+
+---
+
 
 
 ### Repositori - CiutatRepository
@@ -128,7 +148,7 @@ public class Ciutat {
 ```java
 
 @Repository
-public interface CiutatRepository  extends CrudRepository<Ciutat,Long> {
+public interface CiutatRepository  extends JpaRepository<Ciutat,Long> {
 }
 ```
 
