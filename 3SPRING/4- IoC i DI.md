@@ -282,7 +282,7 @@ public class PaisController {
    - El contenidor Spring detecta `PaisRepository`, `PaisService` i `PaisController` gràcies a les anotacions `@Repository`, `@Service` i `@RestController`.
    - Crea instàncies de cada classe i les registra com a **beans**.
 
-2. **DIó:**
+2. **DI:**
    - Spring injecta automàticament:
      - `PaisRepository` dins de `PaisService`.
      - `PaisService` dins de `PaisController`.
