@@ -9,8 +9,10 @@ nav_order: 30
 ---
 
 
-# **Arquitectura MVC i  Spring Boot**
+# **MVC i  Spring Boot**
 
+
+## 1.- Arquitectura Model-Vista-Controlador
 El patró **Model-View-Controller (MVC)** és una arquitectura que separa les responsabilitats d’una aplicació en tres components principals:
 
 
@@ -30,14 +32,6 @@ El patró **Model-View-Controller (MVC)** és una arquitectura que separa les re
 3. **Controlador**:
     - Gestiona les peticions de l’usuari.
     - Actua com a intermediari entre el **Model** i la Vista (**View**).
-
-## **1.- Patró Model-View-Controller (MVC)**
-
-
-MVC és un patró de disseny que separa les responsabilitats d'una aplicació en tres components principals:
-- **Model**: Gestiona les dades, la lògica de negoci i les regles d'aplicació.
-- **View**: És la interfície d'usuari. Mostra les dades al client i permet la interacció.
-- **Controller**: Gestiona les peticions de l'usuari, interacciona amb el Model i actualitza la View.
 
 **Objectius del patró MVC**
   - **Separació de responsabilitats**:
