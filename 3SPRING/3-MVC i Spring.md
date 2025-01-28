@@ -45,15 +45,15 @@ El patró **Model-View-Controller (MVC)** és una arquitectura que separa les re
   
 **Implementació de MVC amb Spring Boot**
     
-     Spring Boot ofereix una implementació eficient del patró MVC, ja que proporciona:   
-     - Gestió automàtica de components:    
-       - Amb anotacions com `@Controller`, `@Service` i `@Repository`, podem estructurar el codi fàcilment.    
-     - Integració amb bases de dades    
-       - Utilitza Spring Data JPA per interactuar amb bases de dades de manera senzilla.    
-     - Motor de plantilles:    
-       - Thymeleaf permet generar vistes dinàmiques basades en HTML.    
-     - API REST integrada:
-       - Amb `@RestController`, podem crear APIs que retornen JSON o XML.
+Spring Boot ofereix una implementació eficient del patró MVC, ja que proporciona:   
+  - Gestió automàtica de components:    
+    - Amb anotacions com `@Controller`, `@Service` i `@Repository`, podem estructurar el codi fàcilment.    
+  - Integració amb bases de dades    
+    - Utilitza Spring Data JPA per interactuar amb bases de dades de manera senzilla.    
+  - Motor de plantilles:    
+    - Thymeleaf permet generar vistes dinàmiques basades en HTML.    
+  - API REST integrada:
+    - Amb `@RestController`, podem crear APIs que retornen JSON o XML.
     
     
 **Exemple: Funcionament de MVC en Spring Boot**
