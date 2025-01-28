@@ -62,8 +62,8 @@ Spring Boot ofereix una implementació eficient del patró MVC, ja que proporcio
     
   1. **Usuari fa una petició HTTP (GET)** a `http://localhost:8080/ciutats`.
   2. El **Controlador** (anotat amb `@Controller`) gestiona la petició.
-  3. El **Servei** interactua amb el **Model** per obtenir dades de la base de dades.
-  4. El Controlador envia les dades a la **Vista** (Thymeleaf) per ser renderitzades.
+  3. El **Servei** interactua amb el **Model** (entitats, serveis, etc...) per obtenir dades de la base de dades.
+  4. El Controlador envia les dades a la **Vista** (Thymeleaf) per ser renderitzades, o genera una API Rest per a aplicacions de tercers (@Controller i @RestController)
     
 
 ---
@@ -71,12 +71,7 @@ Spring Boot ofereix una implementació eficient del patró MVC, ja que proporcio
 
 ## **2. Components principals del patró MVC en Spring Boot**
 
-En l’arquitectura MVC de Spring Boot, cada component té un paper clar. Això ajuda a organitzar l’aplicació i facilita el desenvolupament i manteniment. Els components principals són:
-
-1. **Model**: Gestiona les dades i la lògica de negoci.
-2. **Vista**: Mostra les dades a l’usuari.
-3. **Controlador**: Gestiona les peticions HTTP i connecta el Model amb la Vista.
-
+En l’arquitectura MVC de Spring Boot, cada component té un paper clar. Això ajuda a organitzar l’aplicació i facilita el desenvolupament i manteniment.
 ---
 
 ## **1. Model: Entitats, Repositoris i Serveis**
