@@ -11,7 +11,7 @@ nav_order: 40
 
 # **Inversió de Control (IoC) i Injecció de Dependències (DI) a Spring Boot**
 
-Spring Boot es basa en dos conceptes essencials que simplifiquen el desenvolupament d’aplicacions: **Inversió de Control (IoC)** i **Injecció de Dependències (DI)**. Estos conceptes (que poden pareixer abstractes i deificils al principi), són claus per entendre com Spring Boot gestiona automàticament els components del projecte.
+Spring Boot es basa en dos conceptes essencials que simplifiquen el desenvolupament d’aplicacions: **Inversió de Control (IoC)** i **Injecció de Dependències (DI)**. Estos conceptes (que poden pareixer abstractes i dificils de compendre al principi), són claus per entendre com **Spring Boot gestiona automàticament els components** del projecte.
 
 ---
 
@@ -26,6 +26,8 @@ No som nosaltres qui creem els objectes, és el **contenidor IoC de Spring** qui
 - **Proporciona aquests objectes** quan una classe els necessita.
 
 En resum, IoC permet que  nosaltres sigam **els que demanen els objectes**, però no els que els creen.
+
+Als objectes generats per Spring se’ls anomena **beans**. Aquests beans són instàncies de classes que són gestionades pel contenidor IoC.
 
 ---
 
@@ -48,7 +50,7 @@ El **contenidor IoC de Spring** és el nucli del framework Spring. La seua funci
    - Durant l’arrencada, Spring escaneja les classes del projecte per trobar anotacions com `@Component`, `@Service`, `@Repository` o `@Controller`.
 
 2. **Creació de beans**:
-   - Per cada classe detectada amb aquestes anotacions, Spring crea una instància (bean) i la registra al contenidor IoC.
+   - Per cada classe detectada amb aquestes anotacions, **Spring crea una instància (bean) i la registra al contenidor IoC**.
 
 3. **Gestió de dependències**:
    - Si una classe (per exemple, un servei) necessita un altre objecte (per exemple, un repositori), Spring detecta aquesta necessitat (a través de `@Autowired`) i injecta automàticament la dependència.
@@ -231,7 +233,12 @@ public class PaisRepository {
         return new String[]{"Espanya", "França", "Itàlia"};
     }
 }
+
+// Este Repositori no hereta de cap classe ni implementa cap interfície (no hereta de CrudRepository ni implementa Cr), però Spring el detecta com a bean per l'anotació @Repository
+
 ```
+
+
 
 - **Servei:**
 ```java

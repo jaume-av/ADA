@@ -294,9 +294,9 @@ public class CiutatRestController {
 
 ## **3. Flux de treball dins de Spring MVC**
 
-En Spring MVC, cada petició HTTP realitzada per un usuari segueix un flux de treball clar i estructurat que passa per diferents components: el **Controlador**, el **Servei**, el **Repositori** i, finalment, la **Vista** (o la resposta en format JSON en cas d'una API REST).
+En Spring MVC, cada petició HTTP realitzada per un usuari segueix un **flux de treball estructurat** a través de diferents components: el **Controlador**, el **Servei**, el **Repositori** i, finalment, la **Vista** (o la resposta en format JSON en cas d'una API REST).
 
-Aquest flux garanteix que cada capa del patró MVC compleix una responsabilitat específica i permet que l'aplicació siga escalable, mantenible i fàcil d'entendre.
+Aquest flux garanteix que **cada capa del patró MVC compleix una responsabilitat específica** el que permetrà que l'aplicació siga escalable, mantenible i fàcil d'entendre.
 
 ---
 
@@ -356,7 +356,7 @@ public class CiutatRestController {
 
 - **3. El controlador interactua amb el servei**
     - Si el controlador necessita dades de la base de dades, delega aquesta tasca al **Servei**.
-    - El servei encapsula la lògica de negoci i interactua amb els **Repositoris** per accedir a les dades.
+    - El servei **encapsula la lògica de negoci** i interactua amb els **Repositoris** per accedir a les dades.
 
 **Exemple de Servei:**
 ```java
@@ -520,7 +520,7 @@ Aquesta arquitectura facilita el desenvolupament, la comprensió i el mantenimen
 
 ## **Backend i Frontend amb Spring Boot**
 
-Per integrar un backend desenvolupat amb Spring Boot amb diferents tipus d'aplicacions frontend, es fa utilitzant **APIs REST** o **WebSockets**. Aquestes eines permeten que el backend expose dades i funcionalitats que el frontend pot consumir de manera fàcil i escalable.
+Per integrar un backend desenvolupat amb Spring Boot amb diferents tipus d'aplicacions frontend, es fa utilitzant **APIs REST** o **WebSockets**. Aquestes eines permeten que el **backend expose dades** i funcionalitats **que el frontend pot consumir** de manera fàcil i escalable.
 
 ---
 
