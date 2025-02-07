@@ -170,3 +170,72 @@ POST http://localhost:8080/users/register/
 ---
 
 Amb aquesta implementació, el projecte està més estructurat i **segueix les bones pràctiques recomanades per Spring Security i Spring Boot** 🚀.
+
+
+
+
+
+
+
+
+# **Swagger i OpenAPI**
+**Swagger** i **OpenAPI** són eines per a documentar i provar **APIs RESTful**. 
+S'utilitzen per generar automàticament documentació interactiva, amb l'objectiu de poder consultar i provar els nostres endpoints.
+
+- **OpenAPI**: És un estàndard per descriure APIs REST en un fitxer **JSON o YAML**, que pot ser interpretat per eines com Swagger o Postman. (Es a dir, és l'estàndard oficial.)
+- **Swagger**: És un conjunt d'eines per documentar, provar i generar clients per a APIs REST, (és una implementació d'OpenAPI)
+
+
+---
+
+### **Usos de  Swagger i OpenAPI en Spring Boot**
+
+1️. **Documentació automàtica dels endpoints REST**
+   - Genera una pàgina web interactiva amb tots els endpoints de l'API.  
+   - Mostra informació sobre **mètodes HTTP, paràmetres, respostes i models de dades**.  
+
+2️. **Proves d’API sense Postman**
+   - Des de l'interfície de Swagger podem executar peticions `GET`, `POST`, `PUT`, `DELETE` directament.  
+
+3️3. **Exportació a Postman**  
+   - Podem generar automàticament el fitxer JSON (`openapi.json`) i importar-lo a **Postman** per a fer proves.  
+
+---
+
+### **Integració de Swagger (OpenAPI) en un projecte Spring Boot**
+
+Per affegir Swagger a la nostra aplicació afegim la dependència gradle:
+
+```gradle
+// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+```
+
+I configurarà Swagger automàticament.
+
+---
+
+### **Accés amb Swagger a la API**
+Després d'executar el projecte amb `spring-boot`, podem accedir a la documentació en:
+
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+**Aquesta pàgina mostra tots els endpoints i et permet provar-los directament.**
+
+---
+
+### **Exporetació de Swagger a Postman?**
+Si vols importar els endpoints en Postman, has de descarregar el fitxer **OpenAPI JSON**:
+
+1. Accedim a:
+   ```
+   http://localhost:8080/v3/api-docs
+   ```
+2. Guardem el contingut com `openapi.json`.
+3. En **Postman**, anem a `"Import"` → `"File"` i seleccionem `openapi.json`.
+
+**Així Postman generarà automàticament una col·lecció amb tots els endpoints de la teua API!** 
+
+---
