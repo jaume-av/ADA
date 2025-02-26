@@ -121,7 +121,7 @@ Aquesta excepció pot ser llançada des de qualsevol controlador.
 | `GET /api/ciutats` | `@RestController` (API) | `ApiExceptionHandler` | JSON: `{ "error": "Error intern del servidor", "message": "Detall de l'error"}` |
 
 ## 6. Conclusió
-✅ **Si utilitzem Thymeleaf (`@Controller`), hem de gestionar les excepcions retornant una vista HTML.**  
-✅ **Si utilitzem una API REST (`@RestController`), hem de retornar una resposta JSON.**  
-✅ **Separar la gestió d'excepcions en `@ControllerAdvice` i `@RestControllerAdvice` millora l'organització del codi i la mantenibilitat.**
+**Si utilitzem Thymeleaf (`@Controller`), hem de gestionar les excepcions retornant una vista HTML.**  
+**Si utilitzem una API REST (`@RestController`), hem de retornar una resposta JSON.**  
+**Separar la gestió d'excepcions en `@ControllerAdvice` i `@RestControllerAdvice` millora l'organització del codi i la mantenibilitat.**
 
