@@ -15,7 +15,11 @@ Component formatiu: 0486 - Accés a Dades
 
 
 {: .text-center }
-![alt text](./0Introduccio/imatges/fse.png)
+![alt text](0Introduccio/imatges/fse.png)
+
+0Introduccio/index.md
+****
+0Introduccio/imatges/fse.png
 
 **Cofinanciat per  el Fons Social Europeu**
 
