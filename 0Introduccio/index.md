@@ -15,7 +15,7 @@ Component formatiu: 0486 - Accés a Dades
 
 Cofinanciat per  el Fons Social Europeu
 {: .text-center }
-![alt text](../0Introducció/imatges/Imagen1-6.png)
+![alt text](../0Introduccio/imatges/fse.png)
 
 
 
