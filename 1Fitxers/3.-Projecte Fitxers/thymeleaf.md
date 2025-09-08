@@ -1,6 +1,6 @@
 
 
-Aquí tens el text anterior, exactament igual però utilitzant només `java.io` en lloc de `java.nio`.
+
 
 ---
 

@@ -1,8 +1,8 @@
 ---
-title: ADA
+title: Descripció del Mòdul
 layout: default
 parent: Accés a Dades
-nav_order: 1
+nav_order: 10
 has_children: true
 has_toc: true
 ---
@@ -52,15 +52,16 @@ Per a superar el mòdul s’ha d’obtenir una qualificació mínima de 5 sobre 
 
 S'avaluarà cada RA mitjançant activitats pràctiques i un examen teòric-pràctic final.
 
--Les pràctiques, projectes i/o treballs puntuen apte o no apte.
--Els examens serán escrits de tipus teorics i pràctics, i determinaran la nota de cada RA.
+- Les pràctiques, projectes i/o treballs puntuen apte o no apte.
+- Els examens serán escrits de tipus teorics i pràctics, i determinaran la nota de cada RA.
 
-La'umnat disposarà de dos convocatòries per a superar el mòdul.
+L'alumnat disposarà de **dos convocatòries** per a superar el mòdul.
 
-- Avaluació continua: 1a convocatòria
-- Avaluació extraordinària: 2a convocatòria. (Dels RA no superats)
+- **Avaluació continua**: 1a convocatòria
+- **Avaluació extraordinària**: 2a convocatòria. (Dels RA no superats)
 
-Proces de recuperació:
+### Proces de recuperació:
+
 No hi haurà recuperacions parcials de cap RA, a la fi de curs hi haurà un examen per a cada RA pendent.
 
 En cas de perdre l'avaluació continua, l'alumnat haurà de presentar-se a totes les RA a la **convocatòria ordinaria**, i en cas de no superar.
