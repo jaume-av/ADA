@@ -10,7 +10,7 @@ has_toc: true
 
 
 
-# Programar amb IA: ajuda o dependència?
+## Programar amb IA: ajuda o dependència?
 
 Tot curs de programació sempre comença amb la frase **"A programar sols s'aprèn programant"**.
 
