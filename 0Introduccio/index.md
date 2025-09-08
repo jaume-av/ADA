@@ -10,12 +10,14 @@ has_toc: true
 
 # Módul Accés a Dades
 
-Durarda total: **132 hores**.
-Component formatiu: 0486 - Accés a Dades
+Durarda total: **132 hores**.    
+Component formatiu: 0486 - Accés a Dades    
 
-Cofinanciat per  el Fons Social Europeu
+
 {: .text-center }
 ![alt text](./0Introduccio/imatges/fse.png)
+
+**Cofinanciat per  el Fons Social Europeu**
 
 
 
