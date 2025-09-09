@@ -91,8 +91,6 @@ La IA és una gran ajuda per **aprendre millor i més ràpid**, però:
 
 
 
-Perfecte 🙌. Ací tens la **fitxa resum en 5 consells pràctics** sobre com usar la IA per aprendre a programar. La pots donar a l’alumnat o penjar-la com a pòster a l’aula/Moodle:
-
 ---
 
 ## Com usar la IA per aprendre a programar
