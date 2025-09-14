@@ -1,7 +1,7 @@
 ---
 title:  Exercicis amb la Classe File
 parent: Classe File
-grand_parent: Persistència de Fitxers
+grand_parent: 1.- Gestió del Sistema de Fitxers
 has_children: true
 layout: default
 nav_order: 10
@@ -99,11 +99,11 @@ Implementa un programa que realitze les següents tasques:
 
 ### Tasca a realitzar
 
-Tasca a realitzar
+
 
 1.- A partir de la plantilla `Exercici3.java` i l’estructura d’arxius `Documentos.zip`.
 
-2.- Obri’ls i prepara’ls en Intellij.
+2.- Obri’ls i prepara’ls en IntelliJ.
 
 3.- Completa la funció `main()` i crea les funcions `imprimirLlistaArxius()` i `llevarExtensionsArxius()`, tal com s’indica en els comentaris.
 
@@ -289,7 +289,7 @@ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 ```
 
 
-### Pantilla inicial
+### Plantilla inicial
 
 ```java
 package exercici4;
