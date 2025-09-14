@@ -75,12 +75,16 @@ void mostraRuta(File f, boolean mesInfo)
 
 
 
+
+
+## Exercici 3 – Reanomenant directoris i fitxers
+
+Per als exercicis 3, 4 i 5, descarrega l’estructura d’arxius `Documentos.zip` i descomprím-la en la carpeta on estiguen els teus projectes d’IntelliJ.
+
 [Descarregar Documentos.zip]({{ '/1Fitxers/1%20Gestio%20Fitxers/Fitxers/Documentos.zip' | relative_url }}){: .btn .btn-outline }
 
 
 ---
-
-## Exercici 3 – Reanomenant directoris i fitxers
 
 
 Implementa un programa que realitze les següents tasques:
@@ -451,4 +455,128 @@ public class Exercici5 {
 
 } // de la classe
 ```
+
+## ANNEX -  El mètode `split()` en Java
+
+El mètode **`split()`** de la classe `String` permet **dividir una cadena de text en parts** a partir d’un delimitador.
+
+* Retorna un **array (`String[]`)** amb les parts resultants.
+* El **delimitador** es defineix amb una **expressió regular (regex)**.
+* És molt útil per separar dades dins d’una cadena, per exemple noms de fitxers, extensions, paraules en una frase, etc.
+
+---
+
+## Exemple bàsic
+
+```java
+public class MetodeSplit {
+
+    public static void main(String[] args) {
+
+        String s = "Nom.ext";
+
+        // Dividim la cadena en parts, separant pel punt "."
+        String[] cadenaPartida = s.split("\\.");
+
+        System.out.println(cadenaPartida[0]); // "Nom"
+        System.out.println(cadenaPartida[1]); // "ext"
+    }
+}
+```
+
+A l'exemple anterior:
+
+* Declarem `s = "Nom.ext"`.
+* Apliquem `split("\\.")`.
+
+  * El paràmetre és `"\\."` i **no només `"."`**, perquè en expressions regulars el punt té un significat especial (significa “qualsevol caràcter”).
+  * Amb `\\.` li diem a Java: “busca exactament un punt literal”.
+* El resultat és un array amb dos elements:
+
+  * `cadenaPartida[0] = "Nom"`
+  * `cadenaPartida[1] = "ext"`
+
+
+>Important!! El separador o delimitador és una **expressió regular (regex)**. I no apareix mai a l'array resultant.
+
+## Exemple tallant per una lletra ("e")
+
+```java
+public class MetodeSplit {
+
+    public static void main(String[] args) {
+
+        String s = "Nom.ext";
+
+        // Dividim la cadena en parts, separant per la lletra "e"
+        String[] cadenaPartida = s.split("e");
+
+        System.out.println(cadenaPartida[0]); // "Nom."
+        System.out.println(cadenaPartida[1]); // "xt"
+    }
+}
+```
+
+A l'exemple anterior:
+
+* Declarem `s = "Nom.ext"`.
+* Apliquem `split("e")`.
+* La cadena es parteix cada vegada que apareix la lletra **e**.
+* El resultat és un array amb dos elements:
+
+  * `cadenaPartida[0] = "Nom."`
+  * `cadenaPartida[1] = "xt"`
+
+---
+
+### En resum
+
+* **Sintaxi:**
+
+  ```java
+  String[] parts = text.split(regex);
+  ```
+* **Paràmetre:**
+
+  * `regex` → expressió regular que indica per on es fa la separació.
+* **Resultat:**
+
+  * Retorna un `String[]` amb les subcadenes.
+
+---
+
+## Casos habituals
+
+1. **Separar paraules en una frase per espais**
+
+   ```java
+   "Hola món Java".split(" ") 
+   // → ["Hola", "món", "Java"]
+   ```
+
+2. **Separar elements per comes**
+
+   ```java
+   "roig,verd,blau".split(",") 
+   // → ["roig", "verd", "blau"]
+   ```
+
+3. **Separar un fitxer i la seua extensió**
+
+   ```java
+   "document.pdf".split("\\.") 
+   // → ["document", "pdf"]
+   ```
+
+
+4. **Separar per múltiples delimitadors**
+
+   ```java
+   "roig;verd,blau".split("[,;]") 
+   // → ["roig", "verd", "blau"]
+   ```
+
+
+---
+
 
