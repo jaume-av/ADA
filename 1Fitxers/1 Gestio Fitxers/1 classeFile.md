@@ -9,14 +9,11 @@ nav_order: 10
 
 
 # Classe `File` – Gestió de Fitxers a Java
+La classe **`File`** de Java, que permet gestionar rutes i fitxers de manera independent del sistema operatiu, és una de les més importants per operar amb arxius i directoris en Java 
 
-En aquest document aprendràs a utilitzar la classe **`File`** de Java, que permet gestionar rutes i fitxers de manera independent del sistema operatiu.
-
-## Classe `File` en Java
+* **Classe `File` en Java**
 [Classe File](https://docs.oracle.com/javase/8/docs/api/index.html?java/io/File.html)
 
-
-La classe **`File`** és una de les més importants per operar amb arxius i directoris en Java. És important compendre que la classe **`File`** **no representa el contingut dels arxius**, sinó la **ruta a l'arxiu o directori**.
 
 ### Importació de la classe
 
@@ -168,6 +165,27 @@ if (fitxer.exists()) {
 }
 ```
 
+### Comparació de fitxers
+
+La classe **`File`** permet comparar rutes de fitxers amb els mètodes **`compareTo()`** i **`equals()`**:
+
+- **`int compareTo(File altreFitxer)`**: Compara lexicogràficament (lletra a lletra) dos camins (rutes).
+- **`boolean equals(Object)`**: Compara si dos objectes **`File`** fan referència al mateix fitxer o directori.
+
+#### Exemple de comparació de rutes
+
+```java
+File fitxer1 = new File("exemple1.txt");
+File fitxer2 = new File("exemple2.txt");
+
+if (fitxer1.compareTo(fitxer2) == 0) {
+    System.out.println("Els fitxers són iguals.");
+} else {
+    System.out.println("Els fitxers són diferents.");
+}
+```
+
+
 ### Espai de disc
 
 Mètodes per obtenir informació sobre l'espai de disc disponible:
@@ -185,27 +203,8 @@ System.out.println("Espai lliure: " + disc.getFreeSpace() + " bytes");
 System.out.println("Espai utilitzable: " + disc.getUsableSpace() + " bytes");
 ```
 
-### Comparació de fitxers
 
-La classe **`File`** permet comparar rutes de fitxers amb els mètodes **`compareTo()`** i **`equals()`**:
-
-- **`int compareTo(File altreFitxer)`**: Compara lexicogràficament dos camins.
-- **`boolean equals(Object)`**: Compara si dos objectes **`File`** fan referència al mateix fitxer o directori.
-
-#### Exemple de comparació de rutes
-
-```java
-File fitxer1 = new File("exemple1.txt");
-File fitxer2 = new File("exemple2.txt");
-
-if (fitxer1.compareTo(fitxer2) == 0) {
-    System.out.println("Els fitxers són iguals.");
-} else {
-    System.out.println("Els fitxers són diferents.");
-}
-```
-
-## Compatabilitat amb diferents sistemes operatius
+## Compatibilitat amb diferents sistemes operatius
 
 Quan es treballa amb la classe **`File`**, és important tenir
 
