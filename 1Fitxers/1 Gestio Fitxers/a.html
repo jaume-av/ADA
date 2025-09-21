@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Excepcions en Java · Apunts complets</title>
+
+  <!-- Estil net, una sola columna, targetes i xips -->
+  <style>
+    :root{
+      --bg:#f6f7fb; --surface:#ffffff; --ink:#0f172a; --muted:#64748b;
+      --brand:#0ea5e9; --brand-ink:#075985; --border:#e2e8f0; --radius:16px;
+      --chip:#eef2f7; --chip-ink:#334155;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Helvetica, Arial, sans-serif;
+      color:var(--ink); background:linear-gradient(180deg,#f8fafc 0%, #eef2f7 100%); line-height:1.68;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    .wrap{ max-width: 960px; margin: 34px auto 54px; padding: 0 20px; }
+    h1{ font-size: clamp(28px,3.6vw,40px); letter-spacing:-.02em; margin: 0 0 8px; }
+    .lead{ color:var(--muted); margin:0 0 18px; }
+    .card{
+      background: var(--surface); border:1px solid var(--border); border-radius: var(--radius);
+      padding: 18px 18px 10px; box-shadow: 0 10px 30px rgba(2,6,23,.06); margin-top: 18px;
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; letter-spacing:.08em; text-transform:uppercase; font-weight:800;
+      color:var(--brand-ink); background:#e0f2fe; border:1px solid #bae6fd; padding:4px 8px; border-radius:999px;
+    }
+    .idx{ background:#0ea5e9; color:#fff; padding:2px 8px; border-radius:999px; font-weight:700; }
+    h2{ font-size: 22px; margin: 10px 0 10px; letter-spacing:-.01em; }
+    h3{ font-size: 18px; margin: 10px 0 8px; }
+    p{ margin: 0 0 10px; }
+    ul{ margin: 6px 0 10px 20px; }
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 10px; }
+    .chip{
+      display:inline-flex; align-items:center; gap:6px; background:var(--chip); color:var(--chip-ink);
+      border:1px solid #e2e8f0; border-radius:999px; padding:2px 10px; font-size:12px; font-weight:600;
+    }
+    .chip code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; }
+    .box{
+      border:1px solid var(--border); background:#f8fafc; border-radius:14px; padding:12px 14px; margin:8px 0;
+    }
+    .codewrap{ position:relative; margin-top:10px; }
+    .copybtn{
+      position:absolute; top:10px; right:10px; z-index:2; background:#0ea5e9; color:#fff; border:none;
+      border-radius:10px; padding:6px 10px; font-weight:700; font-size:12px; cursor:pointer;
+      box-shadow:0 4px 14px rgba(14,165,233,.25);
+    }
+    .copybtn:active{ transform: translateY(1px); }
+    pre{ margin:0; border:1px solid var(--border); border-radius: 12px; overflow:auto; }
+    code.hljs{ font-size: 13.5px; }
+    .callout{
+      border-left:4px solid #0ea5e9; background:#e6f6ff; padding:10px 12px; border-radius:10px; margin:10px 0;
+      color:#084d6e;
+    }
+    .flux{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background:#fff; border:1px solid var(--border); border-radius:10px; padding:10px; white-space:pre-wrap; }
+    @media print{ .card{ box-shadow:none; } pre{ page-break-inside: avoid; } }
+  </style>
+
+  <!-- Highlight.js (tema Idea / estil IntelliJ) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/idea.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Excepcions en Java · Apunts complets</h1>
+    <p class="lead">De menys a més, amb exemples explicats pas a pas, eixides i bones pràctiques. Ideal per a alumnat de primer.</p>
+
+    <!-- 0 -->
+    <section class="card" id="0">
+      <span class="eyebrow"><span class="idx">0</span> Introducció</span>
+      <h2>Per què necessitem excepcions?</h2>
+      <div class="chips">
+        <span class="chip"><code>Runtime</code> errors</span>
+        <span class="chip"><code>Throwable</code></span>
+        <span class="chip"><code>Exception</code></span>
+      </div>
+      <p><strong>Excepció</strong> = problema en <em>temps d’execució</em> que trenca el flux normal si no es tracta (dividir per 0, índex fóra de rang, entrada invàlida…). Java crea i “llança” un <strong>objecte</strong> d’excepció (p. ex. <code>ArithmeticException</code>). Si ningú el captura, el programa acaba amb traça.</p>
+      <div class="box">
+        <ul>
+          <li><strong>Per a què valen?</strong> Detectar i gestionar errors reals (inputs, fitxers, xarxa) sense tancar el programa de colp.</li>
+          <li><strong>Compilació vs Execució:</strong> compilació = codi mal escrit; execució = excepcions (codi compila però peta en marxa).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="card" id="1">
+      <span class="eyebrow"><span class="idx">1</span> Teoria</span>
+      <h2>Jerarquia i tipus d’excepcions</h2>
+      <div class="box">
+<pre class="flux">Throwable
+├─ Error                 (greus de la JVM → no els tractem)
+└─ Exception
+   ├─ (Checked)   COMPROVADES → el compilador obliga a gestionar o propagar
+   └─ (Unchecked) NO COMPROVADES (RuntimeException i filles) → no obliga</pre>
+      </div>
+      <p><strong>Unchecked</strong> (les que més veurem): <code>ArithmeticException</code>, <code>ArrayIndexOutOfBoundsException</code>, <code>InputMismatchException</code>, <code>NumberFormatException</code>, <code>NullPointerException</code>.</p>
+      <p><strong>Checked</strong> (E/S, xarxa…): <code>IOException</code>, <code>FileNotFoundException</code>… El compilador <em>exigeix</em> <code>try/catch</code> o <code>throws</code>.</p>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" id="2">
+      <span class="eyebrow"><span class="idx">2</span> Sintaxi</span>
+      <h2>Estructura bàsica: <code>try</code> – <code>catch</code> – <code>finally</code></h2>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-try">Copiar</button>
+<pre><code id="code-try" class="language-java">try {
+    // codi “riscós”
+} catch (TipusExcepcio e) {
+    // reacció a un error concret
+} finally { // opcional
+    // s'executa sempre (tanque recursos, missatge final…)
+}</code></pre>
+      </div>
+      <div class="callout"><strong>Ordre dels <code>catch</code>:</strong> de més <em>específic</em> a més <em>general</em>. Evita <code>catch(Exception)</code> a soles.</div>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" id="3">
+      <span class="eyebrow"><span class="idx">3</span> Pràctica</span>
+      <h2>Scanner i el buffer: <code>InputMismatchException</code></h2>
+      <p>Si <code>nextInt()</code> rep “hola”, llança <code>InputMismatchException</code> i <strong>queden caràcters al buffer</strong>. Cal netejar amb <code>nextLine()</code> al <code>catch</code>.</p>
+      <h3>Exemple 1 — Llegir un enter amb reacció a error</h3>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-ex1">Copiar</button>
+<pre><code id="code-ex1" class="language-java">import java.util.*;
+
+public class Ex1_EntradaEnter {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int a;
+
+        try {
+            System.out.print("Introdueix un enter: ");
+            a = in.nextInt(); // pot llançar InputMismatchException
+            System.out.println("Valor introduït: " + a);
+        } catch (InputMismatchException e) {
+            System.out.println("Valor introduït incorrecte.");
+            in.nextLine(); // ← Neteja del token invàlid
+        }
+
+        System.out.println("Fi del programa.");
+    }
+}</code></pre>
+      </div>
+      <div class="box"><strong>Eixida (si escric “hola”):</strong><br><pre class="flux">Introdueix un enter: hola
+Valor introduït incorrecte.
+Fi del programa.</pre></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" id="4">
+      <span class="eyebrow"><span class="idx">4</span> Pràctica</span>
+      <h2>Dos problemes independents: lectura i divisió per zero</h2>
+      <h3>Exemple 2 — Demanar A i B, calcular A/B</h3>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-ex2">Copiar</button>
+<pre><code id="code-ex2" class="language-java">import java.util.*;
+
+public class Ex2_DivisioAB {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        try {
+            System.out.print("Numerador (A): ");
+            int A = in.nextInt();  // pot fallar si no és enter
+
+            System.out.print("Denominador (B): ");
+            int B = in.nextInt();  // pot fallar si no és enter
+
+            int R = A / B;         // ArithmeticException si B == 0
+            System.out.println(A + " / " + B + " = " + R);
+
+        } catch (InputMismatchException e) {
+            System.out.println("Valor introduït incorrecte (cal un enter).");
+            in.nextLine(); // neteja
+        } catch (ArithmeticException e) {
+            System.out.println("Divisió entre zero (B no pot ser 0).");
+        }
+
+        System.out.println("Fi del programa.");
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" id="5">
+      <span class="eyebrow"><span class="idx">5</span> Pràctica</span>
+      <h2>Reintents i arrays: omplir <code>double[5]</code></h2>
+      <h3>Exemple 3 — Patró <code>i--</code> per a repetir la posició</h3>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-ex3">Copiar</button>
+<pre><code id="code-ex3" class="language-java">import java.util.*;
+
+public class Ex3_VectorDouble {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        double[] v = new double[5];
+
+        for (int i = 0; i &lt; v.length; i++) {
+            try {
+                System.out.print("Valor posició " + i + ": ");
+                v[i] = in.nextDouble(); // pot fallar
+            } catch (InputMismatchException e) {
+                System.out.println("Valor introduït incorrecte. Torna-ho a provar.");
+                in.nextLine(); // neteja buffer
+                i--;           // ← REPETIR la mateixa posició
+            }
+        }
+
+        mostrar(v);
+    }
+
+    static void mostrar(double[] v) {
+        System.out.print("Dades del vector [ ");
+        for (double x : v) System.out.print(x + ", ");
+        System.out.println("\b\b ]"); // lleva la coma i l’espai final
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" id="6">
+      <span class="eyebrow"><span class="idx">6</span> Pràctica</span>
+      <h2>Índexs i “sentinella” d’eixida (negatiu)</h2>
+      <h3>Exemple 4 — Vector <code>int[N]</code> + consulta fins negatiu (comprovació prèvia)</h3>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-ex4">Copiar</button>
+<pre><code id="code-ex4" class="language-java">import java.util.*;
+
+public class Ex4_ConsultaVector {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        int N = (int)(Math.random() * 100 + 1);
+        int[] v = new int[N];
+        for (int i = 0; i &lt; N; i++) v[i] = (int)(Math.random() * 10 + 1);
+
+        int pos = 0;
+
+        do {
+            try {
+                System.out.print("Posició a mostrar (0.." + (N-1) + ", negatiu per eixir): ");
+                pos = in.nextInt(); // pot fallar (no enter)
+
+                // ✅ Comprovació PRÈVIA del negatiu ABANS d'accedir
+                if (pos &gt;= 0) {
+                    System.out.println("v[" + pos + "] = " + v[pos]); // pot llançar AIOOBE
+                    in.nextLine(); // neteja
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor introduït incorrecte (cal un enter).");
+                in.nextLine(); // neteja
+            } catch (ArrayIndexOutOfBoundsException e) {
+                if (pos &gt;= 0) {
+                    System.out.println("Índex fora de límits. Rang: 0.." + (N - 1));
+                }
+            }
+        } while (pos &gt;= 0);
+
+        System.out.println("Eixida del programa.");
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="card" id="7">
+      <span class="eyebrow"><span class="idx">7</span> Sintaxi</span>
+      <h2><code>finally</code>: codi que s’executa sempre</h2>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-finally">Copiar</button>
+<pre><code id="code-finally" class="language-java">Scanner in = new Scanner(System.in);
+try {
+    // … lectures i càlculs
+} catch (InputMismatchException e) {
+    System.out.println("Entrada invàlida.");
+    in.nextLine();
+} finally {
+    System.out.println("Finalitzant…");
+    // en exercicis de consola, sovint NO tanquem System.in
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="card" id="8">
+      <span class="eyebrow"><span class="idx">8</span> Bones pràctiques</span>
+      <h2>Ordre dels <code>catch</code> i consells</h2>
+      <ul>
+        <li><strong>Específic → General</strong> en l’ordre dels <code>catch</code>.</li>
+        <li>Evita <code>catch(Exception)</code> a seques (difumina causes).</li>
+        <li>Neteja el buffer de <code>Scanner</code> en <code>InputMismatchException</code>.</li>
+        <li>Comprova abans d’accedir (índexs i divisors).</li>
+        <li>Usa <code>finally</code> o <em>try-with-resources</em> per a tancar recursos.</li>
+      </ul>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-order">Copiar</button>
+<pre><code id="code-order" class="language-java">try {
+    // ...
+} catch (NumberFormatException e) { // específic
+    // ...
+} catch (Exception e) {             // general
+    // ...
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="card" id="9">
+      <span class="eyebrow"><span class="idx">9</span> Modern</span>
+      <h2><code>try-with-resources</code> (tancament automàtic)</h2>
+      <p>Tanca automàticament recursos que implementen <code>AutoCloseable</code> (fitxers, streams…). Ideal per a E/S.</p>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-twr1">Copiar</button>
+<pre><code id="code-twr1" class="language-java">import java.io.*;
+
+public class Ex_TryWithResources {
+    public static void main(String[] args) {
+        try (BufferedReader br = new BufferedReader(new FileReader("dades.txt"))) {
+            String linia;
+            while ((linia = br.readLine()) != null) {
+                System.out.println(linia);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No s'ha trobat el fitxer.");
+        } catch (IOException e) {
+            System.out.println("Error d'entrada/ixida llegint el fitxer.");
+        }
+        // ací br ja està tancat automàticament
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="card" id="10">
+      <span class="eyebrow"><span class="idx">10</span> Throw vs Throws</span>
+      <h2><code>throw</code> i <code>throws</code> (ampliat)</h2>
+
+      <h3>Què és <code>throw</code>?</h3>
+      <p>Llança una excepció <strong>ara mateix</strong> quan es detecta una condició no permesa (validació de paràmetres/estat).</p>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-throwA">Copiar</button>
+<pre><code id="code-throwA" class="language-java">public static int dividir(int a, int b) {
+    if (b == 0) {
+        // Excepció NO comprovada (unchecked)
+        throw new IllegalArgumentException("b no pot ser zero");
+    }
+    return a / b;
+}
+
+public static void main(String[] args) {
+    System.out.println(dividir(8, 2));  // 4
+    // System.out.println(dividir(8, 0));  // llança IllegalArgumentException
+}</code></pre>
+      </div>
+
+      <h3>Convertir errors en un únic tipus coherent</h3>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-throwB">Copiar</button>
+<pre><code id="code-throwB" class="language-java">public static int parseEdat(String s) {
+    int edat;
+    try {
+        edat = Integer.parseInt(s);
+    } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("L'edat ha de ser un enter", e);
+    }
+    if (edat &lt; 0) {
+        throw new IllegalArgumentException("L'edat no pot ser negativa");
+    }
+    return edat;
+}</code></pre>
+      </div>
+
+      <h3>Què és <code>throws</code>?</h3>
+      <p>Anuncia en la <strong>signatura</strong> que el mètode pot llançar una (o diverses) excepcions i <strong>no</strong> les gestiona allí. En <em>checked</em> el compilador obliga.</p>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-throwsA">Copiar</button>
+<pre><code id="code-throwsA" class="language-java">import java.io.*;
+
+static int comptaLinies(String ruta) throws IOException {
+    int count = 0;
+    try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+        while (br.readLine() != null) count++;
+    }
+    return count;
+}
+
+public static void main(String[] args) {
+    try {
+        int n = comptaLinies("dades.txt");
+        System.out.println("Línies: " + n);
+    } catch (IOException e) {
+        System.out.println("Error d'entrada/ixida: " + e.getMessage());
+    }
+}</code></pre>
+      </div>
+
+      <div class="box">
+        <strong>Resum ràpid:</strong>
+        <ul>
+          <li><code>throw</code> → llança ara una excepció (dins del mètode).</li>
+          <li><code>throws</code> → anuncia a la signatura que el mètode pot llançar-la (qui crida, que la gestione).</li>
+          <li><em>Checked</em> → el compilador obliga a <code>try/catch</code> o <code>throws</code>. <em>Unchecked</em> → no obliga.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="card" id="11">
+      <span class="eyebrow"><span class="idx">11</span> Flux</span>
+      <h2>“Què passa exactament?” (mini traça)</h2>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-flux">Copiar</button>
+<pre><code id="code-flux" class="language-java">try {
+    int x = Integer.parseInt("hola"); // NumberFormatException
+    System.out.println(x);            // ← no s'executa
+} catch (NumberFormatException e) {
+    System.out.println("No és número");
+}
+System.out.println("Continue");</code></pre>
+      </div>
+      <div class="box"><strong>Flux:</strong><br><pre class="flux">try → (excepció) → catch corresponent → ("No és número") → continua → ("Continue")</pre></div>
+    </section>
+
+    <!-- 12 -->
+    <section class="card" id="12">
+      <span class="eyebrow"><span class="idx">12</span> Integrat</span>
+      <h2>Exemple complet i comentat (integra tot)</h2>
+      <div class="codewrap">
+        <button class="copybtn" data-copy="#code-full">Copiar</button>
+<pre><code id="code-full" class="language-java">import java.util.*;
+
+public class ExempleIntegratComentat {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // (1) LLEGIR A i B amb reintents (evitem InputMismatchException persistent)
+        Integer A = null, B = null;
+
+        while (A == null) {
+            try {
+                System.out.print("Introdueix A (enter): ");
+                A = in.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("A no és un enter. Torna-ho a provar.");
+                in.nextLine();
+            }
+        }
+
+        while (B == null) {
+            try {
+                System.out.print("Introdueix B (enter): ");
+                B = in.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("B no és un enter. Torna-ho a provar.");
+                in.nextLine();
+            }
+        }
+
+        // (2) DIVISIÓ: provem i capturem divisió per zero
+        try {
+            int R = A / B; // ArithmeticException si B == 0
+            System.out.println(A + " / " + B + " = " + R);
+        } catch (ArithmeticException e) {
+            System.out.println("No es pot dividir per zero (B=0).");
+        }
+
+        // (3) VECTOR aleatori 1..100, valors 1..10
+        int N = (int) (Math.random() * 100 + 1);
+        int[] v = new int[N];
+        for (int i = 0; i < N; i++) v[i] = (int) (Math.random() * 10 + 1);
+
+        // (4) CONSULTA: fins negatiu; comprovació prèvia del negatiu
+        int pos = 0;
+        do {
+            try {
+                System.out.print("Posició a mostrar (0.." + (N - 1) + ", negatiu per eixir): ");
+                pos = in.nextInt();
+
+                if (pos >= 0) {
+                    System.out.println("v[" + pos + "] = " + v[pos]); // AIOOBE si fóra de rang
+                    in.nextLine();
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Cal un enter (has escrit un valor no numèric).");
+                in.nextLine();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Índex fora de límits. Rang vàlid: 0.." + (N - 1));
+            }
+        } while (pos >= 0);
+
+        System.out.println("Eixida del programa.");
+    }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="card" id="13">
+      <span class="eyebrow"><span class="idx">13</span> Pràctica</span>
+      <h2>Exercicis finals (amb pistes)</h2>
+      <ul>
+        <li><strong>Reintents d’enter:</strong> demana un enter i no continues fins que siga vàlid. Mostra els intents.</li>
+        <li><strong>Divisió robusta:</strong> A i B amb reintents; si <code>B==0</code>, torna a demanar <em>només</em> B.</li>
+        <li><strong>Vector <code>double[5]</code> positius:</strong> si el número és negatiu, avisa (no excepció) i repeteix posició.</li>
+        <li><strong>Consulta d’array:</strong> mostra el rang <code>[0..N-1]</code> al principi; gestiona <code>InputMismatch</code> i <code>ArrayIndexOutOfBounds</code>; negatiu per eixir.</li>
+        <li><strong>Funció amb <code>throw</code>:</strong> <code>percentatge(total, part)</code> que llance <code>IllegalArgumentException</code> si <code>total&lt;=0</code> o <code>part&lt;0</code>; captura al <code>main</code>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- JS: Highlight + botons "Copiar" -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.hljs) hljs.highlightAll();
+      document.querySelectorAll('.copybtn').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const el = document.querySelector(btn.getAttribute('data-copy'));
+          if(!el) return;
+          navigator.clipboard.writeText(el.innerText).then(()=>{
+            const t=btn.textContent; btn.textContent='Copiat!'; setTimeout(()=>btn.textContent=t, 1200);
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
