@@ -1,201 +1,552 @@
 
 
-# EXEPCIONS (I)
+# Excepcions en Java
 
-**Error Sintàctic** → El codi del programa no es correcte, el compilador mostra error i no compila.   
+## 0) Per què necessitem excepcions?
 
-**Error Semàntic** → El codi és vàlid, el compilador no mostra error, però la instrucció és incorrecta en temps d’execució (ex: divisió per 0, posició incorrecta en un array, etc.).   
+**Què és una excepció?**
+Un **problema que ocorre durant l’execució** i **trenca el flux normal** si no es tracta (dividir per 0, índex fóra de rang, lectura invàlida…).
 
-Els errors semàntics, o errors que es produeixen durant l'execució d’un programa en JAVA s’anomenen **Excepcions**, per tant: 
+**Com funciona internament?**
+Java crea i *llança* un **objecte d’excepció** (p. ex. `new ArithmeticException("/ by zero")`). Si ningú el captura, **el programa acaba** i mostra una traça d’error.
 
->**Una excepció és un ERROR SEMÀNTIC que es produeix en temps d’execució.**   
+**Per a què valen?**
+Per **detectar i manejar** errors reals (inputs, fitxers, xarxes…) sense que el programa isca de colp; podem **explicar** què ha passat i **continuar** amb seguretat.
 
-Entre els més comuns trobem:
+**Diferència amb errors de compilació**
 
-* Dividir per 0.
-* Accedir a una posició d’un array fora dels seus límits.
-* Errors en la classe SCANNER (demanar un enter (`nextInt()`) i escriure una cadena de text).
-* Un objecte és `NULL` i no ho pot ser.
-* Accedir a un fitxer que no existeix o està en un disc dur corrupte.
-* Etc.    
-
-Quan el compilador troba una excepció o error d’execució **mostra un missatge d’error** i **finalitza l’execució** del programa, i **llança una excepció** ("Throwing Exception").
-
-Quan es produeix una excepció en Java es crea un **OBJECTE** de la classe `Exception` (les excepcions en Java són objectes) que ens proporcionarà informació sobre l’error i mètodes per a obtindre-la.     
----
-
-## EXEMPLES D’EXEPCIONS   
-
-
-
-### 1) Forcem la divisió per zero.    
-
-**Eixida per pantalla:**
-
-> La màquina virtual de JAVA detecta un error en temps d’execució i crea un objecte de la classe `java.lang.ArithmeticException`, i com el mètode on es produeix l’excepció no pot tractar-la acaba el programa en la fila 12    
-
-**Codi (reconstrucció aproximada):**
-
-```java
-public class DivZero {
-    public static void main(String[] args) {
-        int a = 10;
-        int b = 0;
-        int c = a / b; // <- ArithmeticException: / by zero
-        System.out.println("Resultat: " + c);
-    }
-}
-```
-
-### 2) Forcem error en conversió de tipus. (imatge al PDF) 
-
-**Eixida per pantalla:**
-
-> Com `cadena2` no té un format adequat ("Hola" no representa un número vàlid), el mètode `Integer.parseInt(...)` no pot convertir-la a `int` i llança l’excepció **`NumberFormatException`**. La Màquina Virtual Java finalitza el programa a la línia 13 i mostra per pantalla la informació sobre l’excepció.&#x20;
-
-**Codi:**
-
-```java
-public class Exemple2 {
-    public static void main(String[] args) {
-        String cadena1 = "123";
-        String cadena2 = "Hola";
-        int x = Integer.parseInt(cadena1);
-        int y = Integer.parseInt(cadena2); // <- NumberFormatException
-        System.out.println(x + y);
-    }
-}
-```
-
-### 3) Forcem els límits d’un vector. (imatge al PDF)   
-
-**Eixida per pantalla:**
-
-> Com intentem accedir a la posició 5 del vector i sols té 4, es produeix **`ArrayIndexOutOfBoundsException`**. La Màquina Virtual de Java finalitza el programa a la línia 11 i mostra el missatge d’error.&#x20;
-
-**Codi:**
-
-```java
-public class Exemple3 {
-    public static void main(String[] args) {
-        int[] v = {1,2,3,4};
-        System.out.println(v[5]); // <- ArrayIndexOutOfBoundsException
-    }
-}
-```
+* *Compilació:* el codi ni s’executa (falta `;`, variable no declarada).
+* *Execució (excepcions):* el codi compila, però peta en marxa (usuari escriu “hola” on tocava un enter, etc.).
 
 ---
 
-## GESTIONAR EXEPCIONS (TRY–CATCH–FINALLY)
-
-En Java es poden gestionar excepcions utilitzant tres mecanismes anomenats **gestors d'excepcions**, que funcionen conjuntament:
-
-* **Bloc `try` (intentar):** codi que podria llançar una excepció.
-* **Bloc `catch` (capturar):** codi que manejarà l'excepció si és llançada.
-* **Bloc `finally` (finalment):** codi que s'executa tant si hi ha excepció com si no.&#x20;
-
-Un gestor d'excepcions és un bloc de codi encarregat de tractar les excepcions per intentar recuperar-se i evitar que siga llançada descontroladament fins a `main()` i acabe l’execució.&#x20;
-
-**Sintaxi:**    
-
-```java
-try {
-    // Instruccions que podrien llançar una exepció
-} catch (TipusExcepció nomVariable) {
-    // Instruccions que s'executen quant ‘try’ llança una excepció.
-} finally {
-    // Instruccions que s'executen tant si hi ha exepció com no (SEMPRE)
-}
-```
-
-* El bloc `try` intentarà executar el codi. Si es produeix una excepció, s’abandona aquest bloc i es salta a `catch`. Si en el `try` no es produeix cap excepció, el `catch` s'ignora.
-* El bloc `catch` **capturarà** excepcions del tipus indicat, i es poden especificar **diversos `catch`** per a diferents tipus.
-* El bloc `finally` és **opcional** i s’executarà **tant si s’ha llançat una excepció com si no**.    
-
-**Exemple Divisió per Zero (amb try–catch):**     
-
-```java
-try {
-    int a = 10, b = 0;
-    int c = a / b; // ArithmeticException
-} catch (ArithmeticException e) {
-    System.out.println("Has intentat dividir per 0");
-} finally {
-    System.out.println("Fi del programa");
-}
-```
-
----
-
-## Clàusula `catch` (múltiples `catch`)    
-
-* **Objectiu:** resoldre la condició excepcional perquè el programa puga continuar.
-* **Múltiples `catch`:** es poden especificar diversos `catch`, cadascun per a un tipus diferent d’excepció.
-* Quan es llança una excepció dins del `try`, es comprova cada `catch` **en ordre** i s'executa el **primer que coincideix**. Els altres s'ignoren. Després s'executarà el `finally` (si existeix) i el programa continua.
-* Si el tipus d’excepció **no coincideix** amb cap `catch`, l’excepció serà **llençada al mètode cridador**; si tampoc es resol, error i finalització.&#x20;
-
-**Exemple (múltiples `catch`)** – al PDF hi ha codi i diverses eixides; transcrivim idees clau:
-
-* Cas 1: el `try` s'executa sense excepcions → s’ignoren els `catch` i s’imprimeix "Fi del programa".
-* Cas 2: es produeix divisió per 0 → salta al primer `catch` (`ArithmeticException`) i després "Fi del programa".
-* Cas 3: es produeix accés fora de límits → salta al segon `catch` (`ArrayIndexOutOfBoundsException`) i després "Fi del programa".&#x20;
-
-> **Nota del PDF:**
->
-> * Si només captures `ArrayIndexOutOfBoundsException` i es produeix `ArithmeticException`, **no** es gestiona i el programa finalitza amb error.
-> * El cas més general és `catch (Exception e)` que **captura TOTES** les excepcions (totes hereten d’`Exception`). **No és bona idea** perquè no sabrem quin tipus d’error ha passat. Encara que el programa no es pare, continuarà amb possibles errors en les dades o en l’execució.
-> * En dues eixides distintes (divisió per 0 o fora de límits) si captures només `Exception`, veus **el mateix missatge**: senyal que **no** s’estan gestionant bé.&#x20;
-
-> També: un `catch (ArithmeticException e)` **capturarà** excepcions **heretades** del tipus indicat. (Exemple de jerarquia).&#x20;
-
----
-
-## Jerarquia d’Excepcions en JAVA (diagrama amb fletxes al PDF)&#x20;
-
-> Al PDF hi ha un **diagrama amb fletxes**. Representació textual aproximada:
+## 1) Jerarquia i tipus d’excepcions (idea essencial)
 
 ```
 Throwable
+├─ Error                 (greus de la JVM → no solem tractar-los)
 └─ Exception
-   ├─ (Excepcions comprovades: p.ex. ClassNotFoundException, IOException, etc.)
-   └─ RuntimeException (no comprovades)
-      ├─ ArithmeticException
-      ├─ ArrayIndexOutOfBoundsException
-      ├─ NullPointerException
-      ├─ NumberFormatException
-      └─ ...
+   ├─ (Checked)   COMPROVADES → el compilador obliga a gestionar o propagar
+   └─ (Unchecked) NO COMPROVADES (RuntimeException i filles) → no obliga
 ```
 
-**Excepcions comprovades**: Java les comprova **en compilació**.
-**Excepcions no comprovades**: Java no les pot comprovar en compilació; apareixen en **execució**.&#x20;
+**No comprovades (unchecked)** més comunes a classe:
 
-**Exemples *comprovades* (de `java.lang` al PDF):**
+* `ArithmeticException` (dividir per 0)
+* `ArrayIndexOutOfBoundsException` (índex fóra de 0..len-1)
+* `InputMismatchException` (Scanner: esperes enter i posen text)
+* `NumberFormatException` (`Integer.parseInt("hola")`)
+* `NullPointerException` (usar una referència `null`)
 
-* `ClassNotFoundException` – No s’ha trobat la classe.
-* `CloneNotSupportedException` – Duplicat d’un objecte que no implementa `Cloneable`.
-* `IllegalAccessException` – Accés denegat a una classe.
-* `InstantiationException` – Intent de crear un objecte d’una classe abstracta o interfície.
-* `InterruptedException` – Fil interromput per un altre fil.
-* `NoSuchFieldException` – El camp sol·licitat no existeix.
-* `NoSuchMethodException` – El mètode sol·licitat no existeix.&#x20;
+**Comprovades (checked)** (E/S, xarxa…):
 
-**Subclasses de `RuntimeException` (no comprovades) al PDF:**
-
-* `AritmeticException` (sic al PDF) – Error aritmètic com divisió entre zero.
-* `ArrayIndexOutOfBoundsException` – Índex de la matriu fora de límit.
-* `ArrayStoreException` – Assignació a una matriu de tipus incompatible.
-* `ClassCastException` – Conversió invàlida.
-* `IllegalArgumentException` – Ús invàlid d’un argument en un mètode.
-* `IllegalMonitorStateException` – Operació de monitor invàlida.
-* `IllegalStateException` – Estat incorrecte.
-* `IllegalThreadStateException` – Operació incompatible amb l’estat del fil.
-* `IndexOutOfBoundException` – Índex fora de rang.
-* `NegativeArraySizeException` – Mida negativa.
-* `NullPointerException` – Ús de referència `NULL`.
-* `NumberFormatException` – Conversió de cadena a número incorrecta.
-* `SecurityException` – Violació de seguretat.
-* `StringIndexOutBounds` – Límits d’una cadena sobrepassats.
-* `TypeNotPresentException` – Tipus no trobat.
-* `UnsupportedOperationException` – Operació no admesa.&#x20;
+* `IOException`, `FileNotFoundException`, etc. → el compilador **exigeix** `try/catch` o `throws`.
 
 ---
+
+## 2) Estructura bàsica: `try` – `catch` – `finally`
+
+```java
+try {
+    // codi “riscós”
+} catch (TipusExcepcio e) {
+    // reacció a un error concret
+} finally { // opcional
+    // s'executa sempre (tanque recursos, missatge final…)
+}
+```
+
+* **Múltiples `catch`**: d’específic → general.
+* **`finally`**: ideal per a *tancar* o *netejar* encara que hi haja error.
+
+---
+
+## 3) Scanner i el buffer
+
+**Problema típic:** `nextInt()` i l’usuari escriu “hola” → **`InputMismatchException`** i **queden caràcters en el buffer**.
+**Solució:** al `catch`, crida **`in.nextLine()`** per **netejar**.
+
+**Exemple 1 — Llegir un enter amb reacció a error**
+
+```java
+import java.util.*;
+
+public class Ex1_EntradaEnter {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int a;
+
+        try {
+            System.out.print("Introdueix un enter: ");
+            a = in.nextInt(); // pot llançar InputMismatchException
+            System.out.println("Valor introduït: " + a);
+        } catch (InputMismatchException e) {
+            System.out.println("Valor introduït incorrecte.");
+            in.nextLine(); // ← Neteja del token invàlid
+        }
+
+        System.out.println("Fi del programa.");
+    }
+}
+```
+
+**Eixida (si escric “hola”):**
+
+```
+Introdueix un enter: hola
+Valor introduït incorrecte.
+Fi del programa.
+```
+
+---
+
+## 4) Tractar dos problemes independents (lectura i divisió per 0)
+
+**Exemple 2 — Demanar A i B, calcular A/B**
+
+```java
+import java.util.*;
+
+public class Ex2_DivisioAB {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        try {
+            System.out.print("Numerador (A): ");
+            int A = in.nextInt();  // pot fallar si no és enter
+
+            System.out.print("Denominador (B): ");
+            int B = in.nextInt();  // pot fallar si no és enter
+
+            int R = A / B;         // ArithmeticException si B == 0
+            System.out.println(A + " / " + B + " = " + R);
+
+        } catch (InputMismatchException e) {
+            System.out.println("Valor introduït incorrecte (cal un enter).");
+            in.nextLine(); // neteja
+        } catch (ArithmeticException e) {
+            System.out.println("Divisió entre zero (B no pot ser 0).");
+        }
+
+        System.out.println("Fi del programa.");
+    }
+}
+```
+
+* **Cas B=0**: salta al `catch(ArithmeticException)` i no peta el programa.
+* **Cas “hola”**: salta a `catch(InputMismatchException)` i neteja el buffer.
+
+---
+
+## 5) Reintents i arrays: omplir un `double[5]` encara que hi haja errors
+
+**Exemple 3 — Patró `i--` per a repetir la mateixa posició**
+
+```java
+import java.util.*;
+
+public class Ex3_VectorDouble {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        double[] v = new double[5];
+
+        for (int i = 0; i < v.length; i++) {
+            try {
+                System.out.print("Valor posició " + i + ": ");
+                v[i] = in.nextDouble(); // pot fallar
+            } catch (InputMismatchException e) {
+                System.out.println("Valor introduït incorrecte. Torna-ho a provar.");
+                in.nextLine(); // neteja buffer
+                i--;           // ← REPETIR la mateixa posició
+            }
+        }
+
+        mostrar(v);
+    }
+
+    static void mostrar(double[] v) {
+        System.out.print("Dades del vector [ ");
+        for (double x : v) System.out.print(x + ", ");
+        System.out.println("\b\b ]"); // lleva la coma i l’espai final
+    }
+}
+```
+
+---
+
+## 6) Índexs i “sentinelles” d’eixida (negatiu per a acabar)
+
+**Exemple 4 — Vector `int[N]` + consulta fins que pos siga negatiu (amb comprovació prèvia)**
+
+```java
+import java.util.*;
+
+public class Ex4_ConsultaVector {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        int N = (int)(Math.random() * 100 + 1);
+        int[] v = new int[N];
+        for (int i = 0; i < N; i++) v[i] = (int)(Math.random() * 10 + 1);
+
+        int pos = 0;
+
+        do {
+            try {
+                System.out.print("Posició a mostrar (0.." + (N-1) + ", negatiu per eixir): ");
+                pos = in.nextInt(); // pot fallar (no enter)
+
+                // Comprovació PRÈVIA del negatiu ABANS d'accedir
+                if (pos >= 0) {
+                    System.out.println("v[" + pos + "] = " + v[pos]); // pot llançar AIOOBE
+                    in.nextLine(); // neteja
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor introduït incorrecte (cal un enter).");
+                in.nextLine(); // neteja
+            } catch (ArrayIndexOutOfBoundsException e) {
+                if (pos >= 0) {
+                    System.out.println("Índex fora de límits. Rang: 0.." + (N - 1));
+                }
+            }
+        } while (pos >= 0);
+
+        System.out.println("Eixida del programa.");
+    }
+}
+```
+
+* **Sentinella**: negatiu = **acabar** (no és error).
+* **Comprovació prèvia**: si és negatiu, **no** accedisc al vector → evite excepcions.
+
+---
+
+## 7) `finally`: codi que s’executa sempre
+
+```java
+Scanner in = new Scanner(System.in);
+try {
+    // … lectures i càlculs
+} catch (InputMismatchException e) {
+    System.out.println("Entrada invàlida.");
+    in.nextLine();
+} finally {
+    System.out.println("Finalitzant…");
+    // en exercicis de consola, sovint NO tanquem System.in
+}
+```
+
+---
+
+## 8) Ordre dels `catch`: específic → general
+
+```java
+try {
+    // ...
+} catch (NumberFormatException e) { // específic
+    // ...
+} catch (Exception e) {             // general
+    // ...
+}
+```
+
+Si poses `catch (Exception e)` primer, els específics **no s’executaran mai** (codi inassolible).
+
+---
+
+## 9) **`throw` i `throws`** 
+
+### 9.1 Què és **`throw`**?
+
+* **Acció immediata:** *llança* una excepció **ara mateix** quan es dona una condició que **no** vull permetre.
+* **Per a què?** Per **validar** paràmetres/estat i forçar que el codi que crida **tracte o no permeta** eixa situació.
+
+**Sintaxi bàsica**
+
+```java
+if (condicioErronia) {
+    throw new TipusExcepcio("Missatge explicatiu");
+}
+```
+
+**Exemple A — Validació d’arguments**
+
+```java
+public static int dividir(int a, int b) {
+    if (b == 0) {
+        // Excepció NO comprovada (unchecked): el compilador no obliga a catch
+        throw new IllegalArgumentException("b no pot ser zero");
+    }
+    return a / b;
+}
+
+public static void main(String[] args) {
+    System.out.println(dividir(8, 2));  // 4
+    System.out.println(dividir(8, 0));  // ← llança IllegalArgumentException
+}
+```
+
+**Fil d’execució (cas b=0):** en `dividir` es detecta la condició i es *llança* → si `main` no la captura, el programa **acaba** amb traça d’error.
+**Quan capturar ací?** Depén: si vols mostrar un missatge amable i continuar, captura a `main`:
+
+```java
+try {
+    System.out.println(dividir(8, 0));
+} catch (IllegalArgumentException e) {
+    System.out.println("Error: " + e.getMessage());
+}
+```
+
+**Exemple B — Sanititzar entrada abans de continuar**
+
+```java
+public static int parseEdat(String s) {
+    int edat;
+    try {
+        edat = Integer.parseInt(s);
+    } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("L'edat ha de ser un enter", e);
+    }
+    if (edat < 0) {
+        throw new IllegalArgumentException("L'edat no pot ser negativa");
+    }
+    return edat;
+}
+```
+
+* Ací convertim qualsevol error de format o valor en **una sola excepció coherent** (`IllegalArgumentException`) amb **missatge clar**.
+
+---
+
+### 9.2 Què és **`throws`**?
+
+* **Promesa/Anunci** a la **signatura** d’un mètode: “**aquest mètode pot llançar** aquesta/es excepció/ns i **NO** les gestione ací”.
+* **Per a què?**
+
+  * En **excepcions comprovades (checked)**, el compilador **t’obliga** a *o bé* capturar *o bé* **propagar** amb `throws`.
+  * En **unchecked**, també pots anunciar-les amb `throws` (per documentar), però **no és obligatori**.
+
+**Sintaxi**
+
+```java
+// Exemple amb excepció COMPROVADA (checked): IOException
+static void lligFitxer(String ruta) throws IOException {
+    try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+        String linia;
+        while ((linia = br.readLine()) != null) {
+            System.out.println(linia);
+        }
+    } // try-with-resources tanca automàticament
+}
+```
+
+**On la tracte?** En qui **crida**:
+
+```java
+public static void main(String[] args) {
+    try {
+        lligFitxer("dades.txt"); // pot llançar IOException → l’he de capturar
+    } catch (IOException e) {
+        System.out.println("No s'ha pogut llegir el fitxer: " + e.getMessage());
+    }
+}
+```
+
+**Resum `throw` vs `throws`**
+
+* **`throw`** → *executa ara* una excepció (dins del cos del mètode).
+* **`throws`** → *anuncia* a la signatura que el mètode **pot** llançar una excepció i **no la gestiona** ací (qui crida, que la gestione).
+
+---
+
+### 9.3 Propagació: qui s’encarrega?
+
+1. Passa una condició errònia → `throw` (o un mètode intern llança una checked).
+2. Si el mètode **no la captura**, i és **checked**, ha de posar-la en **`throws`**.
+3. Qui crida **ha de** capturar-la (o tornar a propagar).
+4. Si ningú la captura fins a `main`, el programa **acaba** amb traça.
+
+---
+
+### 9.4 Exemples `throw/throws`
+
+**Exemple C — `throws` amb fitxers (checked)**
+
+```java
+import java.io.*;
+
+public class ExThrowsFitxer {
+    static int comptaLinies(String ruta) throws IOException {
+        int count = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            while (br.readLine() != null) count++;
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        try {
+            int n = comptaLinies("dades.txt");
+            System.out.println("Línies: " + n);
+        } catch (IOException e) {
+            System.out.println("Error d'entrada/ixida: " + e.getMessage());
+        }
+    }
+}
+```
+
+**Si el fitxer no existeix:**
+`FileNotFoundException` (subclasse d’`IOException`) → missatge d’error controlat al `catch` del `main`.
+
+**Exemple D — `throw` per validar paràmetres (unchecked)**
+
+```java
+public static int percentatge(int total, int part) {
+    if (total <= 0) throw new IllegalArgumentException("total ha de ser > 0");
+    if (part < 0)   throw new IllegalArgumentException("part no pot ser negativa");
+    return part * 100 / total; // pot llançar ArithmeticException si total==0 (ja evitat)
+}
+
+public static void main(String[] args) {
+    try {
+        System.out.println(percentatge(50, 20)); // 40
+        System.out.println(percentatge(0, 10));  // ← llança IllegalArgumentException (missatge clar)
+    } catch (IllegalArgumentException e) {
+        System.out.println("Paràmetres invàlids: " + e.getMessage());
+    }
+}
+```
+
+---
+
+## 10) “Què passa exactament?” (mini traça de flux)
+
+```java
+try {
+    int x = Integer.parseInt("hola"); // NumberFormatException
+    System.out.println(x);            // ← no s'arriba a executar
+} catch (NumberFormatException e) {
+    System.out.println("No és número");
+}
+System.out.println("Continue");
+```
+
+**Flux:** entra en `try` → excepció → salta al `catch` corresponent → “No és número” → continua → “Continue”.
+
+---
+
+## 11) Bones pràctiques (resum curt i útil)
+
+* **Missatges concrets** per a cada `catch`.
+* **Neteja el buffer** de `Scanner` després d’un `InputMismatchException` (`nextLine()`).
+* **Comprova** abans d’accedir a l’array o dividir.
+* **Ordre dels `catch`**: específic → general.
+* **`finally` o try-with-resources** per a tancar **recursos**.
+* **`throw`** per validar; **`throws`** per propagar (sobretot checked).
+* Evita `catch(Exception e)` si pots ser específic (didàcticament és molt millor).
+
+---
+
+## 12) Exemple COMPLET (integra tot) — **comentat línia a línia**
+
+*(Aquest exemple ja el tenies; el mantinc intacte i comentat perquè siga guia de referència. No lleve res.)*
+
+```java
+import java.util.*;
+
+public class ExempleIntegratComentat {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // (1) LLEGIR A i B amb reintents (evitem InputMismatchException persistent)
+        Integer A = null, B = null;
+
+        while (A == null) {
+            try {
+                System.out.print("Introdueix A (enter): ");
+                A = in.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("A no és un enter. Torna-ho a provar.");
+                in.nextLine();
+            }
+        }
+
+        while (B == null) {
+            try {
+                System.out.print("Introdueix B (enter): ");
+                B = in.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("B no és un enter. Torna-ho a provar.");
+                in.nextLine();
+            }
+        }
+
+        // (2) DIVISIÓ: provem i capturem divisió per zero
+        try {
+            int R = A / B; // ArithmeticException si B == 0
+            System.out.println(A + " / " + B + " = " + R);
+        } catch (ArithmeticException e) {
+            System.out.println("No es pot dividir per zero (B=0).");
+        }
+
+        // (3) VECTOR aleatori 1..100, valors 1..10
+        int N = (int) (Math.random() * 100 + 1);
+        int[] v = new int[N];
+        for (int i = 0; i < N; i++) v[i] = (int) (Math.random() * 10 + 1);
+
+        // (4) CONSULTA: fins negatiu; comprovació prèvia del negatiu
+        int pos = 0;
+        do {
+            try {
+                System.out.print("Posició a mostrar (0.." + (N - 1) + ", negatiu per eixir): ");
+                pos = in.nextInt();
+
+                if (pos >= 0) {
+                    System.out.println("v[" + pos + "] = " + v[pos]); // AIOOBE si fóra de rang
+                    in.nextLine();
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Cal un enter (has escrit un valor no numèric).");
+                in.nextLine();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Índex fora de límits. Rang vàlid: 0.." + (N - 1));
+            }
+        } while (pos >= 0);
+
+        System.out.println("Eixida del programa.");
+    }
+}
+```
+
+---
+
+## 13) Exercicis finals (amb `throw/throws`)
+
+1. **Validador d’edats amb `throw`**
+   Escriu `int edatValida(String s)` que convertisca `s` a `int` i **llance** `IllegalArgumentException` si no és enter o si és negativa. Prova-ho amb diversos valors i **captura** al `main` per a mostrar missatges clars.
+
+2. **Lectura de fitxer amb `throws`**
+   Escriu `int comptaParaules(String ruta) throws IOException` que llija línies i compte paraules (separades per espais). Captura al `main` i mostra el recompte o l’error.
+
+3. **Percentatge segur**
+   `int percentatge(int total, int part)` que **llance** `IllegalArgumentException` si `total<=0` o `part<0`. Des del `main`, demana total/part amb `Scanner`; si hi ha error, **torna a demanar** només el camp erroni.
+
+4. **Consulta robusta d’array**
+   Reusa l’Ex.4: afig al principi missatge amb **rang \[0..N-1]** i **N**. Gestiona `InputMismatchException` i `ArrayIndexOutOfBoundsException` com abans; negatiu per eixir.
+
+---
+
+### Resum (idees que has d’haver fixat ara)
+
+* Què és una **excepció**, quan passa i com **canvia el flux**.
+* Ús de **`try`/`catch`/`finally`**, **ordre** dels `catch`.
+* Tractament d’**InputMismatch**, **Arithmetic**, **ArrayIndexOutOfBounds**, **NumberFormat**, **NullPointer**.
+* **Buffer** de `Scanner` i `nextLine()` al `catch`.
+* **Comprovacions prèvies** (índexs, divisor).
+* **`try-with-resources`** per a tancar recursos automàticament.
+* **`throw`** (validació immediata) i **`throws`** (propagació, sobretot per *checked*).
+* Exemples **comentats** i **eixides** per a seguir el fil real d’execució.
+
+Si vols, et genere també la **versió HTML** amb ressaltat tipus IntelliJ i botons “Copiar”, 1:1 amb estos apunts.
