@@ -580,3 +580,82 @@ A l'exemple anterior:
 ---
 
 
+Perfecte 👌.
+Ací tens el **Cas Pràctic A – MiniTerminal & MiniFileManager** en **estil Jaume**, pensat per a alumnat, amb les **pautes pas a pas** de com han d’implementar-ho, però **sense exemples ni detalls de consola** (cap “demo” d’ús).
+
+---
+
+# Cas Pràctic A – MiniTerminal & MiniFileManager
+
+## Objectiu
+
+Crear un programa en Java que permeta simular una xicoteta terminal amb comandes bàsiques de gestió de fitxers i carpetes.
+
+Treballarem amb **dues classes**:
+
+* **MiniTerminal**: punt d’entrada (`main`) i gestió de comandes.
+* **MiniFileManager**: gestió interna de fitxers i directoris.
+
+---
+
+## Comandes a implementar
+
+* `pwd` → mostra la carpeta actual.
+* `cd <DIR>` → canvia a la carpeta `<DIR>`. Amb `..` puja una carpeta.
+* `ls` → mostra el llistat de carpetes i fitxers de la carpeta actual (ordenats).
+* `ll` → com `ls` però amb informació extra (tamany i data de modificació).
+* `mkdir <DIR>` → crea la carpeta `<DIR>` en la ruta actual.
+* `rm <FILE>` → esborra el fitxer o carpeta indicada. Si és una carpeta, cal esborrar primer el contingut i després la carpeta.
+* `mv <FILE1> <FILE2>` → mou o renombra el primer element amb el nom del segon.
+* `help` → mostra un resum dels comandaments disponibles.
+* `exit` → ix del programa.
+
+---
+
+## Classe **MiniFileManager**
+
+### Atributs
+
+* `private File currentPath;` → representa la carpeta actual.
+
+### Constructor
+
+* `public MiniFileManager()` → inicialitza `currentPath` amb la ruta de treball (`System.getProperty("user.dir")`).
+
+### Mètodes
+
+* `public File getCurrentPath()` → retorna l’objecte `File` de la carpeta actual.
+* `public String getPWD()` → retorna la ruta absoluta de la carpeta actual.
+* `public boolean changeDir(String path)` → canvia de carpeta. Si no existeix, ha de llançar `FileNotFoundException`.
+* `public void printList(boolean info)` → mostra els elements de la carpeta actual. Si `info` és `true`, inclou tamany i data.
+* `public boolean makeDir(String dir)` → crea una nova carpeta dins de la ruta actual.
+* `public boolean removeFile(String ruta)` → esborra el fitxer o carpeta especificada. Si no existeix, llança `FileNotFoundException`. Ha d’esborrar carpetes de manera recursiva.
+* `public boolean moveFile(String file1, String file2)` → mou o renombra. Si l’origen no existeix, llança `FileNotFoundException`.
+* `public void help()` → mostra l’ajuda dels comandaments.
+
+---
+
+## Classe **MiniTerminal**
+
+### Responsabilitats
+
+* Conté el `main`.
+* Llig l’entrada de l’usuari i separa la comanda dels arguments.
+* Utilitza un bucle per esperar instruccions fins que es rep `exit`.
+* Fa servir un `switch` per identificar cada comanda.
+* Delegarà totes les operacions a `MiniFileManager`.
+* Gestionarà les excepcions, mostrant missatges clars a l’usuari.
+
+---
+
+## Pistes i passos a seguir
+
+1. **Crear el paquet** i les dues classes (`MiniFileManager`, `MiniTerminal`).
+2. **Implementar MiniFileManager** amb l’atribut `currentPath` i tots els mètodes.
+3. **Provar cada mètode** de forma aïllada abans d’integrar-lo amb la terminal.
+4. **Crear MiniTerminal** amb el `main`, el bucle i el `switch` de comandes.
+5. **Enllaçar les comandes** amb els mètodes corresponents de `MiniFileManager`.
+6. **Capturar excepcions** quan un fitxer o carpeta no existisquen o una operació no siga possible.
+7. Afegir el mètode `help()` per guiar l’usuari amb un resum de totes les comandes.
+
+---
