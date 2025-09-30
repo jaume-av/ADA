@@ -169,30 +169,11 @@ Valor a la posició 4: 200
 Valor a la posició 8: 300
 ```
 
-### Consideracions importants
+### Consideracions:
 - **Sincronització**: Quan s'utilitza accés aleatori en un entorn multi-fil, cal tenir en compte la sincronització per evitar problemes de concurrencia.
 - **Gestió d'excepcions**: S'ha de gestionar adequadament les excepcions com `IOException` i assegurar-se que es tanquen els fitxers després d'usar-los.
 - **Actuacions**: Accedir de manera aleatòria a fitxers grans pot ser molt eficient en comparació amb l'accés seqüencial.
 
-### Avantatges de l'accés aleatori
-- Permet **modificar parts d'un fitxer** sense reescriure tot el fitxer.
-- És **eficient** per a grans fitxers on només cal llegir o escriure a parts específiques.
-- Útil en aplicacions com bases de dades on es necessita accedir a dades específiques.
-- **Ràpid** per a operacions de lectura i escriptura en posicions específiques.
-- **Flexibilitat** per accedir a qualsevol part del fitxer.
-- **Mantenir l'estat**: Permet mantenir l'estat del fitxer entre diferents execucions del programa. Es a dir, es pot llegir i escriure en diferents parts del fitxer en diferents execucions del programa.
-- **Seguretat**: Permet protegir les dades sensibles en fitxers mitjançant l'accés aleatori. Per exemple, es poden encriptar o desencriptar parts específiques del fitxer.
-
-### Inconvenients de l'accés aleatori
-- Requereix una **bona gestió** del punter dins del fitxer, ja que és fàcil perdre's en fitxers grans.
-- Pot ser **complicat** si s'utilitzen formats de fitxer personalitzats.
-- **Més complex** que l'accés seqüencial per a tasques senzilles com llegir un fitxer de text.
-- **Menys eficient** per a operacions seqüencials en comparació amb l'accés seqüencial.
-- **Més propens a errors** si no es controla correctament el moviment del punter dins del fitxer.
-- **Menys intuïtiu** que l'accés seqüencial per a principiants.
-- **Més difícil de depurar** en cas d'errors.
-
----
 
 ## Exemple Fitxers Aleatoris.
 
