@@ -68,8 +68,7 @@ RandomAccessFile file = new RandomAccessFile("fitxer.txt", "rw");
 En resum, les funcions més importants són:
 
 {: .text-center }
-![alt text](../assets/imatges/randomacces.png)
-
+![alt text](../../assets/imatges/randomacces.png)
 
 ## Exemples pràctics
 
