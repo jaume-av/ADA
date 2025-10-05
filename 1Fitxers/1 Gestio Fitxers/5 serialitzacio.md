@@ -18,7 +18,7 @@ La serialització és el procés de convertir la informació ***d’estat d’un
 La **Deserialització** seria el procés invers, tornar a reconstruir l’objecte a partir d’un flux de bytes. El flux de bytes creat és independent de la plataforma. Per tant, l'objecte serialitzat en una plataforma es pot deserialitzar en una plataforma diferent.
 
 {: .text-center }
-![alt text](../assets/imatges/serialitzacio/serializa1.png)
+![alt text](Fitxers/serializa1.png)
 
 
 
