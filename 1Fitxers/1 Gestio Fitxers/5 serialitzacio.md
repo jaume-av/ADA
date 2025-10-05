@@ -11,11 +11,13 @@ nav_order: 50
 
 # Serialització – Transferint Objectes
 
-La serialització és el procés de convertir la informació ***d’estat d’una instància d’objecte*** en una forma binària o textual per persistir en un medi d’emmagatzematge o transportat per una xarxa.
+La serialització és el procés de convertir la informació ***d’estat d’una instància d’objecte*** en una forma **binària o textual** per persistir en un medi d’emmagatzematge o transportat per una xarxa.
 
 És a dir, **Serialitzar** és convertir un objecte en una successió de bytes, amb l’objectiu de guardar-lo o enviar-lo per xarxa per a posteriorment reconstruir-lo.
 
-La **Deserialització** seria el procés invers, tornar a reconstruir l’objecte a partir d’un flux de bytes. El flux de bytes creat és independent de la plataforma. Per tant, l'objecte serialitzat en una plataforma es pot deserialitzar en una plataforma diferent.
+La **Deserialització** seria el procés invers, tornar a reconstruir l’objecte a partir d’un flux de bytes.    
+
+El flux de bytes creat és independent de la plataforma. Per tant, l'objecte serialitzat en una plataforma es pot deserialitzar en una plataforma diferent.
 
 {: .text-center }
 ![alt text](Fitxers/serializa1.png)
@@ -34,8 +36,8 @@ La **Deserialització** seria el procés invers, tornar a reconstruir l’object
 
 ## Inconvenients:
 
-- Malauradament, el procés de serialització segueix unes configuracions específiques de Java, i no serveix per intercanviar dades amb programes escrits en altres llenguatges.
-- Els canvis en el codi dels objectes poden fer que no es pugui recuperar un objecte d’una versió anterior serialitzat.
+- Malauradament, el procés de serialització segueix **unes configuracions específiques de Java**, i **no serveix** per intercanviar dades amb programes escrits en **altres llenguatge**s.
+- Els canvis en el codi dels objectes poden fer que no es puga recuperar un objecte d’una versió anterior serialitzat.
 - La serialització pot ser lenta i ineficient en termes de memòria, ja que es guarden tots els atributs de l'objecte, incloent els que no són necessaris.
 
 
@@ -176,6 +178,8 @@ public class Employee implements java.io.Serializable {
 
 ###  **2. Serialització**
 
+Volem guardar un objecte de la classe `Employee` en un fitxer anomenat `employee.ser`.
+
 ```java
 
 import java.io.*;
@@ -204,6 +208,8 @@ public class SerializeDemo {
 ```
 
 ### **3. Deserialització**
+
+Volem llegir l'objecte `Employee` des del fitxer `employee.ser`.
 
 ```java
 
@@ -452,8 +458,7 @@ S’ha vist en deserialitzar l'objecte que els valors de `a` i `b` han canviat. 
 
 
 
-
-
+<! --
 ## serialVersionUID
 
 El **`serialVersionUID`** és un camp estàtic que s'utilitza durant la **serialització** i **deserialització** d'objectes en Java per assegurar que la versió de la classe que està deserialitzant l'objecte sigui compatible amb la versió que es va utilitzar per serialitzar-lo. Si les versions no coincideixen, es llançarà una excepció de tipus **`InvalidClassException`**.
@@ -462,124 +467,6 @@ El **`serialVersionUID`** és un camp estàtic que s'utilitza durant la **serial
 - **`serialVersionUID`**: És un identificador de versió únic per a una classe serialitzable. Este identificador assegura que l'objecte deserialitzat és compatible amb la classe en què es deserialitza.
 
 ---
-
-### Exemple basat en l'exercici anterior:
-
-En l'exercici anterior, la classe `Emp` té el següent camp declarat:
-
-```java
-private static final long serialversionUID = 129348938L;
-```
-
-Este **`serialVersionUID`** garanteix que, quan es deserialitze l'objecte, es comprove si l'objecte desat (el que es va serialitzar) és compatible amb la classe actual (la que deserialitza). Si el valor de **`serialVersionUID`** és diferent entre les dues versions, es produeix una excepció.
-
-### Per què és important el serialVersionUID?
-
-Quan es modifica una classe, com per exemple afegint o eliminant atributs, això pot afectar el procés de deserialització. Si es canvia la definició de la classe però no es defineix un **`serialVersionUID`** explícit, Java generarà automàticament un valor basat en la definició de la classe. Això vol dir que si la definició canvia, el **`serialVersionUID`** generat també canviarà, i els objectes desats amb la versió antiga de la classe no es podran deserialitzar amb la nova versió, donant lloc a una **`InvalidClassException`**.
-
-Definir el **`serialVersionUID`** manualment ajuda a mantenir la compatibilitat entre diferents versions d'una classe serialitzable.
-
-### Exemple de classe sense serialVersionUID:
-
-```java
-
-class Emp implements Serializable {
-    int a;
-    static int b;
-    String name;
-    int age;
-
-    public Emp(String name, int age, int a, int b) {
-        this.name = name;
-        this.age = age;
-        this.a = a;
-        this.b = b;
-    }
-}
-```
-
-En aquest cas, si modifiquem la classe `Emp` afegint nous camps i intentem deserialitzar un objecte creat amb la versió antiga, obtindrem una **`InvalidClassException`** perquè el **`serialVersionUID`** generat automàticament per Java no coincidirà amb el de la nova versió.
-
-### Exemple d'excepció:
-
-```java
-
-Exception in thread "main" java.io.InvalidClassException: Emp; local class incompatible: 
-stream classdesc serialVersionUID = 123456789, local class serialVersionUID = 987654321
-```
-
-Esta excepció indica que els valors del **`serialVersionUID`** de la classe deserialitzada i de la classe local no coincideixen.
-
----
-
-### Com assignar un serialVersionUID?
-
-1. **Assignació manual**: Pots definir un **`serialVersionUID`** manualment per assegurar que la classe manté la compatibilitat entre diferents versions.
-
-   Exemple:
-
-   ```java
-
-   class Emp implements Serializable {
-       private static final long serialVersionUID = 129348938L;
-       int a;
-       static int b;
-       String name;
-       int age;
-
-       public Emp(String name, int age, int a, int b) {
-           this.name = name;
-           this.age = age;
-           this.a = a;
-           this.b = b;
-       }
-   }
-   ```
-
-2. **Generació automàtica**: Si no es defineix el **`serialVersionUID`**, Java en genera un automàticament basant-se en els atributs, mètodes, modificadors, etc. de la classe. Això no és recomanable si la classe està subjecta a modificacions, ja que podria trencar la compatibilitat en futures deserialitzacions.
-
----
-
-### Quan utilitzar un serialVersionUID?
-
-- **Sempre que una classe sigua serialitzable**, és recomanable definir un **`serialVersionUID`**. Això proporciona control sobre la compatibilitat entre diferents versions de la classe.
-- És especialment important quan tens l'objectiu de mantenir la compatibilitat entre versions del programari en què els objectes serialitzats poden viatjar a través de diferents versions de la mateixa aplicació.
-
----
-
-### En Resum:
-
-- El **`serialVersionUID`** és un identificador de versió únic per a una classe serialitzable.
-- Assegura la compatibilitat entre la classe serialitzada i la deserialitzada.
-- Si no es defineix manualment, Java en genera un automàticament, cosa que pot provocar incompatibilitats si es modifica la classe.
-- Definir un **`serialVersionUID`** manualment ajuda a evitar problemes de deserialització quan es fan canvis a la classe.
-
-### Exemple de deserialització fallida sense serialVersionUID:
-
-Si afegíssim un nou camp a la classe `Emp` sense definir un **`serialVersionUID`**, un objecte creat amb la versió anterior de la classe llançaria una excepció quan intentem deserialitzar-lo:
-
-```java
-
-class Emp implements Serializable {
-    
-    private static final long serialVersionUID = 129348938L;
-    transient int a;
-    static int b;
-    String name;
-    int age;
-    // Nou camp afegit
-    String address;
-}
-```
-
-Quan intentem deserialitzar un objecte creat amb la versió antiga de `Emp`, si no hem definit un **`serialVersionUID`** consistent, obtindrem una **`InvalidClassException`**.
-
----
-
-Definir i gestionar correctament el **`serialVersionUID`** és una pràctica essencial per garantir la compatibilitat entre versions de classes serialitzables, especialment quan s'espera que les dades serialitzades es facen servir a llarg termini o es comparteixen entre versions diferents d'una aplicació.
-
-
-
 
 
 
