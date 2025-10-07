@@ -580,8 +580,5 @@ A l'exemple anterior:
 ---
 
 
-Perfecte 👌.
-Ací tens el **Cas Pràctic A – MiniTerminal & MiniFileManager** en **estil Jaume**, pensat per a alumnat, amb les **pautes pas a pas** de com han d’implementar-ho, però **sense exemples ni detalls de consola** (cap “demo” d’ús).
-
 ---
 
