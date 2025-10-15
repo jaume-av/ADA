@@ -7,8 +7,8 @@ has_children: true
 has_toc: true
 
 
-nav_exclude: true         # Amaga del menú
-search_exclude: true      # Fora de la cerca
+nav_exclude: false         # Amaga del menú
+search_exclude: false      # Fora de la cerca
 ---
 
 
