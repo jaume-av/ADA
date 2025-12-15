@@ -2,7 +2,7 @@
 ---
 
 title: 4. IoC i DI. 
-parent: SPRING
+parent: 
 
 has_children: true
 layout: default
