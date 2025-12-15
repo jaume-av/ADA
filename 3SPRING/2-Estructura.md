@@ -126,7 +126,10 @@ Quan generem un projecte amb **Spring Initializr** o el configurem manualment, e
 **Exemples**
 
 - Classe principal:
+
+
 ```java
+
 package com.exemple;
 
 import org.springframework.boot.SpringApplication;
@@ -141,6 +144,7 @@ public class AplicacioSpringBoot {
 ```
 
 - Controlador:
+
 ```java
 package com.exemple.controller;
 
