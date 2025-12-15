@@ -1,332 +1,475 @@
 ---
-title: 4. IoC i DI. 
+title: 3. Arquitectura MVC. 
 parent: SPRING
 
 has_children: true
 layout: default
-nav_order: 40
+nav_order: 30
 ---
 
-# **Inversió de Control (IoC) i Injecció de Dependències (DI) a Spring Boot**
-
-Spring Boot es basa en dos conceptes essencials que simplifiquen el desenvolupament d’aplicacions: **Inversió de Control (IoC)** i **Injecció de Dependències (DI)**.
-     
-Estos conceptes, que poden pareixer abstractes i difícils de comprendre al principi, són **claus per entendre com Spring Boot gestiona els components** d’una aplicació i com es relacionen entre ells.
+# **MVC i Spring Boot**
 
 ---
 
-## **1. Inversió de Control (IoC)**
+## **1. Arquitectura Model–Vista–Controlador (MVC)**
 
-La **Inversió de Control (IoC)** és un **principi de disseny** que canvia la responsabilitat de **crear i gestionar els objectes** d’una aplicació.
-
-En una aplicació tradicional, som nosaltres qui:
-- Creem els objectes amb `new`
-- Decidim quan es creen
-- Gestionem les seues dependències
-
-Amb IoC, aquesta responsabilitat es trasllada a un component extern.
-
-En el cas de Spring Boot, és el **contenidor IoC de Spring** qui:
-
-- **Crea els objectes** que necessita l’aplicació (anomenats **beans**)
-- **Gestiona el cicle de vida** d’aquests objectes
-- **Injecta les dependències** quan una classe les necessita
-
-En resum, amb IoC:
-> **Demanem objectes, però no els creem nosaltres.**
-
-> **IoC no és exclusiu de Spring**: és un principi de disseny general.  
-> **Spring Boot és una implementació concreta** d’aquest principi.
+El patró **Model-View-Controller (MVC)** és una arquitectura que separa les responsabilitats d’una aplicació en tres components principals:
 
 ---
 
-### **Què és un bean?**
-
-Un **bean** és un **objecte creat, gestionat i injectat pel contenidor IoC de Spring**.
-
-Només els objectes que Spring coneix (beans) poden ser injectats com a dependències.
+![alt text](imatges/mvc.png)
 
 ---
 
-### **Què és el contenidor IoC de Spring?**
+### **Components del patró MVC**
 
-El **contenidor IoC de Spring** és el nucli del framework. La seua funció principal és **gestionar els beans i les seues dependències** dins d’una aplicació.
+1. **Model**
+   - Gestiona les dades, la lògica de negoci i les regles d'aplicació.
+   - Conté les classes que representen les dades i interactua amb la base de dades.
 
-El contenidor:
+2. **Vista**
+   - És la interfície d'usuari.
+   - Mostra les dades al client i permet la interacció.
 
-- Decideix **quan i com** es creen els objectes
-- Manté una única instància (per defecte) de cada bean
-- Proporciona aquests objectes quan una altra classe els necessita
-
----
-
-### **Com funciona el contenidor IoC?**
-
-1. **Inicialització del contenidor**
-   - El contenidor IoC s’inicia amb:
-     ```java
-     SpringApplication.run(Aplicacio.class, args);
-     ```
-   - Spring escaneja els paquets del projecte a partir de la classe anotada amb `@SpringBootApplication`.
-
-2. **Detecció de components**
-   - Spring detecta classes anotades amb:
-     - `@Component`
-     - `@Service`
-     - `@Repository`
-     - `@Controller`
-     - `@RestController`
-
-3. **Creació de beans**
-   - Per cada classe detectada, Spring crea una instància i la registra com a **bean**.
-
-4. **Gestió de dependències**
-   - Quan una classe necessita una altra, Spring injecta automàticament la dependència.
-
-5. **Gestió del cicle de vida**
-   - Spring controla la inicialització i destrucció dels beans.
-   - Pot executar mètodes especials com:
-     - `@PostConstruct`
-     - `@PreDestroy`
+3. **Controlador**
+   - Gestiona les peticions de l’usuari.
+   - Actua com a intermediari entre el **Model** i la **Vista**.
 
 ---
 
-### **Per què existeixen @Component, @Service, @Repository i @Controller?**
+### **Objectius del patró MVC**
 
-Totes aquestes anotacions són, en realitat, especialitzacions de `@Component`.
-
-- **@Component**: anotació genèrica
-- **@Service**: indica lògica de negoci
-- **@Repository**: indica accés a dades  
-  - A més, tradueix excepcions de persistència
-- **@Controller / @RestController**: indiquen controladors web
-
-Açò no canvia el funcionament tècnic, però **aporta significat i claredat arquitectònica**.
+- **Separació de responsabilitats**
+  - Cada component té un paper clar i independent, cosa que facilita la comprensió i el manteniment del codi.
+- **Reutilització de codi**
+  - És possible reutilitzar el Model i la lògica de negoci en altres aplicacions o components.
+- **Escalabilitat**
+  - És fàcil afegir noves funcionalitats sense afectar altres components.
+- **Facilitat de manteniment**
+  - Com que el codi està ben separat, és més senzill localitzar i corregir errors.
 
 ---
 
-### **Exemple d’IoC**
+## **2. Implementació del patró MVC amb Spring Boot**
 
-#### **1. Sense IoC (creació manual d’objectes)**
+Spring Boot ofereix una implementació eficient del patró MVC, ja que proporciona:
+
+- Gestió automàtica de components:
+  - Amb anotacions com `@Controller`, `@Service` i `@Repository`, podem estructurar el codi fàcilment.
+- Integració amb bases de dades:
+  - Utilitza Spring Data JPA per interactuar amb bases de dades de manera senzilla.
+- Motor de plantilles:
+  - Thymeleaf permet generar vistes dinàmiques basades en HTML.
+- API REST integrada:
+  - Amb `@RestController`, podem crear APIs que retornen JSON o XML.
+
+---
+
+### **Exemple: Funcionament de MVC en Spring Boot**
+
+Petició simple en un projecte MVC:
+
+1. L’usuari fa una petició HTTP (GET) a `http://localhost:8080/ciutats`.
+2. El **Controlador** (anotat amb `@Controller`) gestiona la petició.
+3. El **Servei** interactua amb el **Model** (entitats, serveis, etc.) per obtenir dades de la base de dades.
+4. El Controlador envia les dades a la **Vista** (Thymeleaf) per ser renderitzades, o genera una resposta REST amb `@RestController`.
+
+---
+
+## **3. Arquitectura en capes en Spring Boot**
+
+Spring Boot combina el patró MVC amb una **arquitectura en capes**, encara que no són exactament el mateix concepte.
+
+Les capes més habituals són:
+
+- **Controlador**
+- **Servei**
+- **Repositori**
+- **Model (entitats)**
+
+Aquesta arquitectura permet:
+- organitzar millor el codi
+- separar responsabilitats
+- facilitar el manteniment i les proves
+
+---
+
+## **4. El Model en Spring Boot**
+
+En Spring Boot, el **Model** està format principalment per:
+
+- **Entitats**
+- **Repositoris**
+- **Serveis**
+
+---
+
+### **Entitats**
+
+Una **entitat** és una classe que representa una taula en la base de dades. Utilitza anotacions de **JPA (Java Persistence API)** per definir les columnes, claus primàries i relacions.
+
+**Exemple d’una entitat `Ciutat`:**
+
 
 ```java
-public class Servei {
-    private Repositori repositori;
+package com.example.model;
 
-    public Servei() {
-        // El servei crea la dependència manualment
-        this.repositori = new Repositori();
+import jakarta.persistence.*;
+
+@Entity // Marca aquesta classe com una entitat JPA
+@Table(name = "ciutats") // Opcional: especifica el nom de la taula
+public class Ciutat {
+
+    @Id // Defineix la clau primària
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Genera automàticament l'ID
+    private Long id;
+
+    @Column(nullable = false) // Marca el camp "nom" com a obligatori
+    private String nom;
+
+    private int poblacio;
+
+    // Constructor per defecte (requerit per JPA)
+    public Ciutat() {}
+
+    // Constructor personalitzat
+    public Ciutat(String nom, int poblacio) {
+        this.nom = nom;
+        this.poblacio = poblacio;
     }
 
-    public void executar() {
-        repositori.guardar();
+    // Getters i setters (necessaris per accedir als camps)
+    
+}
+```
+
+---
+
+### **Repositoris**
+
+Els **repositoris** gestionen les operacions CRUD **(Create, Read, Update, Delete)** i l’accés a la base de dades mitjançant Spring Data JPA.
+Són **interficies** que hereten de `JpaRepository` o `CrudRepository`.
+
+
+**Exemple de repositori `CiutatRepository`:**
+
+```java
+package com.example.repository;
+
+import com.example.model.Ciutat;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository // Marca la interfície com un repositori gestionat per Spring
+public interface CiutatRepository extends JpaRepository<Ciutat, Long> {
+
+     // Consulta personalitzada: Cerca ciutats pel nom
+    Iterable<Ciutat> findByNomContaining(String partNom);
+}
+```
+
+* `JpaRepository` o `CrudRepository` contenen una serie de mètodes que faciliten l'accés a la base de dades (`findAll()`, `save(entity)`, `deleteById(id)`)
+
+---
+
+### **Serveis**
+
+Els **serveis** encapsulen la lògica de negoci i actuen com a intermediari entre el controlador i el repositori.
+
+**Exemple de servei `CiutatService`:**
+
+```java
+package com.example.service;
+
+import com.example.model.Ciutat;
+import com.example.repository.CiutatRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service // Marca la classe com un servei gestionat per Spring
+public class CiutatService {
+
+    @Autowired // Injecció de dependència del repositori
+    private CiutatRepository ciutatRepository;
+
+    // Retorna totes les ciutats de la base de dades
+    public Iterable<Ciutat> getAllCiutats() {
+        return ciutatRepository.findAll();
+    }
+
+    // Guarda una ciutat nova o actualitza una existent
+    public Ciutat saveCiutat(Ciutat ciutat) {
+        return ciutatRepository.save(ciutat);
     }
 }
 ```
 
-**Problemes d’aquest enfocament:**
+---
 
-* **Acoblament** (Coupling) fort: El Servei està lligat a la implementació concreta de Repositori. Si vols canviar de repositori, has de modificar el codi.
-* **Dificultat** per fer proves (mocking)
-* C**odi poc flexible** i difícil de mantenir
+## **5. La Vista en Spring Boot (Thymeleaf)**
 
+La **Vista** és responsable de mostrar les dades a l’usuari. En Spring Boot, Thymeleaf és un motor de plantilles molt utilitzat.
+
+**Exemple de plantilla Thymeleaf (`ciutats.html`):**
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Llista de Ciutats</title>
+</head>
+<body>
+    <h1>Llista de Ciutats</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Població</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Itera sobre la llista de ciutats passada pel controlador -->
+
+            <tr th:each="ciutat : ${ciutats}">
+                <td th:text="${ciutat.id}"></td>
+                <td th:text="${ciutat.nom}"></td>
+                <td th:text="${ciutat.poblacio}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+```
 
 ---
 
-#### **2. Amb IoC (gestió del contenidor Spring)**
+## **6. Controladors en Spring Boot**
 
-**Repositori:**
+Els **controladors** gestionen les peticions HTTP i coordinen la comunicació entre vista i model.
 
-```java
-@Repository
-public class Repositori {
-    public void guardar() {
-        System.out.println("Dades guardades");
-    }
-}
-```
+---
 
-**Servei:**
+### **Controlador per a vistes HTML (`@Controller`)**
 
 ```java
-@Service
-public class Servei {
-    private final Repositori repositori;
+package com.example.controller;
+
+import com.example.service.CiutatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller // Gestiona vistes HTML
+public class CiutatController {
 
     @Autowired
-    public Servei(Repositori repositori) {
-        this.repositori = repositori;
-    }
+    private CiutatService ciutatService;
 
-    public void executar() {
-        repositori.guardar();
+    @GetMapping("/ciutats") // Ruta per obtenir la llista de ciutats
+    public String getCiutats(Model model) {
+        model.addAttribute("ciutats", ciutatService.getAllCiutats());
+        return "ciutats"; // Retorna la plantilla HTML "ciutats.html"
     }
 }
 ```
 
-Ara:
-
-* El servei **no crea** el repositori
-* Spring s’encarrega de crear-lo i injectar-lo
-* El codi és més flexible i testejable
-
 ---
 
-## **2. Injecció de Dependències (DI)**
-
-La **Injecció de Dependències (DI)** és la **tècnica que Spring utilitza per aplicar IoC**.
-
-Les dependències:
-
-* No es creen amb `new`
-* Es **passen des de fora** de la classe
-
-> **IoC és el principi.
-> DI és la tècnica concreta.**
-
----
-
-### **Formes d’injecció de dependències a Spring**
-
-#### **1. Injecció per constructor (recomanada)**
-
-* Garanteix que la classe estiga completament inicialitzada
-* Facilita proves unitàries
-* Permet declarar dependències com a `final`
+### **Controlador REST (`@RestController`)**
 
 ```java
-@Service
-public class Servei {
-    private final Repositori repositori;
+package com.example.controller;
+
+import com.example.model.Ciutat;
+import com.example.service.CiutatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController // Gestiona respostes JSON
+@RequestMapping("/api/ciutats") // Ruta base de l'API
+public class CiutatRestController {
 
     @Autowired
-    public Servei(Repositori repositori) {
-        this.repositori = repositori;
+    private CiutatService ciutatService;
+
+    @GetMapping // Retorna totes les ciutats en format JSON
+    public Iterable<Ciutat> getAllCiutats() {
+        return ciutatService.getAllCiutats();
     }
-}
-```
 
-> Si una classe té **un únic constructor**, `@Autowired` **no és obligatori**.
-
----
-
-#### **2. Injecció per setter**
-
-* Útil per a dependències opcionals
-* Permet canviar la dependència després de crear l’objecte
-
-```java
-@Service
-public class Servei {
-    private Repositori repositori;
-
-    @Autowired
-    public void setRepositori(Repositori repositori) {
-        this.repositori = repositori;
-    }
+    @PostMapping // Desa una ciutat enviada en format JSON
+    public Ciutat saveCiutat(@RequestBody Ciutat ciutat) {
+        return ciutatService.saveCiutat(ciutat);
+    
 }
 ```
 
 ---
 
-#### **3. Injecció directa en camps**
+### **Diferències entre `@Controller` i `@RestController`**
 
-```java
-@Service
-public class Servei {
-    @Autowired
-    private Repositori repositori;
-}
-```
-
-És la més senzilla, però **no és recomanada** perquè:
-
-* Amaga dependències
-* Dificulta proves unitàries
-* No garanteix una inicialització completa
+| `@Controller`                 | `@RestController`        |
+| ----------------------------- | ------------------------ |
+| Retorna vistes HTML           | Retorna dades (JSON/XML) |
+| Usa Thymeleaf o altres motors | No necessita vista       |
+| Retorna el nom de la vista    | Retorna objectes         |
 
 ---
 
-### **Què NO fa Spring**
+## **7. Flux de treball dins de Spring MVC**
 
-* Spring **només injecta beans**
-* No pot injectar classes creades amb `new`
-* Crear objectes manualment trenca IoC
+El flux d’una petició en Spring MVC és el següent:
+
+1. L’usuari fa una petició HTTP.
+2. El controlador rep la petició.
+3. El controlador delega la lògica en el servei.
+4. El servei interactua amb el repositori.
+5. El controlador retorna una vista HTML o una resposta JSON.
 
 ---
 
-## **Exemple complet d’IoC i DI**
+### **Diagrama del flux MVC**
 
-**Repositori:**
-
-```java
-@Repository
-public class PaisRepository {
-    public String[] obtenirPaisos() {
-        return new String[]{"Espanya", "França", "Itàlia"};
-    }
-}
-
-// Este repositori no hereta de JpaRepository ni implementa cap interfície,
-// però Spring el detecta com a bean per l’anotació @Repository
+```plaintext
+Usuari (client)
+     |
+     V
+Petició HTTP
+     |
+     V
+Controller
+     |
+     V
+Service
+     |
+     V
+Repository
+     |
+     V
+Vista HTML o JSON
 ```
 
-**Servei:**
+---
 
-```java
-@Service
-public class PaisService {
-    private final PaisRepository paisRepository;
+![alt text](imatges/mvc2.png)
 
-    @Autowired
-    public PaisService(PaisRepository paisRepository) {
-        this.paisRepository = paisRepository;
-    }
+---
 
-    public void mostrarPaisos() {
-        String[] paisos = paisRepository.obtenirPaisos();
-        for (int i = 0; i < paisos.length; i++) {
-            System.out.println(paisos[i]);
-        }
-    }
-}
-```
+## **8. MVC en APIs REST (sense vista)**
 
-**Controlador:**
+En una API REST:
+
+* **Model**: entitats i DTOs.
+* **Vista**: no existeix dins del backend.
+* **Controlador**: retorna dades en format JSON o XML.
+
+La vista sol estar en aplicacions frontend com React, Vue o aplicacions mòbils.
+
+---
+
+## **9. Backend i Frontend amb Spring Boot**
+
+El backend desenvolupat amb Spring Boot pot integrar-se amb diferents tipus d’aplicacions frontend mitjançant **APIs REST** o **WebSockets**.
+
+---
+
+### **Tipus d’aplicacions frontend**
+
+* Aplicacions web: Thymeleaf, React, Vue, Angular
+* Aplicacions mòbils: Android, iOS, Flutter, React Native
+* Aplicacions d’escriptori: JavaFX, Electron
+* Aplicacions IoT: HTTP/REST, MQTT
+* Aplicacions híbrides: Ionic, Flutter, React Native + Expo
+
+---
+
+## **10. Integració amb APIs REST**
+
+**Exemple de controlador REST:**
 
 ```java
 @RestController
-@RequestMapping("/paisos")
-public class PaisController {
-    private final PaisService paisService;
+@RequestMapping("/api/ciutats")
+public class CiutatRestController {
 
     @Autowired
-    public PaisController(PaisService paisService) {
-        this.paisService = paisService;
-    }
+    private CiutatService ciutatService;
 
     @GetMapping
-    public void llistarPaisos() {
-        paisService.mostrarPaisos();
+    public Iterable<Ciutat> getAllCiutats() {
+        return ciutatService.getAllCiutats();
+    }
+
+    @PostMapping
+    public Ciutat saveCiutat(@RequestBody Ciutat ciutat) {
+        return ciutatService.saveCiutat(ciutat);
     }
 }
 ```
 
-> En una API REST real, el controlador normalment retornaria dades (JSON),
-> no faria `System.out.println`.
-> Ací s’utilitza per simplificar l’exemple.
+---
+
+## **11. Integració amb un frontend SPA (React)**
+
+```javascript
+import axios from 'axios';
+
+axios.get('http://localhost:8080/api/ciutats')
+    .then(response => {
+        console.log(response.data);
+    });
+
+axios.post('http://localhost:8080/api/ciutats', {
+    nom: 'València',
+    poblacio: 800000
+});
+```
 
 ---
 
-### **En resum: IoC i DI a Spring Boot**
+## **12. CORS (Cross-Origin Resource Sharing)**
 
-| Concepte                 | Funcionament                                |
-| ------------------------ | ------------------------------------------- |
-| Inversió de Control      | Spring crea i gestiona els objectes         |
-| Injecció de Dependències | Spring injecta les dependències entre beans |
-
-Amb **IoC** i **DI**, **Spring Boot** automatitza la gestió d’objectes, redueix la dependència entre classes i fa que el codi siga més modular, mantenible i fàcil de provar.
-
+```java
+@CrossOrigin(origins = "http://localhost:3000")
 ```
+
+Permet que un frontend en un domini diferent puga consumir l’API.
+
+---
+
+## **13. Comunicació en temps real amb WebSockets**
+
+Els **WebSockets** permeten comunicació bidireccional en temps real. No formen part del patró MVC, però poden conviure amb Spring Boot.
+
+```java
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/websocket").withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/topic");
+        config.setApplicationDestinationPrefixes("/app");
+    }
+}
+```
+
+---
+
+## **Conclusió**
+
+* El patró MVC separa Model, Vista i Controlador.
+* Spring Boot combina MVC amb una arquitectura en capes.
+* Les APIs REST permeten integrar qualsevol tipus de frontend.
+* Aquesta arquitectura facilita el desenvolupament, el manteniment i l’escalabilitat de l’aplicació.
+
+
 
 ---
