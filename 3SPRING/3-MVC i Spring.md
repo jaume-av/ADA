@@ -204,11 +204,15 @@ public class CiutatService {
 }
 ```
 
+>Nota: El **servei** retorna dades del model (entitats o col·leccions), i el **controlador** decideix com enviar-les al client.
+
 ---
 
 ## **5. La Vista en Spring Boot (Thymeleaf)**
 
 La **Vista** és responsable de mostrar les dades a l’usuari. En Spring Boot, Thymeleaf és un motor de plantilles molt utilitzat.
+
+La vista **no obté dades directament de la base de dades** ni conté lògica de negoci; **rep les dades del controlador**, que les posa en el **Model**, i només s’encarrega de representar-les en HTML.
 
 **Exemple de plantilla Thymeleaf (`ciutats.html`):**
 
@@ -246,11 +250,23 @@ La **Vista** és responsable de mostrar les dades a l’usuari. En Spring Boot, 
 
 ## **6. Controladors en Spring Boot**
 
-Els **controladors** gestionen les peticions HTTP i coordinen la comunicació entre vista i model.
+Els **controladors** són els encarregats de **rebre les peticions HTTP** que fa l’usuari o un client (navegador, aplicació frontend, etc.) i de **coordinar la comunicació entre el Model i la Vista** o, en el cas d’una API REST, entre el Model i la resposta JSON.
+El controlador **no conté lògica de negoci** ni accedeix directament a la base de dades; **delegua aquestes tasques als serveis** i decideix **com es retornarà la informació al client**.
 
 ---
 
 ### **Controlador per a vistes HTML (`@Controller`)**
+
+
+Un controlador anotat amb **`@Controller`** s’utilitza quan l’aplicació ha de **retornar vistes HTML**.
+
+Aquest tipus de controlador:
+
+* rep una petició HTTP
+* crida al servei per obtenir les dades
+* afegeix les dades al `Model`
+* retorna el **nom de la vista** que s’ha de renderitzar amb Thymeleaf
+
 
 ```java
 package com.example.controller;
@@ -275,9 +291,32 @@ public class CiutatController {
 }
 ```
 
+En aquest cas, el controlador:
+
+* rep la petició `GET /ciutats`
+* obté les dades mitjançant el servei
+* passa la llista de ciutats a la vista
+* retorna el nom de la plantilla HTML que es mostrarà a l’usuari
+
+
+
 ---
 
 ### **Controlador REST (`@RestController`)**
+
+
+
+Un controlador anotat amb **`@RestController`** s’utilitza quan l’aplicació ha de **retornar dades**, normalment en format **JSON**, en lloc de vistes HTML.
+
+Aquest tipus de controlador:
+
+* rep peticions HTTP
+* crida als serveis per obtenir o guardar dades
+* retorna directament objectes Java
+* Spring s’encarrega de convertir-los automàticament a JSON
+
+
+
 
 ```java
 package com.example.controller;
@@ -305,6 +344,21 @@ public class CiutatRestController {
     
 }
 ```
+
+
+
+En aquest cas, el controlador:
+
+* rep peticions a `/api/ciutats`
+* retorna dades en format JSON
+* no utilitza cap motor de plantilles
+* sol ser consumit per aplicacions frontend o altres serveis
+
+---
+
+> **El controlador decideix com es retorna la informació, però no com s’obté ni com es guarda.*
+
+
 
 ---
 
