@@ -1,9 +1,9 @@
 ---
-title: 7. Plantilles Thymeleaf
-parent: ANNEX - DESPLEGAMENT 
+title:  Plantilles Thymeleaf
+parent: SPRING
 has_children: true
 layout: default  
-nav_order: 70  
+nav_order: 110  
 ---
 
 # Vista “Llistat de Ciutats” amb Spring MVC + Thymeleaf (Gradle)
