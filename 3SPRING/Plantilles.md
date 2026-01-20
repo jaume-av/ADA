@@ -309,36 +309,9 @@ Així evitem:
 * Imatges trencades
 * Files buides sense explicació
 
-### Recursos estàtics
 
-Als apunts apareix:
 
-* `th:href="@{...}"`
-* `th:src="@{...}"`
-
-En el teu exemple, el CSS està en un `href` normal:
-
-```html
-<link rel="stylesheet" href="/css/llistatGeneral.css">
-```
-
-També ho podríem fer amb Thymeleaf (quan volem que Thymeleaf construïsca la ruta):
-
-```html
-<link rel="stylesheet" th:href="@{/css/llistatGeneral.css}">
-```
-
-I per a imatges també és molt habitual:
-
-```html
-<img th:src="@{${ciutat.imatge}}">
-```
-
-En el teu cas `ciutat.imatge` pareix una URL o ruta guardada en BD, i per això `th:src="${ciutat.imatge}"` ja és coherent.
-
----
-
-### Detall important: camps i relacions (provincia.nom)
+### Camps i relacions (provincia.nom)
 
 En la plantilla tenim:
 
@@ -373,5 +346,38 @@ Hem de tindre clar este recorregut:
   * executa `th:each` i `th:text`
   * genera HTML final
 * El navegador carrega també `/css/llistatGeneral.css` des de `static/`
+
+---
+
+
+
+
+
+### Recursos estàtics
+
+Als apunts apareix:
+
+* `th:href="@{...}"`
+* `th:src="@{...}"`
+
+A l'exemple, el CSS està en un `href` normal:
+
+```html
+<link rel="stylesheet" href="/css/llistatGeneral.css">
+```
+
+També ho podríem fer amb Thymeleaf (quan volem que Thymeleaf construïsca la ruta):
+
+```html
+<link rel="stylesheet" th:href="@{/css/llistatGeneral.css}">
+```
+
+I per a imatges també és molt habitual:
+
+```html
+<img th:src="@{${ciutat.imatge}}">
+```
+
+En este cas `ciutat.imatge` pareix una URL o ruta guardada en BD, i per això `th:src="${ciutat.imatge}"` ja és coherent.
 
 ---
