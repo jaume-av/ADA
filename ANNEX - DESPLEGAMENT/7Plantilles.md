@@ -70,7 +70,7 @@ Accions:
 
 ---
 
-### Controlador MVC, a partir de 
+### Controlador MVC, a partir del repositori
 
 La part important per a la vista de ciutats és:
 
@@ -79,11 +79,25 @@ La part important per a la vista de ciutats és:
 * Retornar el nom de la plantilla: `"LlistatCiutats"`
 
 ```java
-@GetMapping("/ciutats")
-public String llistatCiutats(Model model) {
-    List<Ciutat> ciutatList = ciutatRepository.findAll();
-    model.addAttribute("ciutats", ciutatList);
-    return "LlistatCiutats";
+@Controller
+@RequestMapping("/llistats")
+public class PlantillesMVCController {
+
+    @Autowired
+    private CiutatRepository ciutatRepository;
+
+    @GetMapping("/ciutats")
+    public String llistatCiutats(Model model) {
+
+        // Recuperem totes les ciutats de la base de dades
+        List<Ciutat> ciutatList = ciutatRepository.findAll();
+
+        // Afegim la llista al model amb el nom "ciutats"
+        model.addAttribute("ciutats", ciutatList);
+
+        // Retornem el nom de la plantilla Thymeleaf (LlistatCiutats.html)
+        return "LlistatCiutats";
+    }
 }
 ```
 
@@ -92,6 +106,14 @@ Hem de tindre en compte:
 * El fitxer ha de dir-se **LlistatCiutats.html**.
 * Ha d’estar dins de **templates**.
 * La ruta completa queda: `/llistats/ciutats`.
+
+
+Este controlador s’encarrega de:
+
+* Atendre una petició HTTP `GET`
+* Recuperar totes les ciutats de la base de dades
+* Passar-les a la vista mitjançant el `Model`
+* Retornar la plantilla Thymeleaf corresponent
 
 ---
 
@@ -353,4 +375,3 @@ Hem de tindre clar este recorregut:
 * El navegador carrega també `/css/llistatGeneral.css` des de `static/`
 
 ---
-
