@@ -6,7 +6,7 @@ nav_order: 20
 has_children: true
 has_toc: true
 ---
-# Excepcions en Java — Repàs
+# Excepcions en Java
 
 Una **excepció** és un problema que es produeix durant l'execució d'un programa i que altera el seu flux normal.
 
