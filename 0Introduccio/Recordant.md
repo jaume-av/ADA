@@ -496,3 +496,8 @@ En acabar el bloc, Java **tanca automàticament tots els recursos**, també si e
 | Més codi                 | Més simple i segur                      |
 
 > **Recomanació:** quan treballem amb recursos que implementen `AutoCloseable`, és preferible utilitzar `try-with-resources`.
+
+
+
+
+[Exercicis Resolts](<Exemples Resolts Exepcions.html>)

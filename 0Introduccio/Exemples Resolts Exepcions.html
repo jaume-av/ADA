@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+
+    <style>
+        :root{
+            --bg:#f6f7fb; --surface:#ffffff; --ink:#0f172a; --muted:#64748b;
+            --brand:#0ea5e9; --brand-ink:#075985; --border:#e2e8f0; --radius:16px;
+            --chip:#f1f5f9; --chip-ink:#334155;
+        }
+        *{box-sizing:border-box}
+        html,body{margin:0;padding:0}
+        body{
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Helvetica, Arial, sans-serif;
+            color:var(--ink); background:linear-gradient(180deg,#f8fafc 0%, #eef2f7 100%);
+            line-height:1.65;
+            -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+        }
+        .wrap{ max-width: 960px; margin: 24px auto 52px; padding: 0 20px; }
+        article.card{
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 18px 14px;
+            box-shadow: 0 10px 30px rgba(2,6,23,.06);
+            margin-top: 18px;
+        }
+        .eyebrow{
+            display:inline-flex; align-items:center; gap:8px;
+            font-size: 12px; letter-spacing:.08em; text-transform: uppercase;
+            color: var(--brand-ink); font-weight: 800;
+            background: #e0f2fe; border:1px solid #bae6fd; padding:4px 8px; border-radius:999px;
+        }
+        .idx{ background:#0ea5e9; color:#fff; padding:2px 8px; border-radius:999px; font-weight:700; }
+        h2{ font-size: 22px; margin: 10px 0 10px 0; line-height: 1.28; letter-spacing: -0.01em; }
+        .enunciat{
+            border:1px solid var(--border); border-radius: 14px; background:#f8fafc;
+            padding: 12px 14px; margin-top: 8px;
+        }
+        .enunciat .row{ display:flex; gap:10px; align-items:flex-start; margin:6px 0; }
+        .enunciat .dot{ width:10px; height:10px; margin-top:7px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 3px #e0f2fe; flex:0 0 auto; }
+        .enunciat .txt{ flex:1; }
+        .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+        .chip{
+            display:inline-flex; align-items:center; gap:6px;
+            background: var(--chip); color: var(--chip-ink);
+            border:1px solid #e2e8f0; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 600;
+        }
+        .chip code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
+        details{ margin-top: 12px; }
+        summary{
+            list-style: none; cursor: pointer; user-select: none; outline: none;
+            background: #f0f9ff; border:1px solid #bae6fd; color:#075985; font-weight: 700;
+            border-radius: 12px; padding: 10px 12px;
+        }
+        summary::marker, summary::-webkit-details-marker{ display:none; }
+        details[open] summary{ border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+        .panel{
+            border: 1px solid #bae6fd; border-top: 0; background: #ffffff;
+            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; padding: 0 12px 12px;
+        }
+        .codewrap{ position: relative; margin-top: 12px; }
+        .copybtn{
+            position:absolute; top:10px; right:10px; z-index:2;
+            background:#0ea5e9; color:#fff; border:none; border-radius:10px; padding:6px 10px;
+            font-weight:700; font-size:12px; cursor:pointer; box-shadow:0 4px 14px rgba(14,165,233,.25);
+        }
+        .copybtn:active{ transform: translateY(1px); }
+        pre{ margin:0; border:1px solid var(--border); border-radius: 12px; overflow:auto; }
+        @media (max-width: 640px){ .enunciat .row{ align-items: center; } .enunciat .dot{ margin-top: 0; } }
+        @media print{ .card{ box-shadow:none; } pre{ page-break-inside: avoid; } }
+    </style>
+
+    <!-- Highlight.js (ressaltat Idea / IntelliJ) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/idea.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+</head>
+<body>
+<main class="wrap">
+
+    <!-- EXERCICI 1 -->
+    <article class="card" id="e1">
+        <span class="eyebrow"><span class="idx">1</span> Exercici</span>
+        <h2>Entrada d’un enter i <code>InputMismatchException</code></h2>
+
+        <div class="chips">
+            <span class="chip">Excepció: <code>InputMismatchException</code></span>
+            <span class="chip">Classe: <code>Scanner</code></span>
+            <span class="chip"><code>nextInt()</code></span>
+        </div>
+
+        <div class="enunciat">
+            <div class="row"><span class="dot"></span><div class="txt">Implementa un programa que demane a l’usuari un valor enter A utilitzant un <code>nextInt()</code> (de <code>Scanner</code>) i després mostre per pantalla el missatge “Valor introduït: …”.</div></div>
+            <div class="row"><span class="dot"></span><div class="txt">S’haurà de tractar l’excepció <strong>InputMismatchException</strong> que llança <code>nextInt()</code> quan no s’introduïx un enter vàlid. En tal cas es mostrarà el missatge “Valor introduït incorrecte”.</div></div>
+        </div>
+
+        <details>
+            <summary>Veure solució</summary>
+            <div class="panel">
+                <div class="codewrap">
+                    <button class="copybtn" data-copy="#code1">Copiar</button>
+                    <pre><code id="code1" class="language-java">package ud10_ejercicio1;
+
+import java.util.*; // imports genèrics (igual que en la teua versió)
+
+public class UD10_Ejercicio1 {
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in); // lector de teclat (no tanquem System.in)
+
+        int A;        // ací guardarem l'enter introduït
+
+        try
+        {
+            System.out.print("Introdueix un número enter: ");
+            A = in.nextInt(); // pot llançar InputMismatchException si no s'introduïx un enter
+
+            // Si arribem ací, la lectura ha sigut correcta
+            System.out.println("Valor introduït: " + A);
+
+        }
+        catch(InputMismatchException e)
+        {
+            // Missatge requerit quan l'entrada no és un enter vàlid
+            System.out.println("Valor introduït incorrecte");
+            // Es manté printStackTrace() com en la teua versió original
+            e.printStackTrace();
+        }
+
+        // El programa continua encara que s'haja produït l'excepció
+        System.out.println("Fi del programa");
+
+    }
+
+}
+</code></pre>
+                </div>
+            </div>
+        </details>
+    </article>
+
+    <!-- EXERCICI 2 -->
+    <article class="card" id="e2">
+        <span class="eyebrow"><span class="idx">2</span> Exercici</span>
+        <h2>Divisió A/B i tractament independent d’excepcions</h2>
+
+        <div class="chips">
+            <span class="chip">Excepció: <code>InputMismatchException</code></span>
+            <span class="chip">Excepció: <code>ArithmeticException</code></span>
+            <span class="chip"><code>Scanner.nextInt()</code></span>
+        </div>
+
+        <div class="enunciat">
+            <div class="row"><span class="dot"></span><div class="txt">Implementa un programa que demane dos valors <strong>int</strong> A i B utilitzant un <code>nextInt()</code> (de <code>Scanner</code>), calcule <strong>A/B</strong> i mostre el resultat per pantalla.</div></div>
+            <div class="row"><span class="dot"></span><div class="txt">S’hauran de tractar de manera independent les dues possibles excepcions, <strong>InputMismatchException</strong> i <strong>ArithmeticException</strong>, mostrant en cada cas un missatge d’error diferent.</div></div>
+        </div>
+
+        <details>
+            <summary>Veure solució</summary>
+            <div class="panel">
+                <div class="codewrap">
+                    <button class="copybtn" data-copy="#code2">Copiar</button>
+                    <pre><code id="code2" class="language-java">package ud10_ejercicio2;
+
+import java.util.*; // imports genèrics
+
+public class UD10_Ejercicio2 {
+
+    public static void main(String[] args)
+    {
+        Scanner in = new Scanner(System.in); // lector d'entrada
+
+        int A,B, result;       // variables per als operands i el resultat
+
+        try
+        {
+            System.out.println("Introdueix el numerador: ");
+            A = in.nextInt(); // pot llançar InputMismatchException
+
+            System.out.println("Introdueix el denominador: ");
+            B = in.nextInt(); // pot llançar InputMismatchException
+
+            result = A / B;   // pot llançar ArithmeticException si B == 0
+
+            System.out.println(A + " / " + B + " = " + result); // eixida si tot és correcte
+
+        }
+        catch (InputMismatchException e)
+        {
+            System.out.println("Valor introduït incorrecte"); // cas de dades no enteres
+            e.printStackTrace();             // es manté com en la teua versió
+        }
+        catch (ArithmeticException e)
+        {
+            System.out.println("Divisió entre zero: " + e); // missatge específic per /0
+            e.printStackTrace();
+        }
+
+        System.out.println("Fi del programa"); // final del flux
+    }
+}
+</code></pre>
+                </div>
+            </div>
+        </details>
+    </article>
+
+    <!-- EXERCICI 3 -->
+    <article class="card" id="e3">
+        <span class="eyebrow"><span class="idx">3</span> Exercici</span>
+        <h2>Omplir un vector <code>double[5]</code> demanant valors</h2>
+
+        <div class="chips">
+            <span class="chip">Excepció: <code>InputMismatchException</code></span>
+            <span class="chip">Array <code>double[5]</code></span>
+        </div>
+
+        <div class="enunciat">
+            <div class="row"><span class="dot"></span><div class="txt">Implementa un programa que cree un vector tipus <strong>double</strong> de mida <strong>5</strong> i després, utilitzant un bucle, demane cinc valors per teclat i els introduïsca en el vector.</div></div>
+            <div class="row"><span class="dot"></span><div class="txt">Hauràs de gestionar la/les possibles excepcions i continuar demanant valors fins omplir completament el vector.</div></div>
+        </div>
+
+        <details>
+            <summary>Veure solució</summary>
+            <div class="panel">
+                <div class="codewrap">
+                    <button class="copybtn" data-copy="#code3">Copiar</button>
+                    <pre><code id="code3" class="language-java">package ud10_ejercicio3;
+
+import java.util.*; // imports genèrics
+
+public class UD10_Ejercicio3 {
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in); // lector d'entrada
+
+        double[] vector = new double[5];     // vector de 5 posicions
+
+        // Recorrem tot el vector per a omplir-lo
+        for(int i = 0; i &lt; vector.length; i++)
+        {
+            try
+            {
+                System.out.println("Introdueix el valor de la posició " + i);
+                vector[i] = in.nextDouble(); // pot llançar InputMismatchException si no és double
+            }
+            catch(InputMismatchException e)
+            {
+                System.out.println("Valor introduït incorrecte. Torna a introduir el valor...");
+                e.printStackTrace();
+                in.nextLine(); // netegem el buffer per a descartar l'entrada incorrecta
+                i--;           // tornem a intentar la mateixa posició
+            }
+        }
+
+        mostrarVector(vector); // mostrem el contingut del vector
+
+    }
+
+    // Mètode d'ajuda per a imprimir el vector (mateix estil que l'original)
+    public static void mostrarVector(double[] v)
+    {
+       System.out.print("Dades del vector [ ");
+
+        for(int j = 0; j &lt; v.length; j++)
+        {
+            System.out.print(v[j] + ", ");
+        }
+
+        System.out.println("\b\b ]"); // xicotet truc per a llevar la coma i l'espai final
+    }
+
+}
+</code></pre>
+                </div>
+            </div>
+        </details>
+    </article>
+
+    <!-- EXERCICI 4 -->
+    <article class="card" id="e4">
+        <span class="eyebrow"><span class="idx">4</span> Exercici</span>
+        <h2>Vector d’enters aleatori i consulta per posició fins a negatiu</h2>
+
+        <div class="chips">
+            <span class="chip">Excepció: <code>InputMismatchException</code></span>
+            <span class="chip">Excepció: <code>ArrayIndexOutOfBoundsException</code></span>
+            <span class="chip">Array <code>int[N]</code></span>
+        </div>
+
+        <div class="enunciat">
+            <div class="row"><span class="dot"></span><div class="txt">Implementa un programa que cree un vector d’enters de mida <strong>N</strong> (nombre aleatori entre 1 i 100) amb valors aleatoris entre 1 i 10.</div></div>
+            <div class="row"><span class="dot"></span><div class="txt">Després es preguntarà a l’usuari quina posició del vector vol mostrar per pantalla, repetint-se una i una altra vegada fins que s’introduïsca un valor negatiu. Gestiona totes les possibles excepcions.</div></div>
+        </div>
+
+        <details>
+            <summary>Veure solució</summary>
+            <div class="panel">
+                <div class="codewrap">
+                    <button class="copybtn" data-copy="#code4">Copiar</button>
+                    <pre><code id="code4" class="language-java">package ud10_ejercicio4;
+
+import java.util.*; // imports genèrics
+
+public class UD10_Ejercicio4 {
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner (System.in); // lector
+
+        int N = (int)(Math.random() * 100 + 1); // mida aleatòria 1..100
+        int[] vector = new int[N];
+
+        // Omplim el vector amb valors 1..10
+        for(int i = 0; i &lt; N; i++)
+        {
+            vector[i] = (int)(Math.random() * 10 + 1);
+        }
+
+        int valor = 0; // posició a consultar
+
+        do{
+            try
+            {
+                System.out.println("Introdueix la posició del vector per a mostrar: (número negatiu per eixir)");
+                valor = in.nextInt(); // pot llançar InputMismatchException
+
+                // ✅ ÚNIC CANVI DEMANAT:
+                // Comprovació prèvia del negatiu ABANS d'accedir al vector.
+                // Si és negatiu, NO accedim i deixem que el do-while tanque per la condició.
+                if (valor &gt;= 0) {
+                    System.out.println("Valor en el vector: " + vector[valor]);  // pot llançar ArrayIndexOutOfBoundsException
+                    in.nextLine();                // netegem buffer després de llegir l'enter
+                }
+
+            }
+            catch(InputMismatchException e)
+            {
+                System.out.println("Valor introduït incorrecte");
+                in.nextLine();                // descartem el token no vàlid
+            }
+            catch(ArrayIndexOutOfBoundsException e)
+            {
+                if(valor &gt;= 0)
+                {
+                    System.out.println("Posició fora dels límits del vector");
+                }
+            }
+
+        } while(valor &gt;= 0); // si és negatiu, el bucle finalitza
+
+        System.out.println("Eixida del programa");
+
+    }
+}
+</code></pre>
+                </div>
+            </div>
+        </details>
+    </article>
+
+</main>
+
+<script>
+    // Highlight i botons "Copiar"
+    window.addEventListener('DOMContentLoaded', () => {
+        if (window.hljs) hljs.highlightAll();
+        document.querySelectorAll('.copybtn').forEach(btn=>{
+            btn.addEventListener('click', ()=>{
+                const el = document.querySelector(btn.getAttribute('data-copy'));
+                if(!el) return;
+                navigator.clipboard.writeText(el.innerText).then(()=>{
+                    const t=btn.textContent; btn.textContent='Copiat!'; setTimeout(()=>btn.textContent=t, 1200);
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>
