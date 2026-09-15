@@ -206,6 +206,22 @@ Add exception to method signature
 
 L'IDE pot generar automàticament el codi, però **la decisió de capturar o propagar és del programador**.
 
+
+**### Quina diferència hi ha entre capturar i propagar?**
+
+La diferència està en **qui assumeix la responsabilitat de gestionar l'excepció**:
+
+* **Capturar (`try-catch`)** → el mètode **gestiona l'excepció ací mateix** i decideix què fer.
+* **Propagar (`throws`)** → el mètode **no gestiona l'excepció** i passa la responsabilitat al mètode que l'ha cridat.
+
+Quan propaguem una excepció, aquesta pot continuar passant d'un mètode a un altre fins que algun d'ells la capture.
+
+Si l'excepció arriba al final sense que ningú la capture, **queda sense gestionar, el programa finalitza i Java mostra la informació de l'excepció**.
+
+Per tant, propagar una excepció **no significa solucionar-la**, sinó deixar que un altre mètode s'encarregue d'ella.
+
+> **Recomanació:** si podem gestionar adequadament el problema en el mètode actual, utilitzem `try-catch`. Si no ens correspon gestionar-lo, utilitzem `throws` i deixem que el mètode que ens ha cridat decidisca què fer.
+
 ---
 
 ## 4. `throw` i `throws`
@@ -417,3 +433,66 @@ getMessage()      → OBTÉ EL MISSATGE
 
 
 ![Resum d'excepcions en Java](imatges/resumexcepcions.png)
+
+
+## Annex — `try-catch` i `try-with-resources`
+
+Quan treballem amb diversos recursos que s'han de tancar, la diferència entre un `try-catch` tradicional i `try-with-resources` es veu més clarament.
+
+En este exemple obrim **dos fitxers**: un d'entrada i un d'eixida.
+
+### Amb `try-catch`
+
+```java
+FileInputStream entrada = null;
+FileOutputStream eixida = null;
+
+try {
+    entrada = new FileInputStream("entrada.txt");
+    eixida = new FileOutputStream("eixida.txt");
+
+    // treballar amb els fitxers
+
+} catch (IOException e) {
+    System.out.println("Error amb els fitxers");
+
+} finally {
+    try {
+        if (entrada != null) entrada.close();
+        if (eixida != null) eixida.close();
+
+    } catch (IOException e) {
+        System.out.println("Error en tancar els fitxers");
+    }
+}
+```
+
+Hem de declarar els recursos fora del `try` i **tancar-los manualment** amb `close()`. A més, el mateix `close()` pot produir una excepció.
+
+### Amb `try-with-resources`
+
+```java
+try (FileInputStream entrada =
+         new FileInputStream("entrada.txt");
+     FileOutputStream eixida =
+         new FileOutputStream("eixida.txt")) {
+
+    // treballar amb els fitxers
+
+} catch (IOException e) {
+    System.out.println("Error amb els fitxers");
+}
+```
+
+Podem declarar **diversos recursos** dins dels parèntesis del `try`, separats per `;`.
+
+En acabar el bloc, Java **tanca automàticament tots els recursos**, també si es produeix una excepció.
+
+| `try-catch` tradicional  | `try-with-resources`                    |
+| ------------------------ | --------------------------------------- |
+| Tancament manual         | Tancament automàtic                     |
+| Cal utilitzar `close()`  | No cal escriure `close()`               |
+| Pot necessitar `finally` | No necessita `finally` per al tancament |
+| Més codi                 | Més simple i segur                      |
+
+> **Recomanació:** quan treballem amb recursos que implementen `AutoCloseable`, és preferible utilitzar `try-with-resources`.
