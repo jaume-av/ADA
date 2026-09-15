@@ -501,3 +501,5 @@ En acabar el bloc, Java **tanca automàticament tots els recursos**, també si e
 
 
 [Exercicis Resolts](<Exemples Resolts Exepcions.html>)
+
+[Examen 1 DAM resolt](examen_excepcions_java.html)
