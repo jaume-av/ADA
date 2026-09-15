@@ -6,54 +6,56 @@ nav_order: 20
 has_children: true
 has_toc: true
 ---
-
-
 # Excepcions en Java — Repàs
 
-Una **excepció** representa un problema que es produeix durant l'execució d'un programa.
+Una **excepció** és un problema que es produeix durant l'execució d'un programa i que altera el seu flux normal.
+
+Per exemple:
 
 ```java
 int resultat = 10 / 0;
 ```
 
-En este cas Java genera:
+Java no pot realitzar esta operació i genera una:
 
 ```text
 ArithmeticException
 ```
 
-Si no la controlem, el flux normal del programa s'interromp.
+Si no controlem l'excepció, el programa interromp la seua execució normal.
 
 ---
 
 ## 1. `try-catch`: controlar una excepció
 
-Utilitzem `try` per delimitar el codi que pot fallar i `catch` per indicar què fer si es produeix l'excepció.
+Utilitzem:
+
+* `try` → conté el codi que **pot produir una excepció**.
+* `catch` → indica **què fer si es produeix**.
 
 ```java
 try {
     int resultat = 10 / 0;
-    System.out.println(resultat);
+    System.out.println(resultat);     // no s'executa
 
 } catch (ArithmeticException e) {
     System.out.println("No es pot dividir entre zero");
 }
 
-System.out.println("Fi");
+System.out.println("Fi");             // sí que s'executa
 ```
 
-Quan apareix una excepció, Java **abandona la resta del `try` i busca un `catch` compatible**.
+Quan apareix l'excepció, Java **abandona la resta del `try`**, busca un `catch` compatible i, després de tractar-la, continua l'execució.
 
 ```text
         try
          │
-    es produeix
-    una excepció?
+    hi ha excepció?
       /       \
     NO         SÍ
     │           │
 continua      abandona el try
-el try          │
+                │
                 ▼
               catch
                 │
@@ -63,17 +65,17 @@ el try          │
 
 ### Diversos `catch`
 
-Un `try` pot tindre diferents `catch` per tractar diferents tipus d'excepcions:
+Un mateix `try` pot tindre diferents `catch` per tractar diferents tipus d'errors:
 
 ```java
 try {
     // operacions
 
 } catch (InputMismatchException e) {
-    System.out.println("Entrada incorrecta");
+    // entrada incorrecta
 
 } catch (ArithmeticException e) {
-    System.out.println("Error aritmètic");
+    // divisió incorrecta
 }
 ```
 
@@ -91,25 +93,45 @@ catch (ArithmeticException e) {
 
 ## 2. Checked i unchecked
 
-No totes les excepcions obliguen el programador a actuar de la mateixa manera.
+Java diferencia entre excepcions **checked** i **unchecked**.
 
-|                             | **Unchecked**          | **Checked**                      |
-| --------------------------- | ---------------------- | -------------------------------- |
-| Java obliga a gestionar-la  | No                     | Sí                               |
-| Quan es detecta el problema | Normalment en execució | El compilador exigeix tractament |
-| Exemple                     | `ArithmeticException`  | `FileNotFoundException`          |
+|                                           | **Unchecked**         | **Checked**             |
+| ----------------------------------------- | --------------------- | ----------------------- |
+| Java obliga a gestionar-la                | No                    | Sí                      |
+| El programa pot compilar sense tractar-la | Sí                    | No                      |
+| Exemple                                   | `ArithmeticException` | `FileNotFoundException` |
 
-Una excepció **unchecked** pot quedar sense capturar:
+### Unchecked
+
+El compilador no obliga a gestionar-les.
 
 ```java
 int resultat = 10 / 0;
 ```
 
-El programa compila, encara que després falle.
+El programa compila, encara que durant l'execució es produirà una `ArithmeticException`.
 
-Altres exemples habituals són `NullPointerException`, `InputMismatchException` o `ArrayIndexOutOfBoundsException`.
+Altres exemples habituals són:
 
-En canvi, davant d'una excepció **checked**, Java ens obliga a fer una de les dues coses:
+```text
+NullPointerException
+InputMismatchException
+ArrayIndexOutOfBoundsException
+```
+
+### Checked
+
+El compilador obliga a gestionar-les.
+
+Per exemple:
+
+```java
+new FileInputStream("dades.txt");
+```
+
+Obrir un fitxer pot produir una `FileNotFoundException`.
+
+Java obliga a prendre una decisió:
 
 ```text
               EXCEPCIÓ CHECKED
@@ -117,71 +139,43 @@ En canvi, davant d'una excepció **checked**, Java ens obliga a fer una de les d
              ┌───────┴───────┐
              ▼               ▼
          CAPTURAR         PROPAGAR
-             │               │
          try-catch          throws
 ```
 
-Per exemple:
-
-```java
-FileInputStream fitxer =
-        new FileInputStream("dades.txt");
-```
-
-Obrir el fitxer pot produir una `FileNotFoundException`, que Java obliga a gestionar.
-
 ---
 
-## 3. Capturar o propagar una excepció
+## 3. Capturar o propagar
 
 Davant d'una excepció checked hem de decidir **qui s'encarrega de gestionar-la**.
 
-### Capturar
+### Capturar → `try-catch`
 
-**Capturar** significa gestionar l'excepció en el mateix mètode mitjançant `try-catch`.
-
-```java
-public static void obrirFitxer() {
-
-    try {
-        FileInputStream fitxer =
-                new FileInputStream("dades.txt");
-
-    } catch (FileNotFoundException e) {
-        System.out.println("No s'ha trobat el fitxer");
-    }
-}
-```
-
-L'excepció es gestiona ací i no continua cap al mètode que ha fet la crida.
-
-### Propagar
-
-**Propagar** significa no gestionar l'excepció en este mètode i deixar que ho faça el mètode que l'ha cridat.
-
-Utilitzem `throws`:
-
-```java
-public static void obrirFitxer()
-        throws FileNotFoundException {
-
-    FileInputStream fitxer =
-            new FileInputStream("dades.txt");
-}
-```
-
-El mètode que el crida pot capturar-la:
+Capturem l'excepció quan podem gestionar el problema en el mateix lloc.
 
 ```java
 try {
-    obrirFitxer();
+    new FileInputStream("dades.txt");
 
 } catch (FileNotFoundException e) {
     System.out.println("No s'ha trobat el fitxer");
 }
 ```
 
-Per tant:
+L'excepció queda gestionada ací.
+
+### Propagar → `throws`
+
+Propaguem l'excepció quan volem que siga el mètode que ens ha cridat qui decidisca què fer.
+
+```java
+public static void obrirFitxer()
+        throws FileNotFoundException {
+
+    new FileInputStream("dades.txt");
+}
+```
+
+La diferència fonamental és:
 
 ```text
 CAPTURAR                         PROPAGAR
@@ -189,57 +183,45 @@ CAPTURAR                         PROPAGAR
 try-catch                        throws
     │                               │
     ▼                               ▼
-la gestione ací          la gestionarà el mètode
-                              que m'ha cridat
+la gestione ací        la gestionarà qui m'ha cridat
 ```
 
 ### L'IDE ens ajuda
 
-Quan utilitzem una operació que pot produir una excepció checked, els IDE com **IntelliJ IDEA o Eclipse** detecten que falta gestionar-la.
-
-Normalment ofereixen accions ràpides semblants a:
+Quan un IDE com IntelliJ IDEA o Eclipse detecta una excepció checked sense gestionar, normalment ofereix opcions semblants a:
 
 ```text
 Surround with try/catch
+        ↓
+     CAPTURAR
 ```
 
 o:
 
 ```text
 Add exception to method signature
+        ↓
+     PROPAGAR
 ```
 
-És a dir, l'IDE pot generar automàticament el `try-catch` o afegir el `throws`.
-
-Però **no s'ha d'acceptar l'opció automàticament**. Primer cal decidir:
-
-```text
-Puc i he de gestionar l'error ací?
-
-        SÍ              NO
-        │                │
-        ▼                ▼
-      catch            throws
-```
-
-L'IDE escriu el codi, però **la decisió de capturar o propagar és del programador**.
+L'IDE pot generar automàticament el codi, però **la decisió de capturar o propagar és del programador**.
 
 ---
 
 ## 4. `throw` i `throws`
 
-Són pareguts de nom, però fan coses diferents.
+Encara que els noms són pareguts, tenen funcions diferents.
 
-| `throw`                    | `throws`                                  |
-| -------------------------- | ----------------------------------------- |
-| **Llança** una excepció    | **Declara** que un mètode pot propagar-la |
-| Apareix dins del codi      | Apareix en la signatura                   |
-| `throw new Exception(...)` | `metode() throws Exception`               |
+| `throw`                    | `throws`                           |
+| -------------------------- | ---------------------------------- |
+| **Llança** una excepció    | **Declara que pot propagar-la**    |
+| Apareix dins del codi      | Apareix en la signatura del mètode |
+| `throw new Exception(...)` | `metode() throws Exception`        |
 
-Exemple:
+Podem veure els dos conceptes en un mateix exemple:
 
 ```java
-public static void comprovarNota(double nota)
+static void comprovarNota(double nota)
         throws Exception {
 
     if (nota < 0 || nota > 10) {
@@ -250,19 +232,16 @@ public static void comprovarNota(double nota)
 
 Ací:
 
-```java
+```text
 throws Exception
+       ↓
+el mètode declara que pot propagar l'excepció
+
+
+throw new Exception(...)
+       ↓
+crea i llança l'excepció
 ```
-
-declara que `comprovarNota()` pot **propagar una excepció**.
-
-En canvi:
-
-```java
-throw new Exception("Nota incorrecta");
-```
-
-és la instrucció que **crea i llança l'excepció**.
 
 Per recordar-ho:
 
@@ -276,81 +255,66 @@ catch  → CAPTURA
 
 ## 5. `finally`
 
-`finally` permet executar un bloc de codi **encara que durant el `try` es produïsca una excepció**.
+`finally` permet garantir que determinat codi s'intente executar **encara que durant el `try` es produïsca una excepció**.
 
-No és necessari utilitzar-lo simplement per executar una instrucció després d'un `try-catch`. El seu ús tradicional més important és garantir **tasques de neteja o alliberament de recursos**.
+El seu ús tradicional més important és realitzar **tasques de neteja o alliberament de recursos**.
 
-Per exemple:
+Suposem que obrim un fitxer:
 
 ```java
-FileInputStream fitxer = null;
-
 try {
-    fitxer = new FileInputStream("dades.txt");
+    fitxer.read();      // pot produir una excepció
 
-    int dada = fitxer.read();
-
-    fitxer.close();
+    fitxer.close();     // volem tancar el fitxer
 
 } catch (IOException e) {
     System.out.println("Error");
 }
 ```
 
-El problema és que si `read()` produeix una excepció, Java abandona el `try` i **no arriba a executar `close()`**:
-
-```text
-obrir fitxer
-     │
-     ▼
-   read()
-     │
-   ERROR
-     │
-     ▼
-   catch
-
-close() NO s'executa
-```
-
-Podem assegurar el tancament utilitzant `finally`:
+Si `read()` falla, Java abandona el `try` i no arriba a:
 
 ```java
-FileInputStream fitxer = null;
+fitxer.close();
+```
 
+El recurs podria quedar sense tancar.
+
+Podem utilitzar `finally` per garantir l'intent de tancament:
+
+```java
 try {
-    fitxer = new FileInputStream("dades.txt");
-    int dada = fitxer.read();
+    fitxer.read();
 
 } catch (IOException e) {
     System.out.println("Error");
 
 } finally {
-
-    if (fitxer != null) {
-        try {
-            fitxer.close();
-
-        } catch (IOException e) {
-            System.out.println("Error en tancar");
-        }
-    }
+    // tancar el fitxer
 }
 ```
 
-Ara s'intenta executar `close()` **tant si tot ha funcionat com si s'ha produït una excepció**.
+El funcionament és:
 
-Però apareix un problema: `close()` també pot produir una `IOException`. Per això necessitem un altre `try-catch` dins del `finally`.
+```text
+sense excepció ───────────┐
+                          ▼
+                       finally
+                          ▲
+amb excepció → catch ─────┘
+```
 
-El resultat és bastant farragós. Precisament per solucionar este problema tenim `try-with-resources`.
+Per tant, `finally` **no s'utilitza simplement per posar codi després d'un `try-catch`**. Té sentit quan necessitem garantir una operació final independentment de com haja acabat el `try`.
+
+En el cas dels fitxers, el tancament manual presenta un altre problema: **`close()` també pot produir una excepció**, cosa que complica el codi.
+
+Per això Java proporciona `try-with-resources`.
 
 ---
 
 ## 6. `try-with-resources`
 
-Quan treballem amb recursos que s'han de tancar, Java proporciona una forma més senzilla: **`try-with-resources`**.
-
-L'exemple anterior queda així:
+`try-with-resources` està pensat per treballar amb recursos que **necessiten tancar-se després d'utilitzar-los**, com els fitxers.
 
 ```java
 try (FileInputStream fitxer =
@@ -370,7 +334,7 @@ try (FileInputStream fitxer =
         new FileInputStream("dades.txt"))
 ```
 
-Java s'encarrega de **tancar-lo automàticament quan acaba el `try`**, també si es produeix una excepció.
+En acabar, Java executa automàticament el tancament del recurs.
 
 ```text
 FORMA TRADICIONAL              TRY-WITH-RESOURCES
@@ -378,30 +342,29 @@ FORMA TRADICIONAL              TRY-WITH-RESOURCES
 finally                              try (recurs)
    │                                      │
    ▼                                      ▼
-comprovar recurs                       utilitzar
-   │                                      │
-   ▼                                      ▼
-close() manual                    tancament automàtic
-   │
-   ▼
-controlar possible
-error del close()
+close() manual                   close() automàtic
 ```
 
-Per poder utilitzar un recurs amb `try-with-resources`, ha de ser compatible amb `AutoCloseable`.
+El tancament automàtic es realitza **també si durant el `try` es produeix una excepció**.
 
-**Idea clau:** per als recursos que necessiten tancament, `try-with-resources` evita haver de gestionar manualment el `close()`.
+Per poder utilitzar un objecte com a recurs ha de ser compatible amb:
+
+```java
+AutoCloseable
+```
+
+**Idea clau:** si un recurs és `AutoCloseable`, `try-with-resources` evita haver de controlar manualment el seu `close()`.
 
 ---
 
 ## 7. Excepcions pròpies
 
-Java proporciona moltes excepcions, però també podem crear excepcions pròpies per representar problemes específics de la nostra aplicació.
+Java proporciona moltes excepcions, però també podem crear-ne de pròpies per representar problemes específics de la nostra aplicació.
 
-Per exemple:
+Per exemple, podem crear una excepció per a una nota incorrecta:
 
 ```java
-public class NotaIncorrectaException extends Exception {
+class NotaIncorrectaException extends Exception {
 
     public NotaIncorrectaException(String missatge) {
         super(missatge);
@@ -409,12 +372,10 @@ public class NotaIncorrectaException extends Exception {
 }
 ```
 
-Ara tenim un nou tipus d'excepció: `NotaIncorrectaException`.
-
-Podem llançar-la:
+Ara podem utilitzar-la:
 
 ```java
-public static void comprovarNota(double nota)
+static void comprovarNota(double nota)
         throws NotaIncorrectaException {
 
     if (nota < 0 || nota > 10) {
@@ -425,7 +386,7 @@ public static void comprovarNota(double nota)
 }
 ```
 
-I capturar-la:
+I capturar-la quan siga necessari:
 
 ```java
 try {
@@ -436,39 +397,23 @@ try {
 }
 ```
 
-`getMessage()` permet obtindre el missatge associat a l'excepció.
-
-Ací podem veure relacionats els conceptes principals:
+En este exemple apareixen relacionats els conceptes principals:
 
 ```text
 extends Exception → CREA un tipus d'excepció
 
-throw             → LLANÇA l'excepció
+throw             → LLANÇA
 
-throws            → DECLARA que pot propagar-la
+throws            → PROPAGA
 
-catch             → CAPTURA l'excepció
+catch             → CAPTURA
 
-getMessage()      → OBTÉ el missatge
+getMessage()      → OBTÉ EL MISSATGE
 ```
 
 ---
 
-# Resum final
+# En Resum
 
-| Concepte             | Què cal recordar                                 |
-| -------------------- | ------------------------------------------------ |
-| **Excepció**         | Problema produït durant l'execució               |
-| `try`                | Delimita el codi que pot fallar                  |
-| `catch`              | Captura i gestiona una excepció                  |
-| Diversos `catch`     | Permeten tractar errors diferents                |
-| **Checked**          | Java obliga a capturar-la o propagar-la          |
-| **Unchecked**        | Java no obliga a gestionar-la                    |
-| **Capturar**         | Gestionar l'excepció ací amb `try-catch`         |
-| **Propagar**         | Deixar que la gestione qui ens ha cridat         |
-| `throw`              | Llança una excepció                              |
-| `throws`             | Declara que un mètode pot propagar-la            |
-| `finally`            | Garanteix tasques finals, especialment de neteja |
-| `try-with-resources` | Tanca automàticament els recursos                |
-| `extends Exception`  | Permet crear una excepció pròpia                 |
-| `getMessage()`       | Retorna el missatge de l'excepció                |
+
+![Resum d'excepcions en Java](imatges/resumexcepcions.png)
