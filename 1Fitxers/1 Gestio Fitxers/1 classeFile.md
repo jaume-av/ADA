@@ -169,7 +169,14 @@ if (fitxer.exists()) {
 
 La classe **`File`** permet comparar rutes de fitxers amb els mètodes **`compareTo()`** i **`equals()`**:
 
-- **`int compareTo(File altreFitxer)`**: Compara lexicogràficament (lletra a lletra) dos camins (rutes).
+- **`int compareTo(File altreFitxer)`**: Compara lexicogràficament (lletra a lletra) dos camins (rutes). El valor de retorn pot ser:
+
+  - **Negatiu (< 0)** → el primer File va abans que altreFitxer.
+  - **0** → els dos File tenen el mateix pathname segons la comparació.
+  - **Positiu (> 0)** → el primer File va després que altreFitxer.
+
+És a dir, permet saber quin dels dos camins o apareixeria abans si s’ordenaren alfabèticament.
+
 - **`boolean equals(Object)`**: Compara si dos objectes **`File`** fan referència al mateix fitxer o directori.
 
 #### Exemple de comparació de rutes
