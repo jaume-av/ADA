@@ -75,6 +75,9 @@ En cas de perdre l'avaluació continua, l'alumnat haurà de presentar-se a totes
 -Les faltes d'assitència sols es podran justificar per escrit amb documents oficials.
 -L'alumnat podrà absentar-se un màxim del **15% de les hores totals del mòdul**. Una vegada superat aquest límit, l'alumnat perdrà el **dret a l'avaluació contínua** i haurà de presentar-se a totes les RA a la convocatòria ordinària.
 - En cas de superar el **15% de classes totals**, l'alumnat cusarà **baixa automàticament** del Cicle Formatiu.
-
+- 
+- 
+- 
+- {:toc}
 
 
