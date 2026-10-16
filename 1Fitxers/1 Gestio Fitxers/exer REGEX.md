@@ -98,7 +98,7 @@ String frase = "Això és un exercici senzill de Java.";
 **Exemple de sortida:**
 
 ```
-La frase té 6 paraules.
+La frase té 7 paraules.
 ```
 
 ---
