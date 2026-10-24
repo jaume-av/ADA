@@ -37,7 +37,7 @@ h3, h4, h5, h6 {
 }
 
 h3 {
-  border-bottom: 1px solid #1a355c !important; /* Vora fina d’1px per als h3 */
+  border-bottom: 1px solid #1a355c !important; /* Vora fina (2px) per als h3 */
 }
 
 h1 code, h2 code {
