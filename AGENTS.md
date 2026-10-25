@@ -61,6 +61,18 @@ Tots els materials docents han de seguir l'`estilJaume`, respectant les convenci
 - No canvies noms, rutes o jerarquies de fitxers sense autorització.
 - Abans de crear un document, observa altres documents del mateix tipus per mantindre'n la coherència.
 - Si una tasca exigeix ajustar la navegació o altres fitxers, explica primer quins canvis addicionals són necessaris.
+  
+### Ressaltat de sintaxi del codi
+
+- Tots els blocs de codi nous han d'indicar el llenguatge corresponent després dels tres accents greus (`java`, `xml`, `json`, `sql`, `javascript`, `python`, `bash`, etc.).
+- Utilitza identificadors de llenguatge compatibles amb Jekyll i Rouge.
+- Quan modifiques un exemple de codi existent, comprova que el bloc tinga indicat el llenguatge. Si falta, afig-lo únicament al bloc afectat.
+- No modifiques altres blocs de codi ni exemples aliens a la petició.
+- Conserva la indentació i el format del codi existent.
+- No utilitzes HTML ni CSS per a acolorir manualment el codi.
+- Respecta els estils de ressaltat de sintaxi configurats en Just the Docs.
+- No modifiques la configuració global del ressaltat sense autorització.
+
 
 ## 6. Regla de modificacions localitzades
 
