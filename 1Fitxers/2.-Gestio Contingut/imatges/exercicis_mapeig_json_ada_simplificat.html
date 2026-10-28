@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>Exercicis de mapeig JSON · Accés a Dades</title><style>
+:root{--ink:#17263a;--muted:#52677e;--teal:#137d7a;--teal-dark:#0c5556;--mint:#e8f7f3;--bg:#f5f8fa;--line:#dce6eb;--paper:#fff;--shadow:0 12px 32px rgba(22,45,66,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.62}
+a{color:inherit;text-decoration:none}.top{background:linear-gradient(115deg,#10283d 0%,#16475a 56%,#117f77 100%);color:#fff;padding:50px max(24px,calc((100vw - 1100px)/2)) 43px}.eyebrow{letter-spacing:.15em;font-size:.78rem;font-weight:800;color:#a9e9df;text-transform:uppercase}.top h1{font-size:clamp(2rem,4vw,3.4rem);line-height:1.14;margin:13px 0}.top p{color:#e0eff1;max-width:780px;font-size:1.05rem}.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.pill{border:1px solid #87c4c6;border-radius:999px;padding:5px 13px;font-size:.82rem;color:#e8ffff}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:30px;max-width:1200px;margin:0 auto;padding:30px 22px 80px}.side{align-self:start;position:sticky;top:22px;border:1px solid var(--line);border-radius:16px;background:var(--paper);padding:18px;box-shadow:var(--shadow)}.side strong{display:block;color:var(--teal-dark);font-size:.82rem;text-transform:uppercase;letter-spacing:.09em;margin-bottom:9px}.side a{display:block;padding:9px 10px;border-radius:9px;font-size:.87rem;line-height:1.3;color:#456275}.side a:hover,.side a:focus{background:var(--mint);color:var(--teal-dark)}main{min-width:0}.intro,.exercise,.footer-note{background:var(--paper);border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.intro{padding:25px 30px;margin-bottom:23px}.intro h2{margin:0 0 10px;font-size:1.35rem}.intro ul{padding-left:21px;margin-bottom:0}.exercise{margin-bottom:22px;overflow:hidden;scroll-margin-top:20px}.exercise-head{padding:25px 29px 16px;border-left:6px solid var(--teal)}.number{color:var(--teal);font-size:.78rem;font-weight:850;text-transform:uppercase;letter-spacing:.12em}.exercise h2{font-size:1.43rem;margin:8px 0}.tag{background:#e9f2f5;color:#285c6a;padding:4px 10px;border-radius:20px;font-size:.78rem;font-weight:700;display:inline-block}.statement{padding:0 30px 25px}.statement ol{padding-left:25px}.statement li{padding-left:4px;margin:7px 0}.exercise code:not(pre code){background:#eaf1f5;border-radius:4px;padding:1px 5px;font-size:.93em;color:#1a6173}.solution{border-top:1px solid var(--line);background:#fbfdfd}.solution summary{cursor:pointer;list-style:none;padding:18px 29px;font-weight:800;display:flex;justify-content:space-between;align-items:center;color:var(--teal-dark);user-select:none}.solution summary::-webkit-details-marker{display:none}.solution summary .arrow{transition:transform .2s;font-size:1.1rem}.solution[open] summary .arrow{transform:rotate(180deg)}.solution[open] summary{background:#ebf8f4}.solution-content{padding:12px 29px 27px}.file-block{border-radius:12px;overflow:hidden;border:1px solid #2e4156;margin:18px 0}.file-label{background:#22354a;color:#eaf1f8;display:flex;gap:8px;align-items:center;padding:10px 13px;font:700 .87rem ui-monospace,SFMono-Regular,Consolas,monospace}.file-dot{width:9px;height:9px;border-radius:50%;background:#5bdfb5}.copy-btn{margin-left:auto;background:#344f67;border:1px solid #60748b;border-radius:7px;color:#eaf6fa;font-size:.76rem;cursor:pointer;padding:4px 10px}.copy-btn:hover{background:#42677d}.code{background:#142537;color:#e4eff8;margin:0;padding:17px;overflow:auto;line-height:1.52;tab-size:4;font-size:.84rem}.code code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}.result{border-left:4px solid #179283;background:#edf9f5;padding:13px 16px;margin-top:16px;border-radius:0 10px 10px 0;color:#23534e}.footer-note{padding:20px 27px;margin-top:24px;color:#38505f}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}.action{padding:9px 14px;border:1px solid #bfd4db;background:#fff;color:var(--teal-dark);border-radius:9px;font-weight:700;cursor:pointer}.action:hover{background:var(--mint)}.tip{color:#5a7080;font-size:.89rem}.count{font-weight:800;color:var(--teal-dark)}
+@media(max-width:840px){.layout{display:block;padding:18px 12px 55px}.side{position:static;display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;padding:12px}.side strong{width:100%}.side a{padding:7px}.top{padding:35px 20px}.exercise-head{padding:22px 18px 12px}.statement{padding:0 18px 20px}.solution summary{padding:16px 18px}.solution-content{padding:12px 15px 22px}.intro{padding:19px}.code{font-size:.75rem}}
+@media print{body{background:white}.top{color:#111;background:white;padding:12px 0 18px}.top p,.eyebrow,.pill{color:#333}.layout{display:block;padding:0}.side,.actions,.copy-btn{display:none}.intro,.exercise{box-shadow:none;break-inside:avoid-page}.solution:not([open]){display:none}.solution[open]{display:block}.code{white-space:pre-wrap;word-break:break-word;color:#111;background:#f3f5f7}.file-label{color:#111;background:#e7ecef}.file-block{border-color:#999}}
+</style></head>
+<body>
+<header class="top"><div class="eyebrow">Accés a Dades · 2n DAM</div><h1>Exercicis de mapeig JSON</h1></header>
+<div class="layout">
+<main><section class="intro" id="intro"><p>Reutilitza els <strong>POJOs</strong> creats a partir de JSON i utilitza <strong>ObjectMapper</strong> per a deserialitzar, consultar, modificar i serialitzar objectes Java.</p><ul><li>Guarda els JSON originals dins de <code>dades/</code>.</li><li>Utilitza <code>readValue()</code> per a llegir els fitxers i <code>writeValue()</code> per a guardar els objectes modificats.</li><li>Consulta i modifica les dades amb els getters i setters dels POJOs.</li><li>Conserva els documents originals sense modificar-los.</li></ul></section>
+<section class="exercise" id="ex1"><div class="exercise-head"><div class="number">Exercici 1 <span class="tag">Valors simples</span></div><h2>Producte: valors simples</h2></div><div class="statement"><p>Reutilitza el POJO <code>Producte</code> de l’exercici anterior.</p><ol><li>Guarda el document original en <code>dades/producte.json</code>.</li><li>Llig el fitxer amb Jackson i crea un objecte <code>Producte</code>.</li><li>Mostra el nom, la quantitat, el preu i la disponibilitat.</li><li>Augmenta el preu un <strong>10 %</strong> i la quantitat en <strong>5 unitats</strong>.</li><li>Guarda l’objecte en <code>dades/producte_modificat.json</code>.</li></ol></div><details class="solution"><summary><span>Solució</span><span class="arrow">⌄</span></summary><div class="solution-content"><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>dades/producte.json</span><button class="copy-btn" type="button" aria-label="Copiar dades/producte.json">Copiar</button></div><pre class="code"><code class="language-json">{
+  &quot;nom&quot;: &quot;Ratolí sense fil&quot;,
+  &quot;quantitat&quot;: 15,
+  &quot;preu&quot;: 19.95,
+  &quot;disponible&quot;: true
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Producte.java</span><button class="copy-btn" type="button" aria-label="Copiar Producte.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+public class Producte {
+    private String nom;
+    private int quantitat;
+    private double preu;
+    private boolean disponible;
+
+    public Producte() {}
+
+    public Producte(String nom, int quantitat, double preu, boolean disponible) {
+        this.nom = nom;
+        this.quantitat = quantitat;
+        this.preu = preu;
+        this.disponible = disponible;
+    }
+
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+    public int getQuantitat() { return quantitat; }
+    public void setQuantitat(int quantitat) { this.quantitat = quantitat; }
+    public double getPreu() { return preu; }
+    public void setPreu(double preu) { this.preu = preu; }
+    public boolean isDisponible() { return disponible; }
+    public void setDisponible(boolean disponible) { this.disponible = disponible; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Exercici1.java</span><button class="copy-btn" type="button" aria-label="Copiar Exercici1.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.io.File;
+import tools.jackson.databind.ObjectMapper;
+
+public class Exercici1 {
+    public static void main(String[] args) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        Producte producte = mapper.readValue(
+                new File(&quot;dades/producte.json&quot;), Producte.class);
+
+        System.out.println(&quot;Nom: &quot; + producte.getNom());
+        System.out.println(&quot;Quantitat: &quot; + producte.getQuantitat());
+        System.out.println(&quot;Preu: &quot; + producte.getPreu());
+        System.out.println(&quot;Disponible: &quot; + producte.isDisponible());
+
+        producte.setPreu(producte.getPreu() * 1.10);
+        producte.setQuantitat(producte.getQuantitat() + 5);
+
+        mapper.writeValue(
+                new File(&quot;dades/producte_modificat.json&quot;), producte);
+    }
+}</code></pre></div><div class="result"><strong>Comprovació:</strong> quantitat final de 20 unitats. El resultat matemàtic del preu és 21,945; amb <code>double</code> pot aparéixer una representació decimal aproximada.</div></div></details></section><section class="exercise" id="ex2"><div class="exercise-head"><div class="number">Exercici 2 <span class="tag">Objectes imbricats</span></div><h2>Cotxe: objectes imbricats</h2></div><div class="statement"><p>Reutilitza les classes <code>Cotxe</code> i <code>Motor</code>.</p><ol><li>Guarda el JSON en <code>dades/cotxe.json</code>.</li><li>Llig el document i obtín un objecte <code>Cotxe</code>.</li><li>Mostra la marca, el model, l’any, la cilindrada i el combustible.</li><li>Canvia el combustible a <code>"híbrid"</code> i la cilindrada a <code>2000</code>.</li><li>Guarda <code>dades/cotxe_modificat.json</code>.</li></ol></div><details class="solution"><summary><span>Solució</span><span class="arrow">⌄</span></summary><div class="solution-content"><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>dades/cotxe.json</span><button class="copy-btn" type="button" aria-label="Copiar dades/cotxe.json">Copiar</button></div><pre class="code"><code class="language-json">{
+  &quot;marca&quot;: &quot;Toyota&quot;, &quot;model&quot;: &quot;Corolla&quot;, &quot;any&quot;: 2020,
+  &quot;motor&quot;: { &quot;cilindrada&quot;: 1800, &quot;combustible&quot;: &quot;gasolina&quot; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Motor.java</span><button class="copy-btn" type="button" aria-label="Copiar Motor.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+public class Motor {
+    private int cilindrada;
+    private String combustible;
+
+    public Motor() {}
+    public Motor(int cilindrada, String combustible) {
+        this.cilindrada = cilindrada;
+        this.combustible = combustible;
+    }
+
+    public int getCilindrada() { return cilindrada; }
+    public void setCilindrada(int cilindrada) { this.cilindrada = cilindrada; }
+    public String getCombustible() { return combustible; }
+    public void setCombustible(String combustible) { this.combustible = combustible; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Cotxe.java</span><button class="copy-btn" type="button" aria-label="Copiar Cotxe.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+public class Cotxe {
+    private String marca;
+    private String model;
+    private int any;
+    private Motor motor;
+
+    public Cotxe() {}
+    public Cotxe(String marca, String model, int any, Motor motor) {
+        this.marca = marca;
+        this.model = model;
+        this.any = any;
+        this.motor = motor;
+    }
+
+    public String getMarca() { return marca; }
+    public void setMarca(String marca) { this.marca = marca; }
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; }
+    public int getAny() { return any; }
+    public void setAny(int any) { this.any = any; }
+    public Motor getMotor() { return motor; }
+    public void setMotor(Motor motor) { this.motor = motor; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Exercici2.java</span><button class="copy-btn" type="button" aria-label="Copiar Exercici2.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.io.File;
+import tools.jackson.databind.ObjectMapper;
+
+public class Exercici2 {
+    public static void main(String[] args) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        Cotxe cotxe = mapper.readValue(
+                new File(&quot;dades/cotxe.json&quot;), Cotxe.class);
+
+        System.out.println(&quot;Marca: &quot; + cotxe.getMarca());
+        System.out.println(&quot;Model: &quot; + cotxe.getModel());
+        System.out.println(&quot;Any: &quot; + cotxe.getAny());
+        System.out.println(&quot;Cilindrada: &quot; + cotxe.getMotor().getCilindrada());
+        System.out.println(&quot;Combustible: &quot; + cotxe.getMotor().getCombustible());
+
+        cotxe.getMotor().setCombustible(&quot;híbrid&quot;);
+        cotxe.getMotor().setCilindrada(2000);
+
+        mapper.writeValue(
+                new File(&quot;dades/cotxe_modificat.json&quot;), cotxe);
+    }
+}</code></pre></div><div class="result"><strong>Comprovació:</strong> es modifica el <code>Motor</code> de dins de <code>Cotxe</code>. El document original no canvia.</div></div></details></section><section class="exercise" id="ex3"><div class="exercise-head"><div class="number">Exercici 3 <span class="tag">Llista simple</span></div><h2>Estació meteorològica: llista de valors</h2></div><div class="statement"><p>Reutilitza <code>EstacioMeteorologica</code> amb una <code>List&lt;Integer&gt;</code>.</p><ol><li>Guarda el JSON en <code>dades/estacio.json</code>.</li><li>Deserialitza’l en un objecte <code>EstacioMeteorologica</code>.</li><li>Mostra la ciutat i totes les temperatures.</li><li>Calcula i mostra la <strong>temperatura mitjana</strong>.</li><li>Afig una temperatura de <code>25</code> graus.</li><li>Guarda <code>dades/estacio_modificada.json</code>.</li></ol></div><details class="solution"><summary><span>Solució</span><span class="arrow">⌄</span></summary><div class="solution-content"><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>dades/estacio.json</span><button class="copy-btn" type="button" aria-label="Copiar dades/estacio.json">Copiar</button></div><pre class="code"><code class="language-json">{
+  &quot;ciutat&quot;: &quot;Madrid&quot;,
+  &quot;temperatures&quot;: [19, 21, 18, 23, 20]
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>EstacioMeteorologica.java</span><button class="copy-btn" type="button" aria-label="Copiar EstacioMeteorologica.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.util.List;
+
+public class EstacioMeteorologica {
+    private String ciutat;
+    private List&lt;Integer&gt; temperatures;
+
+    public EstacioMeteorologica() {}
+    public EstacioMeteorologica(String ciutat, List&lt;Integer&gt; temperatures) {
+        this.ciutat = ciutat;
+        this.temperatures = temperatures;
+    }
+
+    public String getCiutat() { return ciutat; }
+    public void setCiutat(String ciutat) { this.ciutat = ciutat; }
+    public List&lt;Integer&gt; getTemperatures() { return temperatures; }
+    public void setTemperatures(List&lt;Integer&gt; temperatures) {
+        this.temperatures = temperatures;
+    }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Exercici3.java</span><button class="copy-btn" type="button" aria-label="Copiar Exercici3.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.io.File;
+import tools.jackson.databind.ObjectMapper;
+
+public class Exercici3 {
+    public static void main(String[] args) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        EstacioMeteorologica estacio = mapper.readValue(
+                new File(&quot;dades/estacio.json&quot;), EstacioMeteorologica.class);
+
+        System.out.println(&quot;Ciutat: &quot; + estacio.getCiutat());
+        int suma = 0;
+        for (int temperatura : estacio.getTemperatures()) {
+            System.out.println(&quot;Temperatura: &quot; + temperatura);
+            suma += temperatura;
+        }
+        double mitjana = (double) suma / estacio.getTemperatures().size();
+        System.out.println(&quot;Temperatura mitjana: &quot; + mitjana);
+
+        estacio.getTemperatures().add(25);
+        mapper.writeValue(
+                new File(&quot;dades/estacio_modificada.json&quot;), estacio);
+    }
+}</code></pre></div><div class="result"><strong>Comprovació:</strong> la mitjana original és <strong>20,2 °C</strong>. La llista guardada acaba en <code>25</code>.</div></div></details></section><section class="exercise" id="ex4"><div class="exercise-head"><div class="number">Exercici 4 <span class="tag">Llista d’objectes</span></div><h2>Comanda: llista d’objectes</h2></div><div class="statement"><p>Reutilitza les classes <code>Comanda</code> i <code>LiniaComanda</code>.</p><ol><li>Guarda el JSON en <code>dades/comanda.json</code>.</li><li>Deserialitza’l en una <code>Comanda</code>.</li><li>Mostra el codi i les dades de cada línia.</li><li>Calcula l’<strong>import total</strong> multiplicant unitats per preu unitari.</li><li>Canvia les unitats de <code>"Quadern"</code> de 2 a 4.</li><li>Guarda <code>dades/comanda_modificada.json</code>.</li></ol></div><details class="solution"><summary><span>Solució</span><span class="arrow">⌄</span></summary><div class="solution-content"><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>dades/comanda.json</span><button class="copy-btn" type="button" aria-label="Copiar dades/comanda.json">Copiar</button></div><pre class="code"><code class="language-json">{
+  &quot;codi&quot;: &quot;C-104&quot;,
+  &quot;linies&quot;: [
+    { &quot;producte&quot;: &quot;Quadern&quot;, &quot;unitats&quot;: 2, &quot;preuUnitari&quot;: 3.50 },
+    { &quot;producte&quot;: &quot;Bolígraf&quot;, &quot;unitats&quot;: 5, &quot;preuUnitari&quot;: 1.20 }
+  ]
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>LiniaComanda.java</span><button class="copy-btn" type="button" aria-label="Copiar LiniaComanda.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+public class LiniaComanda {
+    private String producte;
+    private int unitats;
+    private double preuUnitari;
+
+    public LiniaComanda() {}
+    public LiniaComanda(String producte, int unitats, double preuUnitari) {
+        this.producte = producte;
+        this.unitats = unitats;
+        this.preuUnitari = preuUnitari;
+    }
+
+    public String getProducte() { return producte; }
+    public void setProducte(String producte) { this.producte = producte; }
+    public int getUnitats() { return unitats; }
+    public void setUnitats(int unitats) { this.unitats = unitats; }
+    public double getPreuUnitari() { return preuUnitari; }
+    public void setPreuUnitari(double preuUnitari) { this.preuUnitari = preuUnitari; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Comanda.java</span><button class="copy-btn" type="button" aria-label="Copiar Comanda.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.util.List;
+
+public class Comanda {
+    private String codi;
+    private List&lt;LiniaComanda&gt; linies;
+
+    public Comanda() {}
+    public Comanda(String codi, List&lt;LiniaComanda&gt; linies) {
+        this.codi = codi;
+        this.linies = linies;
+    }
+
+    public String getCodi() { return codi; }
+    public void setCodi(String codi) { this.codi = codi; }
+    public List&lt;LiniaComanda&gt; getLinies() { return linies; }
+    public void setLinies(List&lt;LiniaComanda&gt; linies) { this.linies = linies; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Exercici4.java</span><button class="copy-btn" type="button" aria-label="Copiar Exercici4.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.io.File;
+import tools.jackson.databind.ObjectMapper;
+
+public class Exercici4 {
+    public static void main(String[] args) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        Comanda comanda = mapper.readValue(
+                new File(&quot;dades/comanda.json&quot;), Comanda.class);
+
+        System.out.println(&quot;Codi: &quot; + comanda.getCodi());
+        double total = 0;
+        for (LiniaComanda linia : comanda.getLinies()) {
+            System.out.println(&quot;Producte: &quot; + linia.getProducte());
+            System.out.println(&quot;Unitats: &quot; + linia.getUnitats());
+            System.out.println(&quot;Preu unitari: &quot; + linia.getPreuUnitari());
+            total += linia.getUnitats() * linia.getPreuUnitari();
+        }
+        System.out.println(&quot;Import total: &quot; + total + &quot; €&quot;);
+
+        for (LiniaComanda linia : comanda.getLinies()) {
+            if (linia.getProducte().equals(&quot;Quadern&quot;)) {
+                linia.setUnitats(4);
+            }
+        }
+        mapper.writeValue(
+                new File(&quot;dades/comanda_modificada.json&quot;), comanda);
+    }
+}</code></pre></div><div class="result"><strong>Comprovació:</strong> total inicial de <strong>13 €</strong>; després de la modificació, el nou total seria <strong>20 €</strong>.</div></div></details></section><section class="exercise" id="ex5"><div class="exercise-head"><div class="number">Exercici 5 <span class="tag">Estructures combinades</span></div><h2>Centre de formació: objectes i llistes</h2></div><div class="statement"><p>Reutilitza <code>CentreFormacio</code>, <code>Adreca</code> i <code>Curs</code>.</p><ol><li>Guarda el JSON en <code>dades/centre.json</code>.</li><li>Deserialitza’l en un <code>CentreFormacio</code>.</li><li>Mostra el nom del centre i les dades de l’adreça.</li><li>Recorre els cursos: títol, hores i presencialitat.</li><li>Calcula el <strong>nombre total d’hores</strong>.</li><li>Canvia <code>"Programació en Java"</code> a 50 hores.</li><li>Guarda <code>dades/centre_modificat.json</code>.</li></ol></div><details class="solution"><summary><span>Solució</span><span class="arrow">⌄</span></summary><div class="solution-content"><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>dades/centre.json</span><button class="copy-btn" type="button" aria-label="Copiar dades/centre.json">Copiar</button></div><pre class="code"><code class="language-json">{
+  &quot;nom&quot;: &quot;Centre de Formació La Vall&quot;,
+  &quot;adreca&quot;: { &quot;carrer&quot;: &quot;Major&quot;, &quot;numero&quot;: 12 },
+  &quot;cursos&quot;: [
+    { &quot;titol&quot;: &quot;Programació en Java&quot;, &quot;hores&quot;: 40, &quot;presencial&quot;: true },
+    { &quot;titol&quot;: &quot;Bases de dades&quot;, &quot;hores&quot;: 30, &quot;presencial&quot;: false }
+  ]
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Adreca.java</span><button class="copy-btn" type="button" aria-label="Copiar Adreca.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+public class Adreca {
+    private String carrer;
+    private int numero;
+
+    public Adreca() {}
+    public Adreca(String carrer, int numero) {
+        this.carrer = carrer;
+        this.numero = numero;
+    }
+
+    public String getCarrer() { return carrer; }
+    public void setCarrer(String carrer) { this.carrer = carrer; }
+    public int getNumero() { return numero; }
+    public void setNumero(int numero) { this.numero = numero; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Curs.java</span><button class="copy-btn" type="button" aria-label="Copiar Curs.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+public class Curs {
+    private String titol;
+    private int hores;
+    private boolean presencial;
+
+    public Curs() {}
+    public Curs(String titol, int hores, boolean presencial) {
+        this.titol = titol;
+        this.hores = hores;
+        this.presencial = presencial;
+    }
+
+    public String getTitol() { return titol; }
+    public void setTitol(String titol) { this.titol = titol; }
+    public int getHores() { return hores; }
+    public void setHores(int hores) { this.hores = hores; }
+    public boolean isPresencial() { return presencial; }
+    public void setPresencial(boolean presencial) { this.presencial = presencial; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>CentreFormacio.java</span><button class="copy-btn" type="button" aria-label="Copiar CentreFormacio.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.util.List;
+
+public class CentreFormacio {
+    private String nom;
+    private Adreca adreca;
+    private List&lt;Curs&gt; cursos;
+
+    public CentreFormacio() {}
+    public CentreFormacio(String nom, Adreca adreca, List&lt;Curs&gt; cursos) {
+        this.nom = nom;
+        this.adreca = adreca;
+        this.cursos = cursos;
+    }
+
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+    public Adreca getAdreca() { return adreca; }
+    public void setAdreca(Adreca adreca) { this.adreca = adreca; }
+    public List&lt;Curs&gt; getCursos() { return cursos; }
+    public void setCursos(List&lt;Curs&gt; cursos) { this.cursos = cursos; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Exercici5.java</span><button class="copy-btn" type="button" aria-label="Copiar Exercici5.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.io.File;
+import tools.jackson.databind.ObjectMapper;
+
+public class Exercici5 {
+    public static void main(String[] args) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        CentreFormacio centre = mapper.readValue(
+                new File(&quot;dades/centre.json&quot;), CentreFormacio.class);
+
+        System.out.println(&quot;Centre: &quot; + centre.getNom());
+        System.out.println(&quot;Carrer: &quot; + centre.getAdreca().getCarrer());
+        System.out.println(&quot;Número: &quot; + centre.getAdreca().getNumero());
+
+        int totalHores = 0;
+        for (Curs curs : centre.getCursos()) {
+            System.out.println(&quot;Curs: &quot; + curs.getTitol());
+            System.out.println(&quot;Hores: &quot; + curs.getHores());
+            System.out.println(&quot;Presencial: &quot; + curs.isPresencial());
+            totalHores += curs.getHores();
+        }
+        System.out.println(&quot;Total hores: &quot; + totalHores);
+
+        for (Curs curs : centre.getCursos()) {
+            if (curs.getTitol().equals(&quot;Programació en Java&quot;)) {
+                curs.setHores(50);
+            }
+        }
+        mapper.writeValue(
+                new File(&quot;dades/centre_modificat.json&quot;), centre);
+    }
+}</code></pre></div><div class="result"><strong>Comprovació:</strong> 70 hores inicials, 80 hores després del canvi.</div></div></details></section><section class="exercise" id="ex6"><div class="exercise-head"><div class="number">Exercici 6 <span class="tag">Anotacions</span></div><h2>Mapeig JSON amb anotacions</h2></div><div class="statement"><p>Crea <code>Empleat</code> i utilitza les anotacions per a adaptar les propietats JSON als camps Java.</p><ol><li><strong>Part A.</strong> Crea <code>Empleat</code> amb <code>nom</code>, <code>departament</code>, <code>telefon</code>, <code>contrasenya</code>, <code>dataIncorporacio</code> (<code>LocalDate</code>) i <code>salari</code> (<code>double</code>). Inclou constructors, getters i setters.</li><li>Fes correspondre <code>nom</code> amb <code>nom_complet</code>, ignora la contrasenya en les dos direccions, omet els <code>null</code> en l’escriptura i usa el patró <code>dd-MM-yyyy</code> per a la data.</li><li><strong>Part B.</strong> Llig <code>dades/empleat.json</code> i mostra totes les propietats, inclosa la contrasenya.</li><li>Canvia el salari a <code>2000.00</code> i assigna <code>null</code> al departament. Guarda <code>dades/empleat_modificat.json</code>.</li><li><strong>Part C.</strong> Canvia <code>NON_NULL</code> per <code>NON_EMPTY</code>; torna a executar i compara què passa amb <code>telefon: ""</code>.</li></ol></div><details class="solution"><summary><span>Solució</span><span class="arrow">⌄</span></summary><div class="solution-content"><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>dades/empleat.json</span><button class="copy-btn" type="button" aria-label="Copiar dades/empleat.json">Copiar</button></div><pre class="code"><code class="language-json">{
+  &quot;nom_complet&quot;: &quot;Anna Martínez&quot;,
+  &quot;departament&quot;: &quot;Informàtica&quot;,
+  &quot;telefon&quot;: &quot;&quot;,
+  &quot;contrasenya&quot;: &quot;abc123&quot;,
+  &quot;dataIncorporacio&quot;: &quot;15-09-2024&quot;,
+  &quot;salari&quot;: 1850.50
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Empleat.java — NON_NULL</span><button class="copy-btn" type="button" aria-label="Copiar Empleat.java — NON_NULL">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Empleat {
+    @JsonProperty(&quot;nom_complet&quot;)
+    private String nom;
+    private String departament;
+    private String telefon;
+    @JsonIgnore
+    private String contrasenya;
+    @JsonFormat(pattern = &quot;dd-MM-yyyy&quot;)
+    private LocalDate dataIncorporacio;
+    private double salari;
+
+    public Empleat() {}
+    public Empleat(String nom, String departament, String telefon,
+                   String contrasenya, LocalDate dataIncorporacio, double salari) {
+        this.nom = nom;
+        this.departament = departament;
+        this.telefon = telefon;
+        this.contrasenya = contrasenya;
+        this.dataIncorporacio = dataIncorporacio;
+        this.salari = salari;
+    }
+
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+    public String getDepartament() { return departament; }
+    public void setDepartament(String departament) { this.departament = departament; }
+    public String getTelefon() { return telefon; }
+    public void setTelefon(String telefon) { this.telefon = telefon; }
+    public String getContrasenya() { return contrasenya; }
+    public void setContrasenya(String contrasenya) { this.contrasenya = contrasenya; }
+    public LocalDate getDataIncorporacio() { return dataIncorporacio; }
+    public void setDataIncorporacio(LocalDate dataIncorporacio) {
+        this.dataIncorporacio = dataIncorporacio;
+    }
+    public double getSalari() { return salari; }
+    public void setSalari(double salari) { this.salari = salari; }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Exercici6.java</span><button class="copy-btn" type="button" aria-label="Copiar Exercici6.java">Copiar</button></div><pre class="code"><code class="language-java">package com.jaume.jackson;
+
+import java.io.File;
+import tools.jackson.databind.ObjectMapper;
+
+public class Exercici6 {
+    public static void main(String[] args) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        Empleat empleat = mapper.readValue(
+                new File(&quot;dades/empleat.json&quot;), Empleat.class);
+
+        System.out.println(&quot;Nom: &quot; + empleat.getNom());
+        System.out.println(&quot;Departament: &quot; + empleat.getDepartament());
+        System.out.println(&quot;Telèfon: &quot; + empleat.getTelefon());
+        System.out.println(&quot;Contrasenya: &quot; + empleat.getContrasenya());
+        System.out.println(&quot;Data: &quot; + empleat.getDataIncorporacio());
+        System.out.println(&quot;Salari: &quot; + empleat.getSalari());
+
+        empleat.setSalari(2000.00);
+        empleat.setDepartament(null);
+        mapper.writeValue(
+                new File(&quot;dades/empleat_modificat.json&quot;), empleat);
+    }
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>dades/empleat_modificat.json — NON_NULL</span><button class="copy-btn" type="button" aria-label="Copiar dades/empleat_modificat.json — NON_NULL">Copiar</button></div><pre class="code"><code class="language-json">{
+  &quot;nom_complet&quot;: &quot;Anna Martínez&quot;,
+  &quot;telefon&quot;: &quot;&quot;,
+  &quot;dataIncorporacio&quot;: &quot;15-09-2024&quot;,
+  &quot;salari&quot;: 2000.0
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>Canvi per a NON_EMPTY</span><button class="copy-btn" type="button" aria-label="Copiar Canvi per a NON_EMPTY">Copiar</button></div><pre class="code"><code class="language-java">@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class Empleat {
+    // La resta de la classe no canvia.
+}</code></pre></div><div class="file-block"><div class="file-label"><span class="file-dot"></span><span>dades/empleat_modificat.json — NON_EMPTY</span><button class="copy-btn" type="button" aria-label="Copiar dades/empleat_modificat.json — NON_EMPTY">Copiar</button></div><pre class="code"><code class="language-json">{
+  &quot;nom_complet&quot;: &quot;Anna Martínez&quot;,
+  &quot;dataIncorporacio&quot;: &quot;15-09-2024&quot;,
+  &quot;salari&quot;: 2000.0
+}</code></pre></div><div class="result"><strong>Contrasenya:</strong> <code>@JsonIgnore</code> impedix tant llegir-la com escriure-la; <code>getContrasenya()</code> retorna <code>null</code> després de deserialitzar. Si es vol acceptar en l’entrada però ocultar-la en l’eixida, es pot substituir per <code>@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)</code>. En aplicacions reals no es guarden contrasenyes en text pla.</div></div></details></section>
+<section class="footer-note" id="final"><strong>Comprovació final</strong><p>Després de cada activitat, verifica que els objectes i les llistes s'han recuperat correctament, que els canvis es reflectixen en el JSON generat i que el document d'entrada conserva el seu contingut.</p><p class="tip">Nota: els exemples utilitzen el paquet <code>com.jaume.jackson</code>. Si el teu projecte utilitza un altre paquet, adapta la primera línia de les classes.</p></section></main></div>
+<script>
+document.querySelectorAll('.copy-btn').forEach(button => button.addEventListener('click', async () => {
+  const text = button.closest('.file-block').querySelector('code').textContent;
+  try { await navigator.clipboard.writeText(text); button.textContent = 'Copiat ✓'; }
+  catch(e) { button.textContent = 'Selecciona el codi'; }
+  setTimeout(() => { button.textContent = 'Copiar'; }, 1800);
+}));
+</script></body></html>
