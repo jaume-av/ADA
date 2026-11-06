@@ -1,5 +1,5 @@
 ---
-title: Accés a Dades
+title: Accés a Dades (ADA)
 layout: default
 nav_order: 1
 has_children: true
