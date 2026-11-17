@@ -91,9 +91,9 @@ Este tipus de base de dades s'utilitzen en aplicacions web, xarxes socials, Big 
 
 ---
 
-## 3. Bases de Dades Relacionals (Entitat-Relació)
+## 3. Model Entitat-Relació i Model Relacional
 
-Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodologia per representar l'estructura lògica de les dades mitjançant conceptes com **entitats, relacions i atributs.** Aquest model permet dissenyar bases de dades relacionalment, reflectint clarament les relacions entre les dades abans d'implementar-les en un sistema de gestió de bases de dades (SGBD).
+El model **Entitat-Relació (ER)** permet representar l'estructura conceptual de les dades mitjançant **entitats, relacions i atributs**. El **model relacional**, en canvi, organitza les dades en taules formades per files i columnes. El disseny ER es pot transformar en un esquema relacional amb taules, claus i restriccions, que després s'implementa en un sistema de gestió de bases de dades (SGBD).
 
 ### **Conceptes Principals del Model ER**
 1. **Entitat**:
@@ -114,7 +114,7 @@ Les bases de dades basades en el model **Entitat-Relació (ER)** són una metodo
 
 5. **Cardinalitat**:
    - Indica la quantitat de connexions possibles entre entitats.
-   - **Exemple**: Un estudiant pot estar matriculat en moltes assignatures (relació 1:N).
+   - **Exemple**: Un estudiant pot estar matriculat en moltes assignatures i una assignatura pot tindre molts estudiants (relació N:M).
 
 ### **Avantatges del Model ER**
 - **Claredat**: Permet visualitzar fàcilment les dades i les seves relacions.
