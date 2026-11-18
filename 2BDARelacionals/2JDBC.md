@@ -1,5 +1,5 @@
 ---
-title: 3. JDBC - Connectors a Base de Dades Relacionals. 
+title: 2. JDBC - Connectors a Base de Dades Relacionals. 
 parent: Persistència en Base de Dades
 
 has_children: true
