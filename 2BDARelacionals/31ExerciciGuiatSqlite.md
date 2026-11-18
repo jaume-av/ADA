@@ -112,11 +112,12 @@ Crearem un projecte `maven` amb `IntelliJ` i afegim la dependència de **JDBC SQ
 Per tant, afegim al fitxer `pom.xml`:
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+<!-- Source: https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
 <dependency>
     <groupId>org.xerial</groupId>
     <artifactId>sqlite-jdbc</artifactId>
-    <version>3.47.0.0</version>
+    <version>3.54.1.0</version>
+    <scope>compile</scope>
 </dependency>
 
 ```
@@ -131,7 +132,7 @@ Copiem el fitxer `Empleats.db` a la carpeta `resources` del projecte.
 
 ### **Connectar a la Base de Dades**
 
-Per connectar a la base de dades SQLite des de Java, necessitem la classe `Connection` de la llibreria JDBC. A continuació, es mostra un exemple de com connectar a la base de dades `Empleats.db`:
+Per connectar a la base de dades SQLite des de Java, necessitem la interfície `Connection` de la llibreria JDBC. A continuació, es mostra un exemple de com connectar a la base de dades `Empleats.db`:
 
 ```java
 import java.sql.Connection;
@@ -140,22 +141,12 @@ import java.sql.SQLException;
 
 public class SQLiteJDBC {
     public static void main(String[] args) {
-        Connection connection = null;
-        try {
-            // Connectar a la base de dades
-            String url = "jdbc:sqlite:src/main/resources/Empleats.db";
-            connection = DriverManager.getConnection(url);
+        // Connectar a la base de dades
+        String url = "jdbc:sqlite:src/main/resources/Empleats.db";
+        try (Connection connection = DriverManager.getConnection(url)) {
             System.out.println("Connexió a SQLite establerta.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
         }
     }
 }
@@ -167,11 +158,11 @@ En aquest exemple, establim una connexió a la base de dades `Empleats.db` utili
 
 ### **crear consultes SQL**
 
-Neceistarem la classe `Statement` per a executar consultes SQL a la base de dades. A continuació, es mostra un exemple de com crear una consulta SQL per a seleccionar totes les dades de la taula `Empleats`:
+Neceistarem la interfície `Statement` per a executar consultes SQL a la base de dades. A continuació, es mostra un exemple de com crear una consulta SQL per a seleccionar totes les columnes de la taula `Empleats` i mostrar el NIF, el nom i els cognoms:
 
 ```java
 
-ipackage com.jaume;
+package com.jaume;
 
 import javax.xml.transform.Source;
 import java.sql.*;
@@ -179,24 +170,16 @@ import java.sql.*;
 public class ExerciciGuiat {
 
     public static void main(String[] args)  {
-        Connection connexio = null;
-        Statement sentenciaSQL = null;
-        ResultSet resultat = null;
+        // Connectar amb la base de dades
+        String url = "jdbc:sqlite:src/main/resources/Empleats.db";
+        // Creem una consulta i obeim el resultat
+        String sql = "SELECT * FROM Empleats";
 
-        try{
-            // Connectar amb la base de dades
-
-            String url = "jdbc:sqlite:src/main/resources/Empleats.db";
-            connexio = DriverManager.getConnection(url);
+        try (Connection connexio = DriverManager.getConnection(url);
+             Statement sentenciaSQL = connexio.createStatement();
+             ResultSet resultat = sentenciaSQL.executeQuery(sql)) {
             System.out.println("Connexió Establerta");
             System.out.println("*******************");
-
-
-            // Creem una consulta i obeim el resultat
-
-            String sql = "SELECT * FROM Empleats";
-            sentenciaSQL = connexio.createStatement();
-            resultat = sentenciaSQL.executeQuery(sql);
 
             // Recorrem el resultat de la consultai mostrem les dades
 
@@ -210,11 +193,7 @@ public class ExerciciGuiat {
 
             }
 
-            // Alliberem els recursos
-            
-            resultat.close();
-            sentenciaSQL.close();
-            connexio.close();
+
         }
 
         catch(SQLException e){
@@ -224,34 +203,7 @@ public class ExerciciGuiat {
 }
 ```
 
-**NOTA:** Per alliberar recursos, es fa en ordre invers al que s'han creat es a dir, primer el `ResultSet`, després l'`Statement` i finalment el `Connection`:
-
-```java
-
-resultat.close();
-sentenciaSQL.close();
-connexio.close();
-```
-
-El correcte seria fer-ho amb un bloc `finally`:
-
-```java
-finally {
-    try {
-        if (resultat != null) {
-            resultat.close();
-        }
-        if (sentenciaSQL != null) {
-            sentenciaSQL.close();
-        }
-        if (connexio != null) {
-            connexio.close();
-        }
-    } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
-    }
-}
-```
+**NOTA:** `try-with-resources` tanca automàticament els recursos en ordre invers al de declaració: primer el `ResultSet`, després l’`Statement` i finalment la `Connection`. El tancament també es fa si es produïx una excepció.
 
 ## 3.- Crear consultes SQL
 
@@ -357,7 +309,43 @@ NIF        Nom             Cognoms              Salari
 
 Consulta 4: Salari mitjà de tots els empleats
 **********************************************
-Salari mitjà: 2750.25
+Salari mitjà: 2750.58
 
 ```
 
+
+## Recordatori: avís d’accés natiu amb Java
+
+En executar el programa amb Java 24 o posterior, el driver SQLite pot mostrar este avís:
+
+```text
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.sqlite.SQLiteJDBCLoader in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+```
+
+El driver SQLite necessita carregar una biblioteca nativa. Java mostra l’avís perquè no hem autoritzat explícitament este accés. **L’avís, per si mateix, no indica que la connexió haja fallat.**
+
+### Configurar l’execució en IntelliJ
+
+1. Executa el programa una vegada.
+2. Obri **Run → Edit Configurations…**.
+3. Selecciona **Application → ExerciciGuiat** i comprova estos camps:
+
+   | Camp | Valor |
+   |---|---|
+   | **Name** | `ExerciciGuiat` |
+   | **Main class** | `com.jaume.ExerciciGuiat` |
+   | **Working directory** | Carpeta del projecte on està `pom.xml` |
+
+4. Prem **Modify options → Add VM options**.
+5. En **VM options**, escriu:
+
+   ```text
+   --enable-native-access=ALL-UNNAMED
+   ```
+
+6. Prem **Apply → Run**.
+
+**L’opció va en `VM options` de l’aplicació Java**, no en `Program arguments` ni en Maven.
