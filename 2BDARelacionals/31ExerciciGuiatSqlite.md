@@ -1,6 +1,6 @@
 ---
 title: 1.- Exercici guiat(I)
-parent: 3. JDBC - Connectors a Base de Dades Relacionals.
+parent: 2. JDBC - Connectors a Base de Dades Relacionals.
 grand_parent: Persistència en Base de Dades
 has_children: true
 layout: default
