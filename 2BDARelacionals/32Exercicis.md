@@ -181,9 +181,10 @@ Utilitza l’operador `LIKE` amb placeholders per trobar els empleats dels depar
 
 ---
 
-### **Exemple de Sortida per l'Exercici 6**
-```
 
+### Exemple de Sortida per l'Exercici 6
+
+```text
 NIF: 987654321, Nom: Marta, Cognoms: Soler Sánchez, Salari: 3200.00
 NIF: 111111111, Nom: Fina, Cognoms: Valls Beltran, Salari: 3100.00
 ...
@@ -191,11 +192,9 @@ NIF: 111111111, Nom: Fina, Cognoms: Valls Beltran, Salari: 3100.00
 
 Aquest conjunt d’exercicis et permetrà aprofundir en l'ús de `PreparedStatement` amb placeholders i millorar la comprensió de les sentències SQL complexes amb subconsultes.
 
+### Eixides esperades
 
-Eixides esperades:
-
-```
-
+```text
 1. Tots els empleats:
 NIF: 123456789, Nom: Pep, Cognoms: Martínez González
 NIF: 987654321, Nom: Marta, Cognoms: Soler Sánchez
@@ -237,5 +236,4 @@ Salari Màxim: 3000.75, Salari Mínim: 2000.0
 10. Empleats en departaments que contenen 'Desenvolupament':
 NIF: 987654321, Nom: Marta, Cognoms: Soler Sánchez
 NIF: 333333333, Nom: Jaime, Cognoms: Valls Abad
-
-´´´
+```
