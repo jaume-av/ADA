@@ -10,6 +10,6 @@ has_children: true
 
 En el [tema de JDBC]({% link 2BDARelacionals/2JDBC.md %}) hem llegit les files de la base de dades d'empresa amb un `ResultSet` i hem escrit sentències SQL per a fer les operacions. Ara reutilitzarem les taules `Empleats` i `Departaments` per a treballar amb objectes Java i veure com es traslladen els seus canvis a SQLite.
 
-- [4.1. Introducció i pràctica guiada]({% link 2BDARelacionals/41IntroduccioHibernate.md %})
-- [4.2. JPA i mapatge de relacions]({% link 2BDARelacionals/42JPA.md %})
-- [Annex. Configuració de Hibernate amb SQLite]({% link 2BDARelacionals/4AnnexHibernate.md %})
+- [4.1. Introducció i pràctica guiada]({% link 2BDARelacionals/41IntroduccioHibernate.md %}). Compara JDBC amb un ORM i guarda, recupera i modifica un empleat.
+- [4.2. JPA i mapatge de relacions]({% link 2BDARelacionals/42JPA.md %}). Consulta les anotacions, les operacions amb JPA i el mapatge de cada relació.
+- [Annex. Configuració de Hibernate amb SQLite]({% link 2BDARelacionals/4AnnexHibernate.md %}). Reproduïx la configuració del projecte i comprova la connexió amb SQLite.

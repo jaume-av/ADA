@@ -10,6 +10,23 @@ nav_order: 30
 
 El projecte de la pràctica ja està configurat. Pots seguir estos passos per a reproduir la configuració en un projecte Maven Java SE.
 
+Els fitxers mínims per comprovar la configuració es distribuïxen així:
+
+```text
+hibernate-empresa/
+├── pom.xml
+├── empresa.sqlite
+└── src/main/
+    ├── java/ada/empresa/
+    │   ├── Departament.java
+    │   ├── Empleat.java
+    │   └── ProvaConnexio.java
+    └── resources/META-INF/
+        └── persistence.xml
+```
+
+En este annex crearàs `ProvaConnexio.java`. En el projecte preparat, la classe principal és `Practica.java`.
+
 ## 1. Crea el projecte i afig les dependències
 
 Crea un projecte Maven amb JDK 17 o posterior. Configura `maven.compiler.release` a `17` en el `pom.xml` i indica UTF-8 com a codificació. Afig les dependències següents dins de `<dependencies>`.
@@ -59,13 +76,44 @@ Crea `src/main/resources/META-INF/persistence.xml`. En el [fitxer de la pràctic
 - **Unitat de persistència.** `empresa` és el nom que passarem a `Persistence.createEntityManagerFactory()`. `RESOURCE_LOCAL` permet a l'aplicació gestionar les transaccions amb `EntityTransaction`.
 - **Entitats.** Escriu el nom complet de cada classe. Amb `exclude-unlisted-classes`, registrem explícitament les classes de la pràctica.
 - **Connexió.** La URL usa una ruta relativa al directori des d'on s'executa Java. `foreign_keys=on` demana al controlador que active la comprovació de claus foranes en les connexions de la pràctica.
-- **Esquema.** Amb `database.action=none`, les taules es preparen amb la còpia de JDBC o amb l'script SQL.
+- **Esquema.** Amb `jakarta.persistence.schema-generation.database.action=none`, les taules es preparen amb la còpia de JDBC o amb l'script SQL.
 - **SQL visible.** `hibernate.show_sql` mostra les sentències en la consola i `hibernate.format_sql` en facilita la lectura.
 
 ## 4. Crea les entitats i comprova la connexió
 
-1. Afig les classes `Empleat` i `Departament` a `src/main/java/ada/empresa`. Els noms de la taula i les columnes de les anotacions han de coincidir amb els de SQLite.
-2. Des del `main`, crea la fàbrica de la unitat `empresa`, obri un `EntityManager` i recupera una fila coneguda amb `em.find(Empleat.class, "123456789")`. Amb les dades inicials ha de retornar l'empleat Pep. Tanca el gestor i la fàbrica després de la prova.
-3. Executa la [pràctica guiada]({% link 2BDARelacionals/41IntroduccioHibernate.md %}) per comprovar també l'escriptura dins d'una transacció.
+Copia [Empleat.java](hibernate-empresa/src/main/java/ada/empresa/Empleat.java) i [Departament.java](hibernate-empresa/src/main/java/ada/empresa/Departament.java) a `src/main/java/ada/empresa`. Crea en eixa mateixa carpeta el fitxer `ProvaConnexio.java`.
+
+```java
+package ada.empresa;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
+public class ProvaConnexio {
+    public static void main(String[] args) {
+        try (EntityManagerFactory emf = Persistence.createEntityManagerFactory("empresa");
+             EntityManager em = emf.createEntityManager()) {
+            Empleat empleat = em.find(Empleat.class, "123456789");
+            if (empleat == null) {
+                throw new IllegalStateException("No hi ha cap empleat amb el NIF 123456789");
+            }
+            System.out.println(empleat.getNom());
+        }
+    }
+}
+```
+
+En la configuració d'`exec-maven-plugin` del `pom.xml` que has copiat, posa `ada.empresa.ProvaConnexio` en `<mainClass>`. Des del directori del `pom.xml`, executa:
+
+```bash
+mvn compile exec:java
+```
+
+També pots executar la classe des de l'IDE amb el directori del `pom.xml` com a directori de treball.
+
+Amb les dades inicials, veuràs un `SELECT` i el nom `Pep` en la consola. El bloc `try` tanca el gestor i la fàbrica quan acaba. Continua amb la [pràctica guiada]({% link 2BDARelacionals/41IntroduccioHibernate.md %}) per comprovar l'escriptura dins d'una transacció.
+
+### Errors habituals
 
 Si apareix `no such table: Empleats`, comprova el directori de treball i obri el fitxer que està usant el programa. SQLite pot crear un fitxer buit quan la ruta és incorrecta. Si no es troba la unitat `empresa`, comprova el nom del fitxer, la carpeta `META-INF` i que l'IDE haja importat el projecte Maven.
